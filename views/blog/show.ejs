@@ -1,0 +1,15 @@
+<%- include("../partials/header") %>
+
+
+	<h2><%= blog.title %></h2>
+	<img src="<%= blog.img %>">	
+	<p><%= blog.content %></p>
+	
+	<a href="/blog/<%= blog._id %>/edit">Edit</a>
+	<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+		<button>Delete</button>
+	</form>
+	<a href="/blog">Back</a>
+
+
+<%- include("../partials/footer") %>
