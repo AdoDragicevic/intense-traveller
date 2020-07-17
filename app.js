@@ -10,7 +10,8 @@ const Blog = require("./models/blog/blog");
 
 // ROUTES
 const indexRoutes = require("./routes"),
-	  blogRoutes  = require("./routes/blog");
+	  blogRoutes  = require("./routes/blog"),
+	  blogCommentRoutes = require("./routes/blog/comment");
 
 
 // MONGOOSE SETUP
@@ -33,6 +34,7 @@ app.use(methodOverride("_method"));
 // REQUIRE ROUTES
 app.use(indexRoutes);
 app.use("/blog", blogRoutes);
+app.use("/blog/:id/comment", blogCommentRoutes);
 
 
 
