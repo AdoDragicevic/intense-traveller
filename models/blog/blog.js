@@ -6,10 +6,17 @@ const blogSchema = new mongoose.Schema({
 	title: String,
 	img: String,
 	content: String,
-	comments: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Comment"
-	}
+	//timestamps: {
+	//	createdAt: { type: Date, default: Date.now },
+	//	updatedAt: { type: Date, default: Date.now }	
+	//},
+	created: {type: Date, default: Date.now},
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	]
 });
 
 

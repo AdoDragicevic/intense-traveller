@@ -1,15 +1,36 @@
 <%- include("../partials/header") %>
 
-
+<main>
+	<!-- POST -->
 	<h2><%= blog.title %></h2>
 	<img src="<%= blog.img %>">	
 	<p><%= blog.content %></p>
+	<p> <em>Posted: <%= blog.created.toDateString() %> </em> </p>
 	
 	<a href="/blog/<%= blog._id %>/edit">Edit</a>
 	<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
 		<button>Delete</button>
 	</form>
 	<a href="/blog">Back</a>
+	
+	<hr>
 
+	<!-- COMMENTS -->
+	<a href="/blog/<%= blog._id %>/comment/new">Write a Comment</a>
+	<div>
+		<% blog.comments.forEach(function(comment){ %>
+			<div>
+				<p> <strong> <%= comment.author %> </strong> - <%= comment.text %> </p>
+				<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit">Edit</a>
+				<form action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+					<button>Delete</button>
+				</form>
+				<hr>
+			</div>
+		<% }); %>	
+	</div>
+	<!-- END OF COMMENTS -->
 
+</main>
+	
 <%- include("../partials/footer") %>

@@ -38,14 +38,14 @@ router.post("/", function(req, res){
 
 //SHOW
 router.get("/:id", function(req, res){
-	Blog.findById(req.params.id, function(err, blog){
+	Blog.findById(req.params.id).populate("comments").exec(function(err, blog){
 		if(err){
 			console.log(err);
 			res.redirect("back");
 		}else{
 			res.render("blog/show", {blog: blog});
 		}
-	})
+	});
 });
 
 // EDIT

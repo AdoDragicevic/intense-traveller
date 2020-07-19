@@ -9,6 +9,7 @@ router.get("/new", function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
+			res.redirect("back");
 		}else{
 			res.render("blog/comment/new", {blog: blog});
 		}
@@ -22,15 +23,15 @@ router.post("/", function(req, res){
 			console.log(err);
 			res.redirect("back");
 		}else{
-			Comment.create(req.body.blog, function(err, comment){
+			Comment.create(req.body.comment, function(err, comment){
 				if(err){
 					console.log(err);
-					res.redirect("back");
+					res.redirect("/blog");
 				}else{
 					comment.save();
 					blog.comments.unshift(comment);
 					blog.save();
-					res.redirect("/blog/" + req.params.id);
+					res.redirect("/blog/" + blog._id);
 				}
 			});
 		}
@@ -39,10 +40,39 @@ router.post("/", function(req, res){
 
 
 // EDIT
+router.get("/:comment_id/edit", function(req, res){
+	Comment.findById(req.params.comment_id, function(err, comment){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.render("blog/comment/edit", {comment: comment, blog_id: req.params.id});
+		}
+	});
+});
 
 // UPDATE
+router.put("/:comment_id", function(req, res){
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment){
+		if(err){
+			console.log(err);
+		}else{
+			res.redirect("/blog/" + req.params.id);
+		}
+	});
+});
 
 // DESTROY
+router.delete("/:comment_id", function(req, res){
+	Comment.findByIdAndDelete(req.params.comment_id, function(err, comment){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.redirect("/blog/" + req.params.id);
+		}
+	});
+});
 
 
 module.exports = router;
