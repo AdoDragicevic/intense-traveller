@@ -1,6 +1,5 @@
 const mongoose = require("mongoose"); 
 
-
 // SCHEMA SETUP
 const blogSchema = new mongoose.Schema({
 	title: String,
