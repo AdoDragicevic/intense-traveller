@@ -5,9 +5,10 @@ const middleware = require("../../middleware");
 
 const Blog    = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
+const User = require("../../models/user");
 
 // NEW
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -19,7 +20,7 @@ router.get("/new", function(req, res){
 });
 
 // CREATE
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -45,7 +46,7 @@ router.post("/", function(req, res){
 
 
 // EDIT
-router.get("/:comment_id/edit", function(req, res){
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
 	Comment.findById(req.params.comment_id, function(err, comment){
 		if(err){
 			console.log(err);
@@ -57,7 +58,7 @@ router.get("/:comment_id/edit", function(req, res){
 });
 
 // UPDATE
-router.put("/:comment_id", function(req, res){
+router.put("/:comment_id", middleware.checkCommentOwnership, function(req, res){
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment){
 		if(err){
 			console.log(err);
@@ -68,7 +69,7 @@ router.put("/:comment_id", function(req, res){
 });
 
 // DESTROY
-router.delete("/:comment_id", function(req, res){
+router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
 	Comment.findByIdAndDelete(req.params.comment_id, function(err, comment){
 		if(err){
 			console.log(err);

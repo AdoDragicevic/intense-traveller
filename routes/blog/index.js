@@ -1,10 +1,10 @@
 const express = require("express");
 const router  = express.Router();
 
+const middleware = require("../../middleware");
+
 const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
-
-const middleware = ("../../middleware");
 
 
 // INDEX
@@ -21,13 +21,13 @@ router.get("/", function(req, res){
 
 
 // NEW
-router.get("/new", isLoggedIn, function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
 	res.render("blog/new");
 });
 
 
 // CREATE
-router.post("/", isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
 	Blog.create(req.body.blog, function(err, blog){
 		if(err){
 			console.log(err);
@@ -56,7 +56,7 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", middleware.checkBlogOwnership, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -68,7 +68,7 @@ router.get("/:id/edit", function(req, res){
 
 
 // UPDATE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.checkBlogOwnership, function(req, res){
 	Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, blog){
 		if(err){
 			console.log(err);
@@ -81,7 +81,7 @@ router.put("/:id", function(req, res){
 
 
 // DESTROY
-router.delete("/:id", function(req, res){
+router.delete("/:id", middleware.checkBlogOwnership, function(req, res){
 	Blog.findByIdAndDelete(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -91,14 +91,6 @@ router.delete("/:id", function(req, res){
 		}
 	});
 });
-
-function isLoggedIn(req, res, next){
-	if(req.isAuthenticated()){
-		next();
-	}else{
-		res.redirect("/login");
-	}
-}
 
 
 module.exports = router;
