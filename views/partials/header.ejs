@@ -9,10 +9,15 @@
     <title>Intense Traveller</title>
   </head>
 <body>
+	<% if(!currentUser){ %>
+		<a href="/register">SignUp</a>
+		<a href="/login">LogIn</a>
+	<% }else{ %>
+		<p>Logged in as <a href="#"> <em> <%= currentUser.username %> </em> </a></p>
+		<a href="/logout">LogOut</a>
+	<% } %>
 	
-	<a href="/register">SignUp</a>
-	<a href="/login">LogIn</a>
-	<a href="/logout">LogOut</a>
+	
     
 	
 

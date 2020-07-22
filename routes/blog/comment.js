@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router(({mergeParams: true}));
 
+const middleware = require("../../middleware");
+
 const Blog    = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
 
 // NEW
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -17,7 +19,7 @@ router.get("/new", function(req, res){
 });
 
 // CREATE
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
