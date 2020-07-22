@@ -5,6 +5,13 @@ const blogSchema = new mongoose.Schema({
 	title: String,
 	img: String,
 	content: String,
+	author: {
+		id: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User"
+		},
+		username: String
+	},
 	//timestamps: {
 	//	createdAt: { type: Date, default: Date.now },
 	//	updatedAt: { type: Date, default: Date.now }	

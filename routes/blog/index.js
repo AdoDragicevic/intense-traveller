@@ -2,6 +2,9 @@ const express = require("express");
 const router  = express.Router();
 
 const Blog = require("../../models/blog/blog");
+const Comment = require("../../models/blog/comment");
+
+const middleware = ("../../middleware");
 
 
 // INDEX
@@ -18,18 +21,22 @@ router.get("/", function(req, res){
 
 
 // NEW
-router.get("/new", function(req, res){
+router.get("/new", isLoggedIn, function(req, res){
 	res.render("blog/new");
 });
 
 
 // CREATE
-router.post("/", function(req, res){
+router.post("/", isLoggedIn, function(req, res){
 	Blog.create(req.body.blog, function(err, blog){
 		if(err){
 			console.log(err);
 			res.redirect("back");
 		}else{
+			// Add user id and username to blog
+			blog.author.id = req.user._id;
+			blog.author.username = req.user.username;
+			blog.save();
 			res.redirect("/blog");
 		}
 	})
@@ -84,6 +91,14 @@ router.delete("/:id", function(req, res){
 		}
 	});
 });
+
+function isLoggedIn(req, res, next){
+	if(req.isAuthenticated()){
+		next();
+	}else{
+		res.redirect("/login");
+	}
+}
 
 
 module.exports = router;

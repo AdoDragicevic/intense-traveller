@@ -5,7 +5,8 @@
 	<h2><%= blog.title %></h2>
 	<img src="<%= blog.img %>">	
 	<p><%= blog.content %></p>
-	<p> <em>Posted: <%= blog.created.toDateString() %> </em> </p>
+	<p> <em>Posted on <%= blog.created.toDateString() %> </em> </p>
+	<p>Posted by <a> <em> <%= blog.author.username %> </em> </a> </p>
 	
 	<a href="/blog/<%= blog._id %>/edit">Edit</a>
 	<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">

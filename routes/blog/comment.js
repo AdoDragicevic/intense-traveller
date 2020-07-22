@@ -7,7 +7,7 @@ const Blog    = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
 
 // NEW
-router.get("/new", middleware.isLoggedIn, function(req, res){
+router.get("/new", function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
@@ -19,7 +19,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 });
 
 // CREATE
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
