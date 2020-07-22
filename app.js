@@ -20,8 +20,11 @@ const indexRoutes 		= require("./routes"),
 
 
 // MONGOOSE SETUP
-mongoose.connect('mongodb://localhost:27017/IntenseTraveller', {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.set('useFindAndModify', false);
+mongoose.connect('mongodb://localhost:27017/IntenseTraveller', {
+	useNewUrlParser: true, 
+	useUnifiedTopology: true, 
+	useFindAndModify: false, 
+	useCreateIndex: true});
 
 // EXPRESS SETUP
 app.use(bodyParser.urlencoded({extended: true}));
