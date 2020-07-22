@@ -30,6 +30,9 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 					console.log(err);
 					res.redirect("/blog");
 				}else{
+					// add username and id to comment
+					comment.author.id = req.user._id;
+					comment.author.username = req.user.username;
 					comment.save();
 					blog.comments.unshift(comment);
 					blog.save();

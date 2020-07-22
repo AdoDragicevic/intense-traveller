@@ -20,7 +20,7 @@
 	<div>
 		<% blog.comments.forEach(function(comment){ %>
 			<div>
-				<p> <strong> <%= comment.author %> </strong> - <%= comment.text %> </p>
+				<p> <a> <strong> <%= comment.author.username %> </strong> </a>  - <%= comment.text %> </p>
 				<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit">Edit</a>
 				<form action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
 					<button>Delete</button>
@@ -30,7 +30,6 @@
 		<% }); %>	
 	</div>
 	<!-- END OF COMMENTS -->
-
 </main>
 	
 <%- include("../partials/footer") %>
