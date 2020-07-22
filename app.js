@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // DEPENDENCIES
 const express        = require("express"),
 	  app	         = express(),

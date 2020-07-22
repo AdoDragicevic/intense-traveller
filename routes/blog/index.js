@@ -1,10 +1,31 @@
 const express = require("express");
 const router  = express.Router();
-
 const middleware = require("../../middleware");
-
 const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
+
+// CLOUDINARY SETUP
+const multer = require("multer");
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error("Only image files are allowed!"), false);
+    }
+    cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+const cloudinary = require("cloudinary");
+cloudinary.config({ 
+  cloud_name: "portfolioado", 
+  api_key: 532218197446811, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 // INDEX
@@ -27,20 +48,33 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 
 
 // CREATE
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/", middleware.isLoggedIn, upload.single("img"), function(req, res){
+	// add user id and username to blog
+	req.body.blog.author = {
+		id: req.user._id,
+		username: req.user.username
+	}
 	Blog.create(req.body.blog, function(err, blog){
 		if(err){
 			console.log(err);
+			req.flash("error", err.message);
 			res.redirect("back");
 		}else{
-			// Add user id and username to blog
-			blog.author.id = req.user._id;
-			blog.author.username = req.user.username;
-			blog.save();
-			res.redirect("/blog");
+			cloudinary.v2.uploader.upload(req.file.path, function(err, result){
+				if(err){
+					console.log(err);
+				}else{
+					blog.img = result.secure_url;
+        			blog.imgId = result.public_id;
+					blog.save();
+					res.redirect("/blog/" + blog.id);
+				}
+			});
 		}
-	})
+	});
 });
+
+// If you're using Google maps then you'll need to put all of the cloudinary code from above inside of the geocoder.geocode() callback. If you're not using Google maps then you can ignore this step.
 
 
 //SHOW
@@ -93,4 +127,4 @@ router.delete("/:id", middleware.checkBlogOwnership, function(req, res){
 });
 
 
-module.exports = router;
+module.exports = router

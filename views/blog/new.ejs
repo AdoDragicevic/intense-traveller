@@ -1,15 +1,15 @@
 <%- include("../partials/header") %>
 
+<h1>Write a new Journal!</h1>
 
-<form action="/blog" method="POST">
-	<input type="text" name="blog[title]" placeholder="title">
-	<input type="text" name="blog[img]" placeholder="img URL">
-	<input type="text" name="blog[content]" placeholder="content">
+<form action="/blog" method="POST" enctype="multipart/form-data">
+	<input type="text" name="blog[title]" placeholder="title" required>
+	 <input type="file" name="img" accept="image/*" required>
+	<input type="text" name="blog[content]" placeholder="content" required>
 	<button>Submit</button>
 </form>
 
 <a href="/blog">Back</a>
-
 
 
 <%- include("../partials/footer") %>
