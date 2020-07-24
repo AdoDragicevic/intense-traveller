@@ -6,7 +6,7 @@
 </h1>
 
 <% galleries.forEach(function(gallery){ %>
-	<li>One gallery Found</li>
+	<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>
 <% }); %>
 
 

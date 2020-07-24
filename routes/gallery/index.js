@@ -75,7 +75,15 @@ router.post("/", upload.array("img", 40), async function(req, res){
 
 // SHOW
 router.get("/:id", function(req, res){
-	res.render("gallery/show");
+	Gallery.findById(req.params.id, function(err, gallery){
+		if(err){
+			console.log(err);
+			req.flash("error", "Album not found");
+			req.redirect("back");
+		}else{
+			res.render("gallery/show", {gallery: gallery});
+		}
+	})
 });
 
 // EDIT

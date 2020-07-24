@@ -1,7 +1,11 @@
 <%- include("../partials/header") %>
 
 
-<h1>Show route</h1>
+<h1> <%= gallery.text %> </h1>
+
+<% gallery.imgs.forEach(function(img){ %>
+	<img src="<%= img.img %>">
+<% }); %>
 
 
 <%- include("../partials/footer") %>
