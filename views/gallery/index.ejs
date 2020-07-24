@@ -1,9 +1,11 @@
 <%- include("../partials/header") %>
 
 
-<h1>
-	Index route
-</h1>
+<h1>Picture Gallery</h1>
+
+<a href="/gallery/new">New</a>
+
+<h3>Albums:</h3>
 
 <% galleries.forEach(function(gallery){ %>
 	<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>

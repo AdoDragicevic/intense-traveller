@@ -1,7 +1,7 @@
 <%- include("../partials/header") %>
 
 
-<h1>Edit <%= gallery.title %></h1>
+<h1>Edit <em> "<%= gallery.title %>" </em> </h1>
 
 
 <form action="/gallery" method="POST" enctype="multipart/form-data"> 
@@ -16,7 +16,7 @@
 	<div>
 		<img src="<%= img.img %>" style="width: 200px">
 		<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
-			<input type="submit" value="Delete Picture">
+			<input type="submit" value="x">
 		</form>
 	</div>
 <% }); %>
