@@ -19,7 +19,8 @@ const User = require("./models/user");
 const indexRoutes 		= require("./routes"),
 	  authRoutes  		= require("./routes/auth"),
 	  blogRoutes  		= require("./routes/blog"),
-	  blogCommentRoutes = require("./routes/blog/comment");
+	  blogCommentRoutes = require("./routes/blog/comment"),
+	  galleryRoutes		= require("./routes/gallery");
 
 
 // MONGOOSE SETUP
@@ -64,6 +65,7 @@ app.use(indexRoutes);
 app.use(authRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
+app.use("/gallery", galleryRoutes);
 
 
 

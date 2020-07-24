@@ -30,7 +30,7 @@ middlewareObj.checkBlogOwnership = function(req, res, next){
 		});
 	}else{
 		req.flash("error", "Please, login first.");
-		res.redirect("back");
+		res.redirect("/login");
 	}	
 }
 
@@ -52,7 +52,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
 		});
 	}else{
 		req.flash("error", "Please, login first.");
-		res.redirect("back");
+		res.redirect("/login");
 	}
 }
 

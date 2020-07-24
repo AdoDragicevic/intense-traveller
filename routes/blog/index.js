@@ -102,26 +102,56 @@ router.get("/:id/edit", middleware.checkBlogOwnership, function(req, res){
 
 
 // UPDATE
-router.put("/:id", middleware.checkBlogOwnership, function(req, res){
-	Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, blog){
+router.put("/:id", middleware.checkBlogOwnership, upload.single("img"), function(req, res){
+	Blog.findById(req.params.id, async function(err, blog){
 		if(err){
 			console.log(err);
+			req.flash("error", err.message);
 			res.redirect("back");
 		}else{
-			res.redirect("/blog");
+			if(req.file){
+				try{
+					// delete current img from cloudinary
+					await cloudinary.v2.uploader.destroy(blog.imgId);
+					// upload new ing to cloudinary
+					let result = await cloudinary.v2.uploader.upload(req.file.path);
+					blog.imgId = result.public_id;
+					blog.img = result.secure_url;	
+				}catch(err){
+					console.log(err);
+					req.flash("error", "Something went wrong, try again later.");
+					return res.redirect("back");
+				}
+			}
+			// update data
+			blog.title = req.body.blog.title;
+			blog.content = req.body.blog.content;
+			blog.save();
+			req.flash("success", "Successfully updated!");
+			res.redirect("/blog/" + blog._id);	
 		}
-	})
+	});
 });
 
 
 // DESTROY
 router.delete("/:id", middleware.checkBlogOwnership, function(req, res){
-	Blog.findByIdAndDelete(req.params.id, function(err, blog){
+	Blog.findById(req.params.id, async function(err, blog){
 		if(err){
 			console.log(err);
+			req.flash("error", "Journal was not deleted, please try again later.");
 			res.redirect("back");
 		}else{
-			res.redirect("/blog");
+			try{
+				await cloudinary.v2.uploader.destroy(blog.imgId);
+				blog.delete();
+				req.flash("success", "Journal deleted.");
+				res.redirect("/blog");
+			}catch(err){
+				console.log(err);
+				req.flash("error", "Journal was not deleted, please try again later.");
+				res.redirect("back");
+			}
 		}
 	});
 });
