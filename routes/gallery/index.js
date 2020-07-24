@@ -3,6 +3,30 @@ const router = express.Router();
 
 const Gallery = require("../../models/gallery/gallery");
 
+// CLOUDINARY SETUP
+const multer = require("multer");
+const storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error("Only image files are allowed!"), false);
+    }
+    cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter});
+
+const cloudinary = require("cloudinary");
+cloudinary.config({ 
+  cloud_name: "portfolioado", 
+  api_key: 532218197446811, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
 
 //ROUTES
 
@@ -25,7 +49,7 @@ router.get("/new", function(req, res){
 });
 
 // CREATE
-router.post("/", function(req, res){
+router.post("/", upload.array("img", 40), function(req, res){
 	// add user id and username to gallery
 	req.body.gallery.author = {
 		id: req.user._id,

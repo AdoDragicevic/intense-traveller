@@ -3,8 +3,9 @@
 
 <h1>Create a Picture Album</h1>
 
-<form action="/gallery" method="POST">
+<form action="/gallery" method="POST" enctype="multipart/form-data">
 	<input type="text" name="gallery[title]" placeholder="Album name">
+	<input type="file" name="img" accept="images/*" multiple>
 	<input type="submit" value="Create">
 </form>
 
