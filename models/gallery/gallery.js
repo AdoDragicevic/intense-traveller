@@ -3,6 +3,12 @@ const mongoose = require("mongoose");
 
 const gallerySchema = new mongoose.Schema({
 	title: String,
+	imgs: [ 
+		{
+			img: String,
+			imgId: String
+		}
+	],
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,

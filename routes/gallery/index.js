@@ -49,11 +49,19 @@ router.get("/new", function(req, res){
 });
 
 // CREATE
-router.post("/", upload.array("img", 40), function(req, res){
+router.post("/", upload.array("img", 40), async function(req, res){
 	// add user id and username to gallery
 	req.body.gallery.author = {
 		id: req.user._id,
 		username: req.user.username
+	}
+	req.body.gallery.imgs = [];
+	for(const file of req.files){
+		let result = await cloudinary.v2.uploader.upload(file.path);
+		req.body.gallery.imgs.unshift({
+			img: result.secure_url,
+			imgId: result.public_id
+		});
 	}
 	Gallery.create(req.body.gallery, function(err, gallery){
 		if(err){
