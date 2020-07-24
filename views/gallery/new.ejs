@@ -1,3 +1,12 @@
-<h1>
-	New route
-</h1>
+<%- include("../partials/header") %>
+
+
+<h1>Create a Picture Album</h1>
+
+<form action="/gallery" method="POST">
+	<input type="text" name="gallery[title]" placeholder="Album name">
+	<input type="submit" value="Create">
+</form>
+
+
+<%- include("../partials/header") %>
