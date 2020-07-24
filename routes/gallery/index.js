@@ -28,7 +28,6 @@ cloudinary.config({
 });
 
 
-
 //ROUTES
 
 // INDEX
@@ -100,13 +99,33 @@ router.get("/:id/edit", middleware.checkGalleryOwnership, function(req, res){
 });
 
 // UPDATE
-router.put("/:id", middleware.checkGalleryOwnership, function(req, res){
-	Gallery.findById(req.params.id, function(err, gallery){
+router.put("/:id", middleware.checkGalleryOwnership, upload.array("img"), async function(req, res){
+	Gallery.findById(req.params.id, async function(err, gallery){
 		if(err){
 			console.log(err);
 			res.redirect("back");
 		}else{
-			res.redirect("/gallery/" + req.partials.id);
+			try{
+				// add each added img file to the gallery imgs array
+				if(req.files){
+					for(const file of req.files){
+						let result = await cloudinary.v2.uploader.upload(file.path);
+						gallery.imgs.unshift({
+							img: result.secure_url,
+							imgId: result.public_id
+						});
+					}
+				}
+				// update title
+				gallery.title = req.body.gallery.title;
+				// save and redirect
+				gallery.save();
+				res.redirect("/gallery/" + req.params.id);
+			}catch(err){
+				console.log(err);
+				req.flash("error", err.message);
+				res.redirect("back");
+			}
 		}
 	});
 });
@@ -158,10 +177,6 @@ router.delete("/:id", middleware.checkGalleryOwnership, function(req, res){
 		}
 	});
 });
-
-
-
-
 
 
 module.exports = router;

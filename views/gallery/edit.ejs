@@ -4,10 +4,10 @@
 <h1>Edit <em> "<%= gallery.title %>" </em> </h1>
 
 
-<form action="/gallery" method="POST" enctype="multipart/form-data"> 
+<form action="/gallery/<%= gallery._id %>?_method=PUT" method="POST" enctype="multipart/form-data"> 
 	<input type="text" name="gallery[title]" value="<%= gallery.title %>">
 	<input type="file" id="imgUpload" name="img" accept="images/*" multiple>
-	<input type="submit" value="Add Pictures">
+	<input type="submit" value="Update">
 </form>
 
 <br>
