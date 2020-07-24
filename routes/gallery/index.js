@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const middleware = require("../../middleware");
 
 const Gallery = require("../../models/gallery/gallery");
 
@@ -44,12 +45,12 @@ router.get("/", function(req, res){
 });
 
 // NEW
-router.get("/new", function(req, res){
+router.get("/new", middleware.isLoggedIn, function(req, res){
 	res.render("gallery/new");
 });
 
 // CREATE
-router.post("/", upload.array("img", 40), async function(req, res){
+router.post("/", middleware.isLoggedIn, upload.array("img", 40), async function(req, res){
 	// add user id and username to gallery
 	req.body.gallery.author = {
 		id: req.user._id,
@@ -79,7 +80,7 @@ router.get("/:id", function(req, res){
 		if(err){
 			console.log(err);
 			req.flash("error", "Album not found");
-			req.redirect("back");
+			res.redirect("back");
 		}else{
 			res.render("gallery/show", {gallery: gallery});
 		}
@@ -87,19 +88,80 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT
-router.get("/:id/edit", function(req, res){
-	res.render("gallery/edit");
+router.get("/:id/edit", middleware.checkGalleryOwnership, function(req, res){
+	Gallery.findById(req.params.id, function(err, gallery){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.render("gallery/edit", {gallery: gallery});
+		}
+	});
 });
 
 // UPDATE
-router.put("/:id", function(req, res){
-	res.redirect("/gallery/" + req.partials.id);
+router.put("/:id", middleware.checkGalleryOwnership, function(req, res){
+	Gallery.findById(req.params.id, function(err, gallery){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			res.redirect("/gallery/" + req.partials.id);
+		}
+	});
 });
 
-// DELETE
-router.delete("/:id", function(req, res){
-	res.redirect("/gallery");
+// DELETE One Img
+router.delete("/:id/:img_id", middleware.checkGalleryOwnership, function(req, res){
+	Gallery.findById(req.params.id, function(err, gallery){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			gallery.imgs.forEach(async function(img, i){
+				if(img._id.equals(req.params.img_id)){
+					await cloudinary.v2.uploader.destroy(img.imgId, function(err){
+						if(err){
+							console.log(err);
+							res.redirect("back");
+						}else{
+							gallery.imgs.splice(i, 1);
+							gallery.save();
+							res.redirect("/gallery/" + req.params.id + "/edit");
+						}
+					});
+				}
+			});
+		}
+	});
 });
+
+// DELETE gallery
+router.delete("/:id", middleware.checkGalleryOwnership, function(req, res){
+	Gallery.findById(req.params.id, async function(err, gallery){
+		if(err){
+			console.log(err);
+			res.redirect("back");
+		}else{
+			try{
+				gallery.imgs.forEach(async function(img){
+					await cloudinary.v2.uploader.destroy(img.imgId);
+				});
+				gallery.delete();
+        		req.flash('success', 'Album deleted');
+        		res.redirect('/gallery');
+			}catch(err){
+				console.log(err);
+				req.flash("error", "Something went wrong, please try again later.");
+				res.redirect("back");
+			}
+		}
+	});
+});
+
+
+
+
 
 
 module.exports = router;
