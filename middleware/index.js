@@ -21,7 +21,7 @@ middlewareObj.checkBlogOwnership = function(req, res, next){
 				res.redirect("back");
 				console.log(err);
 			}else{
-				if(blog.author.id.equals(req.user._id)){
+				if(blog.author.id.equals(req.user._id) || req.user.isAdmin){
 					next();
 				}else{
 					req.flash("error", "You don't have permission to do that");
@@ -43,7 +43,7 @@ middlewareObj.checkGalleryOwnership = function(req, res, next){
 				res.redirect("back");
 				console.log(err);
 			}else{
-				if(blog.author.id.equals(req.user._id)){
+				if(blog.author.id.equals(req.user._id) || req.user.isAdmin){
 					next();
 				}else{
 					req.flash("error", "You don't have permission to do that");
@@ -65,7 +65,7 @@ middlewareObj.checkCommentOwnership = function(req, res, next){
 				console.log(err);
 			}else{
 				// Does the user own the comment?
-				if(comment.author.id.equals(req.user._id)){
+				if(comment.author.id.equals(req.user._id) || req.user.isAdmin){
 					next();
 				}else{
 					req.flash("error", "You don't have permission to do that");

@@ -7,11 +7,12 @@
 	<p><%= blog.content %></p>
 	<p> <em>Posted on <%= blog.created.toDateString() %> </em> </p>
 	<p>Posted by <a> <em> <%= blog.author.username %> </em> </a> </p>
-	
-	<a href="/blog/<%= blog._id %>/edit">Edit</a>
-	<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
-		<button>Delete</button>
-	</form>
+	<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+		<a href="/blog/<%= blog._id %>/edit">Edit</a>
+		<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+			<button>Delete</button>
+		</form>
+	<% } %>
 	<a href="/blog">Back</a>
 	
 	<hr>
@@ -22,10 +23,12 @@
 		<% blog.comments.forEach(function(comment){ %>
 			<div>
 				<p> <a> <strong> <%= comment.author.username %> </strong> </a>  - <%= comment.text %> </p>
-				<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit">Edit</a>
-				<form action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
-					<button>Delete</button>
-				</form>
+				<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+					<a href="/blog/<%= blog._id %>/comment/<%= comment._id %>/edit">Edit</a>
+					<form action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+						<button>Delete</button>
+					</form>	
+				<% } %>
 				<hr>
 			</div>
 		<% }); %>	

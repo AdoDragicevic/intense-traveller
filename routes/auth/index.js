@@ -12,12 +12,18 @@ router.get("/register", function(req, res){
 
 // REGISTER LOGIC
 router.post("/register", function(req, res){
-	User.register(new User({username: req.body.username, email: req.body.email}), req.body.password, function(err, user){
+	let newUser = new User({username: req.body.username, email: req.body.email});
+	if(req.body.username === "Admin"){
+		newUser.isAdmin = true;
+	}
+	User.register(newUser, req.body.password, function(err, user){
 		if(err){
 			console.log(err);
+			req.flash("error", err.message);
 			res.redirect("back");
 		}else{
 			passport.authenticate("local")(req, res, function(){
+				req.flash("Success", req.user.username + "  welcome to the Intense Traveller community!");
 				res.redirect("/");
 			});
 		}
