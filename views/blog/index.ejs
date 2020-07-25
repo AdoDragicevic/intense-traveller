@@ -9,11 +9,16 @@
 <% blogs.forEach(function(blog){ %>
 	<div>
 		<h2><%= blog.title %></h2>
-		<img src="<%= blog.img %>">	
-		<p><%= blog.content %></p>
+		<img src="<%= blog.img %>">
+		<p> <%= blog.content %> </p>
+		<p class="badge label-primary"> <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %> </p>
 		<a href="/blog/<%= blog._id %>">Read Me</a>
 	</div>
 <% }); %>
+
+
+   
+
 
 
 

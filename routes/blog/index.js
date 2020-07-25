@@ -79,7 +79,7 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), function(req, res)
 
 //SHOW
 router.get("/:id", function(req, res){
-	Blog.findById(req.params.id).populate("comments").exec(function(err, blog){
+	Blog.findById(req.params.id).populate("comments likes").exec(function(err, blog){
 		if(err){
 			console.log(err);
 			res.redirect("back");
@@ -94,6 +94,8 @@ router.get("/:id/edit", middleware.checkBlogOwnership, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
+			req.flash("error", "Something went wrong, please try again later.");
+			res.redirect("back");
 		}else{
 			res.render("blog/edit", {blog: blog});
 		}

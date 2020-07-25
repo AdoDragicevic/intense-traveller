@@ -7,15 +7,86 @@
 	<p><%= blog.content %></p>
 	<p> <em>Posted on <%= blog.created.toDateString() %> </em> </p>
 	<p>Posted by <a> <em> <%= blog.author.username %> </em> </a> </p>
+	
+	<!-- Another button to show the likes, you can remove this one or change it -->
+	<div class="float-right">
+    	<button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#blogLikes">
+        	<span>Total likes: <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %></span>
+    	</button>
+	</div>
+	
+	<!-- Edit & Delete Buttons -->
 	<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 		<a href="/blog/<%= blog._id %>/edit">Edit</a>
 		<form action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
 			<button>Delete</button>
 		</form>
 	<% } %>
-	<a href="/blog">Back</a>
 	
+	
+	<a href="/blog">Back</a>
 	<hr>
+	
+	
+	<!-- Like button -->
+	<div class="pb-5">
+    	<form action="/blog/<%= blog._id %>/like" method="POST">
+        	<div class="btn-group">
+            	<% if (currentUser && blog.likes.some(function (like) {
+                	return like.equals(currentUser._id)
+            	})) { %>
+                	<button class="btn btn-primary">
+                    	<i class="fas fa-thumbs-up"></i> Liked (<%= blog.likes.length %>)
+                	</button>
+            	<% } else { %>
+                	<button class="btn btn-secondary">
+                    	<i class="fas fa-thumbs-up"></i> Like (<%= blog.likes.length %>)
+                	</button>
+            	<% } %>
+            	<button type="button" class="btn btn-sm btn-default" data-toggle="modal"
+                    data-target="#blogLikes">See more details</button>
+        	</div>
+    	</form>
+	</div>
+	
+	
+	<!-- Campground Likes Modal -->
+	<div id="blogLikes" class="modal fade" role="dialog">
+    	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+            	<div class="modal-header">
+					<h4 class="modal-title">Likes: <%= blog.likes.length %></h4>
+            	</div>
+            	<div class="modal-body">
+                	<table class="table table-striped">
+                    	<thead>
+                    		<tr>
+                        		<th>Liked by:</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<% blog.likes.forEach(function(like) { %>
+                        		<tr>
+                            		<td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+                        		</tr>
+                    		<% }); %>
+                    		<% if (blog.likes.length === 0) { %>
+                        		<tr>
+                            		<td><em>No likes yet.</em></td>
+                        		</tr>
+                    		<% } %>
+                    	</tbody>
+                	</table>
+            	</div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+        	</div>
+    	</div>
+	</div>
+	
 
 	<!-- COMMENTS -->
 	<a href="/blog/<%= blog._id %>/comment/new">Write a Comment</a>

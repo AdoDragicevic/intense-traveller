@@ -20,6 +20,7 @@ const indexRoutes 		= require("./routes"),
 	  authRoutes  		= require("./routes/auth"),
 	  blogRoutes  		= require("./routes/blog"),
 	  blogCommentRoutes = require("./routes/blog/comment"),
+	  blogLikeRoutes	= require("./routes/blog/like"),
 	  galleryRoutes		= require("./routes/gallery");
 
 
@@ -65,6 +66,7 @@ app.use(indexRoutes);
 app.use(authRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
+app.use("/blog/:id/like", blogLikeRoutes);
 app.use("/gallery", galleryRoutes);
 
 
