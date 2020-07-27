@@ -6,7 +6,13 @@ const gallerySchema = new mongoose.Schema({
 	imgs: [ 
 		{
 			img: String,
-			imgId: String
+			imgId: String,
+			likes: [
+        		{	
+    				type: mongoose.Schema.Types.ObjectId,
+    				ref: "User"
+    			}
+			]
 		}
 	],
 	author: {
@@ -16,7 +22,7 @@ const gallerySchema = new mongoose.Schema({
 		},
 		username: String
 	},
-	created: {type: Date, default: Date.now}
+	created: {type: Date, default: Date.now},
 });
 
 
