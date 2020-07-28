@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/user");
-const mongoose = require("mongoose");
 const async = require("async");
 const nodemailer = require("nodemailer");
-// Crypto is a part of node, so you don't need to install it, you can just acquire it
 const crypto = require("crypto");
 
 
