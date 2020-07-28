@@ -1,12 +1,10 @@
 <%- include("../partials/header") %>
 
 
-
 <h1> <%= gallery.text %> </h1>
 
 <% gallery.imgs.forEach(function(img, i){ %>
 	<img src="<%= img.img %>">
-	<% %>
 	<form action="/gallery/<%= gallery._id %>/like/<%= img._id %>" method="POST">
 		<button>
 			<div class="btn-group">
@@ -31,10 +29,4 @@
 <% }); %>
 
 
-
-
-
 <%- include("../partials/footer") %>
-
-
-

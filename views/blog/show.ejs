@@ -6,7 +6,7 @@
 	<img src="<%= blog.img %>">	
 	<p><%= blog.content %></p>
 	<p> <em>Posted on <%= blog.created.toDateString() %> </em> </p>
-	<p>Posted by <a> <em> <%= blog.author.username %> </em> </a> </p>
+	<p>Posted by <a href="/profile/<%= blog.author.id %>"> <em> <%= blog.author.username %> </em> </a> </p>
 	
 	<!-- Another button to show the likes, you can remove this one or change it -->
 	<div class="float-right">

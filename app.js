@@ -18,6 +18,7 @@ const User = require("./models/user");
 // ROUTES
 const indexRoutes 		= require("./routes"),
 	  authRoutes  		= require("./routes/auth"),
+	  profileRoutes		= require("./routes/profile"),
 	  blogRoutes  		= require("./routes/blog"),
 	  blogCommentRoutes = require("./routes/blog/comment"),
 	  blogLikeRoutes	= require("./routes/blog/like"),
@@ -65,6 +66,7 @@ app.use(function(req, res, next){
 // REQUIRE ROUTES
 app.use(indexRoutes);
 app.use(authRoutes);
+app.use("/profile", profileRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
 app.use("/blog/:id/like", blogLikeRoutes);

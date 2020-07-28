@@ -1,0 +1,34 @@
+<%- include("../partials/header") %>
+
+
+<h1><%= user.username %>'s profile page</h1>
+<p>Profile page</p>
+
+
+
+<h4>
+	Published Journals:
+</h4>
+
+<% if(blogs && blogs.length !== 0){ %>
+	<% blogs.forEach(function(blog){ %>
+		<li> <a href="/blog/<%= blog._id %>"> <%= blog.title %> </a> </li>
+	<% }) %>
+<% }else{ %>
+	<li>No published Journals</li>
+	<li> <a href="/blog/new">Create Journal</a> </li>
+<% } %>
+
+<h4>Published Albums</h4>
+
+<% if(galleries && galleries.length !== 0){ %>
+	<% galleries.forEach(function(gallery){ %>
+		<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>
+	<% }); %>
+<% }else{ %>
+	<li>No published Albums</li>
+	<li> <a href="/gallery/new">Create Album</a> </li>
+<% } %>
+
+
+<%- include("../partials/header") %>

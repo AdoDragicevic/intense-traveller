@@ -14,6 +14,7 @@
 			<% numOfLikes = numOfLikes + img.likes.length; %>
 		<% }); %>
 		<%= numOfLikes %> <i class="fas fa-thumbs-up"></i> 
+		<a href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a>
 	</li>
 <% }); %>
 
