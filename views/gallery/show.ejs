@@ -30,42 +30,6 @@
 	</form>
 <% }); %>
 
-<!-- Campground Likes Modal -->
-<div id="campgroundLikes" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Campground likes: <%= campground.likes.length %></h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Liked by:</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% campground.likes.forEach(function(like) { %>
-                        <tr>
-                            <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
-                        </tr>
-                    <% }); %>
-                    <% if (campground.likes.length === 0) { %>
-                        <tr>
-                            <td><em>No likes yet.</em></td>
-                        </tr>
-                    <% } %>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
