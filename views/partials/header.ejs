@@ -14,7 +14,7 @@
 		<a href="/register">SignUp</a>
 		<a href="/login">LogIn</a>
 	<% }else{ %>
-		<p>Logged in as <a href="#"> <em> <%= currentUser.username %> </em> </a></p>
+		<p>Logged in as <a href="/profile/<%= currentUser._id %>"> <em> <%= currentUser.username %> </em> </a></p>
 		<a href="/logout">LogOut</a>
 	<% } %>
 	

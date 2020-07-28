@@ -1,0 +1,16 @@
+<%- include("../partials/header") %>
+
+<h1>
+	Warning! This action is final. Are you sure you want to delete your profile?
+</h1>
+<h3>
+	Deleting the profile will also premanently delete all your journals and galleries!
+</h3>
+
+<form action="/profile/<%= user._id %>?_method=DELETE" method=POST>
+	<button class="btn bnt-danger">Delete My Profile</button>
+</form>
+
+<a class="btn btn-success" href="/profile/<%= user._id %>">Go back</a>
+
+<%- include("../partials/header") %>

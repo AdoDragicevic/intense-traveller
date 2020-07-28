@@ -4,6 +4,10 @@
 <h1><%= user.username %>'s profile page</h1>
 <p>Profile page</p>
 
+<% if(currentUser && currentUser._id.equals(user.id)){ %>
+	<a href="/profile/<%= user.id %>/delete">Delete profile</a>
+<% } %>
+
 <h4>
 	Published Journals:
 </h4>
@@ -29,4 +33,4 @@
 <% } %>
 
 
-<%- include("../partials/header") %>
+<%- include("../partials/footer") %>
