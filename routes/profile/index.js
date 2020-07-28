@@ -21,7 +21,7 @@ router.get("/:id", async function(req, res){
 });
 
 // DELETE warning page
-router.get("/:id/delete", function(req, res){
+router.get("/:id/delete", middleware.checkProfileOwnership, function(req, res){
 	User.findById(req.params.id, function(err, user){
 		if(err){
 			console.log(err);
@@ -34,7 +34,7 @@ router.get("/:id/delete", function(req, res){
 });
 
 // DELETE
-router.delete("/:id", async function(req, res){
+router.delete("/:id", middleware.checkProfileOwnership, async function(req, res){
 	try{
 		let user = await User.findById(req.params.id);
 		let blogs = await Blog.find().where("author.id").equals(user._id).populate("comments").exec();

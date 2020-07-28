@@ -1,3 +1,4 @@
+const User = require("../models/user");
 const Blog = require("../models/blog/blog");
 const Comment = require("../models/blog/comment");
 const Gallery = require("../models/gallery/gallery");
@@ -11,6 +12,27 @@ middlewareObj.isLoggedIn = function(req, res, next){
 	}
 	req.flash("error", "Please, login first.");
 	res.redirect("/login");
+}
+
+middlewareObj.checkProfileOwnership = function(req, res, next){
+	if(req.isAuthenticated()){
+		User.findById(req.params.id, function(err, user){
+			if(err || !user){
+				console.log(err);
+				req.redirect("back");
+			}else{
+				if(user._id.equals(req.user._id)){
+					next();
+				}else{
+					req.flash("error", "You do not have premission do to that.");
+					res.redirect("back");	
+				}	
+			}
+		});
+	}else{
+		req.flash("error", "Please, login first.");
+		res.redirect("/login");	
+	}
 }
 
 middlewareObj.checkBlogOwnership = function(req, res, next){
