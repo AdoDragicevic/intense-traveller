@@ -28,21 +28,16 @@
         	</div>
 		</button>	
 	</form>
+<% }); %>
 
 <!-- Campground Likes Modal -->
-<div id="pictureLikes" class="modal fade" role="dialog">
+<div id="campgroundLikes" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Likes: 
-					<% gallery.imgs.forEach(function(img){ %>
-						<% if(img._id.equals(picId)){ %>
-							<span> <%= img.likes.length %> </span>
-						<% } %>
-					<% }); %>
-				</h4>
+                <h4 class="modal-title">Campground likes: <%= campground.likes.length %></h4>
             </div>
             <div class="modal-body">
                 <table class="table table-striped">
@@ -52,12 +47,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% gallery.imgs[i].likes.forEach(function(like) { %>
+                    <% campground.likes.forEach(function(like) { %>
                         <tr>
                             <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
                         </tr>
                     <% }); %>
-                    <% if (gallery.imgs[i].likes.length === 0) { %>
+                    <% if (campground.likes.length === 0) { %>
                         <tr>
                             <td><em>No likes yet.</em></td>
                         </tr>
@@ -73,20 +68,6 @@
 </div>
 
 
-<% }); %>
-
-<!-- JS enables us to check the separate likes for each picture -->
-<script>
-	var picId;
-	let picBtn = document.querySelectorAll(".whoLiked");
-	for(let i = 0; i < picBtn.length; i++){
-		picBtn[i].addEventListener("click", function(){
-		picId = this.id;
-		console.log(picId);
-	});
-	}
-	
-</script>
 
 
 <%- include("../partials/footer") %>

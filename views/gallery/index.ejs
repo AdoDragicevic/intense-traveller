@@ -8,8 +8,16 @@
 <h3>Albums:</h3>
 
 <% galleries.forEach(function(gallery){ %>
-	<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>
+	<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> 
+		<% let numOfLikes = 0; %>
+		<% gallery.imgs.forEach(function(img, i){ %>
+			<% numOfLikes = numOfLikes + img.likes.length; %>
+		<% }); %>
+		<%= numOfLikes %> <i class="fas fa-thumbs-up"></i> 
+	</li>
 <% }); %>
 
 
 <%- include("../partials/footer") %>
+
+
