@@ -1,0 +1,11 @@
+<%- include("../partials/header") %>
+	
+<form action="/reset/<%= token %>" method="POST">
+	<legend>Reset Password</legend>	    
+	<input type="password" name="password" laceholder="New password">
+	<input type="password" name="confirm" placeholder="Confirm password">	  
+	<button type="submit" class="btn btn-primary">Update Password</button>		  
+</form>
+	
+
+<%- include("../partials/footer") %>
