@@ -42,7 +42,7 @@ router.get("/notifications/:id", middleware.isLoggedIn, async function(req, res)
 	await Notification.findOne({id: req.params.id}, function(err, notification){
 		if(err || !notification){
 			console.log(err);
-			req.flash("error", "Author has removed this post");
+			req.flash("error", "Author has removed this post.");
 			res.redirect("back");
 		}else{
 			notification.isRead = true;
