@@ -4,19 +4,20 @@
 <h1><%= user.username %>'s profile page</h1>
 <p>Profile page</p>
 
+<p> Followers: <%= user.followers.length %> </p> 
+
+<!-- Delete profile -->
 <% if(currentUser && currentUser._id.equals(user.id)  || currentUser && currentUser.isAdmin){ %>
 	<a href="/profile/<%= user.id %>/delete">Delete profile</a>
 <% } %>
 
+<!-- Follow button -->
 <% if(currentUser && !currentUser._id.equals(user.id)){ %>
 	<a href="/follow/<%= user.id %>">Follow</a>
 <% } %>
 
 
-<h4>
-	Published Journals:
-</h4>
-
+<h4>Published Journals:</h4>
 <% if(blogs && blogs.length !== 0){ %>
 	<% blogs.forEach(function(blog){ %>
 		<li> <a href="/blog/<%= blog._id %>"> <%= blog.title %> </a> </li>
@@ -26,8 +27,8 @@
 	<li> <a href="/blog/new">Create Journal</a> </li>
 <% } %>
 
-<h4>Published Albums</h4>
 
+<h4>Published Albums</h4>
 <% if(galleries && galleries.length !== 0){ %>
 	<% galleries.forEach(function(gallery){ %>
 		<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>
