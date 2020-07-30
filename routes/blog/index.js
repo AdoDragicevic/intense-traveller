@@ -89,8 +89,9 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req
 //SHOW
 router.get("/:id", function(req, res){
 	Blog.findById(req.params.id).populate("comments likes").exec(function(err, blog){
-		if(err){
+		if(err || !blog){
 			console.log(err);
+			req.flash("error", "Journal not found.");
 			res.redirect("back");
 		}else{
 			res.render("blog/show", {blog: blog});
