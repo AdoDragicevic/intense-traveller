@@ -3,6 +3,8 @@ const router = express.Router();
 const middleware = require("../../middleware");
 
 const Gallery = require("../../models/gallery/gallery");
+const User = require("../../models/user");
+const Notification = require("../../models/notification/notification");
 
 // CLOUDINARY SETUP
 const multer = require("multer");
@@ -63,14 +65,24 @@ router.post("/", middleware.isLoggedIn, upload.array("img", 40), async function(
 			imgId: result.public_id
 		});
 	}
-	Gallery.create(req.body.gallery, function(err, gallery){
-		if(err){
-			console.log(err);
-			res.redirect("back");
-		}else{
-			res.redirect("/gallery");	
-		}
-	});
+	try{
+		let gallery = await Gallery.create(req.body.gallery);
+		let user = await User.findById(req.user._id).populate("followers").exec();
+      	let newNotification = {
+        	username: req.user.username,
+        	id: gallery.id,
+			gallery: true
+      	}
+      	for(const follower of user.followers) {
+			let notification = await Notification.create(newNotification);
+			follower.notifications.push(notification);
+			follower.save();
+      	}
+		res.redirect("/gallery/" + gallery.id);
+	}catch(err){
+		console.log(err);
+		res.redirect("back");
+	}
 });
 
 // SHOW

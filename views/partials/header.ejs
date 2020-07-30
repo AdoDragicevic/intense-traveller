@@ -21,7 +21,13 @@
             <ul class="dropdown-menu">
             	<li> <a href="/notifications">View past notifications</a> </li>
                 <% notifications.forEach(function(notification) { %>                          
-            		<li> <a href="/notifications/<%= notification.id %>"> <%= notification.username %> published a new Journal </a> </li>
+            		<li> 
+						<a href="/notifications/<%= notification.id %>"> 
+							<%= notification.username %> published a new 
+								<% if(notification.gallery){ %> Gallery	
+								<% }else{ %> Journal <% } %>
+						</a> 
+					</li>
                 <% }); %>
             </ul>
         </li>

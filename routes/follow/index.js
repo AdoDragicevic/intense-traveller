@@ -38,15 +38,19 @@ router.get("/notifications", middleware.isLoggedIn, async function(req, res){
 
 // Handle notification
 router.get("/notifications/:id", middleware.isLoggedIn, async function(req, res){
-	Notification.findById(req.params.id, function(err, notification){
-		if(err){
+	await Notification.findOne({id: req.params.id}, function(err, notification){
+		if(err || !notification){
 			console.log(err);
-			req.flash("error", "Notification not found. Please, try again later.");
+			req.flash("error", "Unable to find notification. Please, try again later.");
 			res.redirect("back");
 		}else{
 			notification.isRead = true;
 			notification.save();
-			res.redirect("/blog/" + notification.blogId);
+			if(notification.gallery){
+				res.redirect("/gallery/" + req.params.id);
+			}else{
+				res.redirect("/blog/" + req.params.id);
+			}
 		}
 	});
 });

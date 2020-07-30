@@ -1,6 +1,7 @@
 const express = require("express");
 const router  = express.Router();
 const middleware = require("../../middleware");
+
 const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
 const User = require("../../models/user");
@@ -65,7 +66,7 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req
 		let user = await User.findById(req.user._id).populate("followers").exec();
       	let newNotification = {
         	username: req.user.username,
-        	blogId: blog.id
+        	id: blog.id
       	}
       	for(const follower of user.followers) {
 			let notification = await Notification.create(newNotification);
