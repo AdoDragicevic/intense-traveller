@@ -10,7 +10,7 @@ const Gallery = require("../../models/gallery/gallery");
 // SHOW
 router.get("/:id", async function(req, res){
 	try{
-		let user = await User.findById(req.params.id);
+		let user = await User.findById(req.params.id).populate("followers").exec();
 		let blogs = await Blog.find().where("author.id").equals(user._id).exec();
 		let galleries = await Gallery.find().where("author.id").equals(user._id).exec();
 		res.render("profile/show", {user: user, blogs: blogs, galleries: galleries});

@@ -10,7 +10,19 @@ const UserSchema = new mongoose.Schema({
     resetPasswordExpires: Date,
 	isAdmin: {type: Boolean, default: false},
 	profilePic: String,
-	description: String
+	description: String,
+	notifications: [
+    	{
+    	   type: mongoose.Schema.Types.ObjectId,
+    	   ref: "Notification"
+    	}
+    ],
+    followers: [
+    	{
+    		type: mongoose.Schema.Types.ObjectId,
+    		ref: "User"
+    	}
+    ]
 });
 
 

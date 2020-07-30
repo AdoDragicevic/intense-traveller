@@ -16,14 +16,16 @@ const Comment = require("./models/blog/comment");
 const User = require("./models/user");
 
 // ROUTES
-const indexRoutes 		= require("./routes"),
-	  authRoutes  		= require("./routes/auth"),
-	  profileRoutes		= require("./routes/profile"),
-	  blogRoutes  		= require("./routes/blog"),
-	  blogCommentRoutes = require("./routes/blog/comment"),
-	  blogLikeRoutes	= require("./routes/blog/like"),
-	  galleryRoutes		= require("./routes/gallery"),
-	  galleryLikeRoutes = require("./routes/gallery/like");
+const indexRoutes 		 = require("./routes"),
+	  authRoutes  		 = require("./routes/auth"),
+	  followRoutes       = require("./routes/follow"),
+	  profileRoutes		 = require("./routes/profile"),
+	  blogRoutes  		 = require("./routes/blog"),
+	  blogCommentRoutes  = require("./routes/blog/comment"),
+	  blogLikeRoutes	 = require("./routes/blog/like"),
+	  galleryRoutes		 = require("./routes/gallery"),
+	  galleryLikeRoutes  = require("./routes/gallery/like");
+
 
 
 // MONGOOSE SETUP
@@ -53,8 +55,16 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // MIDDLEWARE TO EACH ROUTE
-app.use(function(req, res, next){
+app.use(async function(req, res, next){
 	res.locals.currentUser = req.user;
+	if(req.user){
+		try{
+			let user = await User.findById(req.user._id).populate("notifications", null, {isRead: false} ).exec();
+			res.locals.notifications = user.notifications.reverse();
+		}catch(err){
+			console.log(err.message);
+		}
+	}
 	res.locals.error = req.flash("error");
 	res.locals.success = req.flash("success");
 	next();
@@ -66,12 +76,14 @@ app.use(function(req, res, next){
 // REQUIRE ROUTES
 app.use(indexRoutes);
 app.use(authRoutes);
+app.use(followRoutes);
 app.use("/profile", profileRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
 app.use("/blog/:id/like", blogLikeRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/gallery/:id/like", galleryLikeRoutes);
+
 
 
 

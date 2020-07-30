@@ -15,6 +15,17 @@
 		<a href="/login">LogIn</a>
 	<% }else{ %>
 		<p>Logged in as <a href="/profile/<%= currentUser._id %>"> <em> <%= currentUser.username %> </em> </a></p>
+		
+		<li class="dropdown">
+        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span></a>
+            <ul class="dropdown-menu">
+            	<li> <a href="/notifications">View past notifications</a> </li>
+                <% notifications.forEach(function(notification) { %>                          
+            		<li> <a href="/notifications/<%= notification.id %>"> <%= notification.username %> created a new campground </a> </li>
+                <% }); %>
+            </ul>
+        </li>
+	
 		<a href="/logout">LogOut</a>
 	<% } %>
 	

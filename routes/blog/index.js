@@ -3,6 +3,8 @@ const router  = express.Router();
 const middleware = require("../../middleware");
 const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
+const User = require("../../models/user");
+const Notification = require("../../models/notification/notification");
 
 // CLOUDINARY SETUP
 const multer = require("multer");
@@ -47,33 +49,39 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 });
 
 
-// CREATE
-router.post("/", middleware.isLoggedIn, upload.single("img"), function(req, res){
-	// add user id and username to blog
-	req.body.blog.author = {
-		id: req.user._id,
-		username: req.user.username
-	}
-	Blog.create(req.body.blog, function(err, blog){
-		if(err){
-			console.log(err);
-			req.flash("error", err.message);
-			res.redirect("back");
-		}else{
-			cloudinary.v2.uploader.upload(req.file.path, function(err, result){
-				if(err){
-					console.log(err);
-				}else{
-					blog.img = result.secure_url;
-        			blog.imgId = result.public_id;
-					blog.save();
-					res.redirect("/blog/" + blog.id);
-				}
-			});
+//CREATE
+router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req, res){
+  	// add user id and username to blog
+		req.body.blog.author = {
+			id: req.user._id,
+			username: req.user.username
 		}
-	});
+	try{
+		let blog = await Blog.create(req.body.blog);
+		let result = await cloudinary.v2.uploader.upload(req.file.path);
+		blog.img = result.secure_url;
+        blog.imgId = result.public_id;
+		blog.save();
+		let user = await User.findById(req.user._id).populate("followers").exec();
+      	let newNotification = {
+        	username: req.user.username,
+        	blogId: blog.id
+      	}
+      	for(const follower of user.followers) {
+			let notification = await Notification.create(newNotification);
+			follower.notifications.push(notification);
+			follower.save();
+      	}
+		res.redirect("/blog/" +blog.id);
+	}catch(err){
+		console.log(err);
+		req.flash('error', err.message);
+      	res.redirect('back');
+	}
 });
 
+
+							
 // If you're using Google maps then you'll need to put all of the cloudinary code from above inside of the geocoder.geocode() callback. If you're not using Google maps then you can ignore this step.
 
 
