@@ -26,7 +26,7 @@ router.get("/follow/:id", middleware.isLoggedIn, async function(req, res){
 // View all notifications
 router.get("/notifications", middleware.isLoggedIn, async function(req, res){
 	try{
-		let user = User.findById(req.user._id).populate( {path: "notifications" , options: {sort: {"-id": -1} }} ).exec();
+		let user = await User.findById(req.user._id).populate( {path: "notifications" , options: {sort: {"-id": -1} }} ).exec();
 		let allNotifications = user.notifications;
 		res.render("follow/index", {allNotifications: allNotifications});
 	}catch(err){
@@ -38,10 +38,11 @@ router.get("/notifications", middleware.isLoggedIn, async function(req, res){
 
 // Handle notification
 router.get("/notifications/:id", middleware.isLoggedIn, async function(req, res){
+	// blog._id/gallery._id saved under notification.id
 	await Notification.findOne({id: req.params.id}, function(err, notification){
 		if(err || !notification){
 			console.log(err);
-			req.flash("error", "Unable to find notification. Please, try again later.");
+			req.flash("error", "Author has removed this post");
 			res.redirect("back");
 		}else{
 			notification.isRead = true;

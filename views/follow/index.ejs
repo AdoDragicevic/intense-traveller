@@ -1,3 +1,18 @@
-<h1>
-	Hi there!!!
-</h1>
+<%- include ("../partials/header") %>
+
+<h1>All Notifications</h1>
+
+<% allNotifications.forEach(function(notification){ %>
+	<li> 
+		<a href="/notifications/<%= notification.id %>">
+			<%= notification.username %> published 
+			<% if(notification.gallery){ %>
+				Gallery
+			<% }else{ %>
+				Journal
+			<% } %>
+		</a> 
+	</li>
+<% }); %>
+
+<%- include ("../partials/footer") %>
