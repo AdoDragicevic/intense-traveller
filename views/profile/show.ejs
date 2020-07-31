@@ -13,7 +13,7 @@
 	<a href="/profile/<%= user.id %>/delete">Delete profile</a>
 <% } %>
 
-<!-- Follow button -->
+<!-- Follow / Stop following -->
 <% if(currentUser && !currentUser._id.equals(user.id)){ %>
 	<a href="/follow/<%= user.id %>">
 		<!-- change text from follow to stop following -->
