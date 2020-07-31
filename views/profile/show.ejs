@@ -4,7 +4,9 @@
 <h1><%= user.username %>'s profile page</h1>
 <p>Profile page</p>
 
+<!-- Show number of followers -->
 <p> Followers: <%= user.followers.length %> </p> 
+
 
 <!-- Delete profile -->
 <% if(currentUser && currentUser._id.equals(user.id)  || currentUser && currentUser.isAdmin){ %>
@@ -13,7 +15,16 @@
 
 <!-- Follow button -->
 <% if(currentUser && !currentUser._id.equals(user.id)){ %>
-	<a href="/follow/<%= user.id %>">Follow</a>
+	<a href="/follow/<%= user.id %>">
+		<!-- change text from follow to stop following -->
+		<% if(user.followers.some(function(follower){ %>
+			<% return follower.equals(currentUser._id); %>
+		<% })){ %>
+			Stop following
+		<% }else{ %>
+			Follow
+		<% } %>
+	</a>
 <% } %>
 
 

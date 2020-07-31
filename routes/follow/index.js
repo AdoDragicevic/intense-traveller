@@ -12,9 +12,20 @@ router.get("/follow/:id", middleware.isLoggedIn, async function(req, res){
 		// find the user you want to follow
 		let user = await User.findById(req.params.id);
 		// add your user id to their followers array
-		user.followers.push(req.user._id);
+		// first check if the user is already a follower
+		let isFollower = user.followers.some(function(follower){
+							return follower.equals(req.user._id);
+						});
+		if(isFollower){
+			// user already is a follower, remove him
+			user.followers.pull(req.user._id);
+			req.flash("success", "You are no longer following " + user.username + "!");
+		}else{
+			// user is not a follower, add him
+			user.followers.push(req.user._id);
+			req.flash("success", "You are following " + user.username + "!");
+		}		
 		user.save();
-		req.flash("success", "You are following " + user.username + "!");
 		res.redirect("/profile/" + req.params.id);
 	}catch(err){
 		console.log(err);
