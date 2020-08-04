@@ -1,15 +1,28 @@
 <%- include("../partials/header") %>
 
-<h1>Sign Up!</h1>
 
-<form action="/register" method="POST">
-	<input type="text" name="username" placeholder="Username">
-	<input type="email" name="email" placeholder="Email">
-	<input type="password" name="password" placeholder="password">
-	<input type="submit" value="SignUp!">
-</form>
-
-
-
+<div class="container">
+	<div class="row">
+    	<div class="col-lg-4 col-xs-8 mx-auto mt-5">
+            <form action="/register" method="POST">
+              	<h1 class="h3 mb-3 font-weight-normal text-center">Sign up</h1>
+				<div class="form-group">
+              		<input class="form-control" type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus>
+				</div>
+              	<div class="form-group">
+					<input class="form-control" type="email" name="email" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+				</div>
+ 	            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up!</button>
+            </form>
+            <div class="form-group pt-3">
+                <p><small> After creating and account you will be able to add additional data to your profile. </small></p>
+            </div>
+        </div>
+    </div>
+</div>
+	
 
 <%- include("../partials/footer") %>
