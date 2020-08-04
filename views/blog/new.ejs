@@ -3,6 +3,7 @@
 
 <div class="container">
 	<div class="row text-center mt-5">
+		<a href="/blog">Go Back</a>
 		<h1 class="mx-auto">Create a New Journal</h1>
 	</div>
 	
@@ -10,23 +11,22 @@
 		<div class="col-lg-8 mx-auto">
 			<form class="my-2" action="/blog" method="POST">
 				<div class="form-group">
-					<label for="input1">Title</label>
+					<label for="input1"> <strong> Title </strong> </label>
 					<input id="input1" class="form-control" class="form-control" type="text" name="blog[title]" placeholder="My trip to Spain..." required>
 				</div>
 				<div class="form-group">
-					<label for="input2">Picture</label>
+					<label for="input2"> <strong> Picture </strong> </label>
 						<input id="input2" class="form-control-file" type="file" name="img" accept="image/*" required>	
 				</div>
 				<div class="form-group">
-					<label for="input3">Short Description</label>
-						<textarea id="input3" class="form-control" name="blog[description]" placeholder="A short description of the Journal. Max length 300 characters." maxlength="300" required></textarea>	
+					<label for="input3"> <strong> Description </strong> </label>
+						<textarea id="input3" class="form-control" name="blog[description]" placeholder="A short description of the Journal. Max length 300 characters." maxlength="300" rows="4" required></textarea>	
 				</div>					
 				<div class="form-group">
-					<label for="input4">Content</label>
-					<textarea id="input4" class="form-control" name="blog[content]" placeholder="Journal..." rows="15" required></textarea> </div>
+					<label for="input4"> <strong> Journal </strong> </label>
+					<textarea id="input4" class="form-control" name="blog[content]" placeholder="Content..." rows="15" required></textarea> </div>
 				<button class="btn btn-primary btn-block">Submit!</button>
 			</form>
-			<a href="/blog">Go Back</a>
 		</div>
 	</div>
 	
