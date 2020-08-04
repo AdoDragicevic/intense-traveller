@@ -4,6 +4,7 @@ const middleware = require("../../middleware");
 
 const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
+const Gallery = require("../../models/gallery/gallery");
 const User = require("../../models/user");
 const Notification = require("../../models/notification/notification");
 
@@ -81,11 +82,6 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req
 	}
 });
 
-
-							
-// If you're using Google maps then you'll need to put all of the cloudinary code from above inside of the geocoder.geocode() callback. If you're not using Google maps then you can ignore this step.
-
-
 //SHOW
 router.get("/:id", function(req, res){
 	Blog.findById(req.params.id).populate("comments likes").exec(function(err, blog){
@@ -98,6 +94,7 @@ router.get("/:id", function(req, res){
 		}
 	});
 });
+
 
 // EDIT
 router.get("/:id/edit", middleware.checkBlogOwnership, function(req, res){
