@@ -134,6 +134,7 @@ router.put("/:id", middleware.checkBlogOwnership, upload.single("img"), function
 			}
 			// update data
 			blog.title = req.body.blog.title;
+			blog.description = req.body.blog.description;
 			blog.content = req.body.blog.content;
 			blog.save();
 			req.flash("success", "Successfully updated!");
