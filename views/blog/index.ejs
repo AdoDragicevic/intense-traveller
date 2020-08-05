@@ -1,9 +1,10 @@
 <%- include("../partials/header") %>
 
 
-<header>	
+<header>
+	
+	<!-- Jumbotron -->
 	<div class="container">
-		<!-- Jumbotron -->
 		<div class="jumbotron mt-3" style="background-color: white">
   			<h1 class="display-4"> <em>Intense Traveller</em></h1>
 			<p class="lead"> <em> Write a Travel Journal, add Pictures, Follow your favorite travellers, and more . . .  </em> </p>
@@ -14,36 +15,42 @@
 	</div>
 </header>
 
-<main>	
+
+<main>
+	<!-- display all journals -->
 	<div class="container-lg">
-		<!-- show all journals -->
-		<% blogs.forEach(function(blog){ %>
 		
-			<div class="card my-3" style="overflow: hidden">
+		<% blogs.forEach(function(blog){ %>
+			
+			<!-- card for each journal -->
+			<div class="card my-4" style="overflow: hidden">
 				<div class="row no-gutters">
 					
+					<!-- img -->
 					<div class="col-xl-4">
       					<img class="card-img img-thumbnail" style="height: 250px; width: 100%; object-fit: cover" src="<%= blog.img %>">
     				</div>
 					
+					<!-- title, text, likes and readMe button -->
 					<div class="col-xl-8">
-      					<div class="card-body" style="height: 250px">
+      					<div class="card-body d-flex flex-column" style="height: 250px">
         					<h2 class="card-title display-6"> <%= blog.title %> </h2>
 							<p class="card-text"> <em> <%= blog.description %> </em> </p>	
+							<div class="mt-auto">
+								
 							
 							<p>
 								<span class="mx-3"> Posted by: <%= blog.author.username %> </span>
-								<span class=""> <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %> </span>
+								<span> <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %> </span>
 							</p>
 							<a class="btn btn-primary btn-block" href="/blog/<%= blog._id %>">Read Me</a>
+							</div>
       					</div>
    					</div>
     			</div>
 			</div>
 		<% }); %>
 	</div>
-	
-
 </main>
 
 
