@@ -1,7 +1,7 @@
 <%- include("../partials/header") %>
 
+<!--  blog title -->
 <header>
-	<!-- title -->
 	<div class="container">
 		<div class="row mt-5">
 			<div class="col-lg-3"></div>
@@ -13,8 +13,8 @@
 </header>
 
 
+<!-- main content -->
 <main>
-	<!-- main content -->
 	<section>
 		<div class="container">
 			<div class="row">
@@ -29,7 +29,6 @@
 					<p> <em> <%= blog.author.description %> </em> </p>
 					<h5> <a href="#">See the Gallery related to this Journal!</a> </h5>
 				</div>
-				
 				
 				
 				<!-- blog picture, date, text, and buttons  -->
@@ -56,6 +55,7 @@
 										<% } %>
 									</div>
 									
+									
 									<!-- Like button -->
 									<form class="d-inline" action="/blog/<%= blog._id %>/like" method="POST">
 										<div>
@@ -76,6 +76,8 @@
 								</div>
 							</li>	
 						</ul>
+						
+						
 						<!-- blog text -->
 						<p class="card-text m-4 mt-5"><%= blog.content %></p>
 					</div>

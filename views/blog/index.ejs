@@ -1,9 +1,8 @@
 <%- include("../partials/header") %>
 
 
+<!-- Jumbotron -->
 <header>
-	
-	<!-- Jumbotron -->
 	<div class="container">
 		<div class="jumbotron mt-3" style="background-color: white">
   			<h1 class="display-4"> <em>Intense Traveller</em></h1>
@@ -16,34 +15,43 @@
 </header>
 
 
+<!-- display all journals -->
 <main>
-	<!-- display all journals -->
 	<div class="container-lg">
 		
 		<% blogs.forEach(function(blog){ %>
 			
 			<!-- card for each journal -->
-			<div class="card my-4" style="overflow: hidden">
+			<div class="card my-5 mx-xl-5 pb-4 border-top-0 border-right-0 border-left-0" style="overflow: hidden">
 				<div class="row no-gutters">
 					
 					<!-- img -->
-					<div class="col-xl-4">
+					<div class="col-md-4">
       					<img class="card-img img-thumbnail" style="height: 250px; width: 100%; object-fit: cover" src="<%= blog.img %>">
     				</div>
 					
 					<!-- title, text, likes and readMe button -->
-					<div class="col-xl-8">
+					<div class="col-md-8">
       					<div class="card-body d-flex flex-column" style="height: 250px">
-        					<h2 class="card-title display-6"> <%= blog.title %> </h2>
-							<p class="card-text"> <em> <%= blog.description %> </em> </p>	
-							<div class="mt-auto">
-								
+        					
+							<!-- title -->
+							<h2 class="card-title display-6"> <%= blog.title %> </h2>
 							
-							<p>
-								<span class="mx-3"> Posted by: <%= blog.author.username %> </span>
-								<span> <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %> </span>
-							</p>
-							<a class="btn btn-primary btn-block" href="/blog/<%= blog._id %>">Read Me</a>
+							<!-- short description shown only on this index page -->
+							<p class="card-text"> <em> <%= blog.description %> </em> </p>	
+							
+							<!-- author name, number of likes and readMe button -->
+							<div class="mt-auto">
+								<p>
+									<span class="mx-3"> Posted by:   
+										<a href="/profile/<%= blog.author.id %>"><%= blog.author.username %>
+										</a> 
+									</span>
+									<span> 
+										<i class="fas fa-thumbs-up"></i> <%= blog.likes.length %>
+									</span>
+								</p>
+								<a class="btn btn-primary btn-block" href="/blog/<%= blog._id %>">Read Me</a>
 							</div>
       					</div>
    					</div>
@@ -52,47 +60,6 @@
 		<% }); %>
 	</div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
 
 
 <%- include("../partials/footer") %>

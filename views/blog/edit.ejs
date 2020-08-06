@@ -1,7 +1,8 @@
 <%- include("../partials/header") %>
 
-
+<!-- Blog edit form -->
 <div class="container">
+	
 	<div class="row text-center mt-5">
 		<a href="/blog">Go Back</a>
 		<h1 class="mx-auto"> Edit <%= blog.title %> </h1>
@@ -9,27 +10,38 @@
 	
 	<div class="row">
 		<div class="col-lg-8 mx-auto">
+			
+			<!-- form -->
 			<form class="my-2" action="/blog/<%= blog._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+				
+				<!-- title -->
 				<div class="form-group">
 					<label for="input1"> <strong> Title </strong> </label>
 					<input id="input1" class="form-control" class="form-control" type="text" name="blog[title]" value="<%= blog.title %>">
 				</div>
+				
+				<!-- picture -->
 				<div class="form-group">
 					<label for="input2"> <strong> Picture </strong> </label>
 						<input id="input2" class="form-control-file" type="file" name="img" accept="image/*">	
 				</div>
+				
+				<!-- description for the index page -->
 				<div class="form-group">
 					<label for="input3"> <strong> Description </strong> </label>
-						<textarea id="input3" class="form-control" name="blog[description]" maxlength="280" rows="4" required> <%= blog.description %> </textarea>	
-				</div>					
+						<textarea id="input3" class="form-control" name="blog[description]" minlength="30" maxlength="200" rows="4"> <%= blog.description %> </textarea>	
+				</div>
+				
+				<!-- blog text -->
 				<div class="form-group">
 					<label for="input4"> <strong> Journal </strong> </label>
-					<textarea id="input4" class="form-control" name="blog[content]" rows="15"> <%= blog.content %> </textarea> </div>
+					<textarea id="input4" class="form-control" name="blog[content]" rows="15"> <%= blog.content %> </textarea> 
+				</div>
+				
 				<button class="btn btn-primary btn-block">Submit!</button>
 			</form>
 		</div>
 	</div>
-	
 </div>
 
 
