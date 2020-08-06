@@ -11,93 +11,87 @@
   </head>
 <body>
 	
-	<header>
-		
-		<!-- navbar -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	
+<header>
+	<!-- navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
 			
-			<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
+		<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
   			
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    			<span class="navbar-toggler-icon"></span>
-  			</button>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
 			
-			<!-- content -->
-  			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<!-- content -->
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				
-				<!-- items on the left -->
-				<ul class="navbar-nav mr-auto">
+			<!-- items on the left -->
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+    				<a class="nav-link" href="/blog"> Journal <span class="sr-only">(current)</span></a>
+      			</li>
+				<li class="nav-item active">
+					<a class="nav-link mr-3" href="/gallery"> Gallery </a>
+				</li>
+			</ul>
+				
+			<!-- items on the right -->
+			<ul class="navbar-nav ml-auto">
+				<!-- decide what to show based on wheather or not the user is logged in -->
+					
+				<% if(!currentUser){ %>
+				
+					<!-- if user is not logged in, show logIn and SignUp links -->
 					<li class="nav-item active">
-        				<a class="nav-link" href="/blog"> Journal <span class="sr-only">(current)</span></a>
-      				</li>
+						<a class="nav-link" href="/register">SignUp</a>
+					</li>
 					<li class="nav-item active">
-						<a class="nav-link mr-3" href="/gallery"> Gallery </a>
+						<a class="nav-link" href="/login">LogIn</a>
 					</li>
 					
-		  			<!-- search -->
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-success" type="submit">Search</button>
-					</form>
-				</ul>
-				
-				<!-- items on the right -->
-				<ul class="navbar-nav ml-auto">
-					<!-- decide what to show based on wheather or not the user is logged in -->
-					
-					<% if(!currentUser){ %>
-					
-						<!-- if user is not logged in, show logIn and SignUp links -->
-						<li class="nav-item active">
-							<a class="nav-link" href="/register">SignUp</a>
-						</li>
-						<li class="nav-item active">
-							<a class="nav-link" href="/login">LogIn</a>
-						</li>
-					
-					<% }else{ %>
+				<% }else{ %>
 						
-						<!-- notifications dropdown -->
-						<li class="nav-item dropdown">
-        					<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
+					<!-- notifications dropdown -->
+					<li class="nav-item dropdown">
+        				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
 							
-            				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								
-								<!-- link to all notifications -->
-								<li> 
-									<a class="dropdown-item" href="/notifications">Past notifications</a> 
-								</li>
-								<div class="dropdown-divider">
-								
-								<!-- show unseen notifications -->
-								</div>
-								<% notifications.forEach(function(notification) { %>                          
-									<a class="dropdown-item" href="/notifications/<%= notification.id %>"> 
-										<%= notification.username %> published a new 
-											<% if(notification.gallery){ %> 
-												Gallery	
-											<% }else{ %> 
-												Journal 
-										<% } %>
-									</a>
-                				<% }); %>
-            				</ul>
-        				</li>	
+            			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							
+							<!-- link to all notifications -->
+							<li> 
+								<a class="dropdown-item" href="/notifications">Past notifications</a> 
+							</li>
+							<div class="dropdown-divider">
+							</div>
+							
+							<!-- show unseen notifications -->
+							<% notifications.forEach(function(notification) { %>                          
+								<a class="dropdown-item" href="/notifications/<%= notification.id %>"> 
+									<%= notification.username %> published a new 
+										<% if(notification.gallery){ %> 
+											Gallery	
+										<% }else{ %> 
+											Journal 
+									<% } %>
+								</a>
+            				<% }); %>
+            			</ul>
+        			</li>	
 					
-						<!-- user profile link -->
-						<li class="nav-item active">
-							<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
-						</li>
-						
-						<!-- logOut button -->
-						<li class="nav-item ml-5">
-							<a class="nav-link" href="/logout">LogOut</a>
-						</li>
-					<% } %>
-				</ul>
-	  		</div>
-		</nav>
-	</header>
+					<!-- user profile link -->
+					<li class="nav-item active">
+						<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
+					</li>
+					
+					<!-- logOut button -->
+					<li class="nav-item ml-md-5">
+						<a class="nav-link" href="/logout">LogOut</a>
+					</li>
+				<% } %>
+			</ul>
+  		</div>
+	</nav>
+</header>
 	
 	
 	<!-- req.flash error and success messages -->
