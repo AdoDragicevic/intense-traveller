@@ -34,15 +34,32 @@ cloudinary.config({
 
 // INDEX
 router.get("/", function(req, res){
-	Blog.find({}, function(err, blogs){
-		if(err){
-			console.log(err);
-			res.redirect("back");
-		}else{
-			res.render("blog/index", {blogs: blogs});
-		}
+	var perPage = 8;
+    var pageQuery = parseInt(req.query.page);
+    var pageNumber = pageQuery ? pageQuery : 1;
+	Blog.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
+        Blog.count().exec(function (err, count) {
+			if(err){
+				console.log(err);
+				res.redirect("back");
+			}else{
+				res.render("blog/index", { 
+					blogs: blogs, 
+					current: pageNumber, 
+					pages: Math.ceil(count / perPage) 
+				});
+			}
+		});
 	});
 });
+
+
+
+
+
+
+
+
 
 
 // NEW
