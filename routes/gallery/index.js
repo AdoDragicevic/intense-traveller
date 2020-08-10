@@ -30,18 +30,27 @@ cloudinary.config({
 });
 
 
-//ROUTES
+// ROUTES
 
 // INDEX
 router.get("/", function(req, res){
-	Gallery.find({}, function(err, galleries){
-		if(err){
-			console.log(err);
-			req.flash("error", "No albums found! Feel free to add an album.");
-			res.redirect("back");
-		}else{
-			res.render("gallery/index", {galleries: galleries});
-		}
+	let perPage = 12;
+    let pageQuery = parseInt(req.query.page);
+    let pageNumber = pageQuery ? pageQuery : 1;
+	Gallery.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
+		Gallery.count().exec(function (err, count) {
+			if(err){
+				console.log(err);
+				req.flash("error", "No albums found. Feel free to add one!");
+				res.redirect("back");
+			}else{
+				res.render("gallery/index", {
+					galleries: galleries, 
+					current: pageNumber,
+					pages: Math.ceil(count / perPage)
+				});
+			}
+		});
 	});
 });
 

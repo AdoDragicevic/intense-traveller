@@ -34,9 +34,9 @@ cloudinary.config({
 
 // INDEX
 router.get("/", function(req, res){
-	var perPage = 8;
-    var pageQuery = parseInt(req.query.page);
-    var pageNumber = pageQuery ? pageQuery : 1;
+	let perPage = 8;
+    let pageQuery = parseInt(req.query.page);
+    let pageNumber = pageQuery ? pageQuery : 1;
 	Blog.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
         Blog.count().exec(function (err, count) {
 			if(err){
