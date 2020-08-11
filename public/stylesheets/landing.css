@@ -67,11 +67,11 @@ h1 {
     animation-timing-function: ease-in;
   }
   10% {
-    opacity: 0.8;
+    opacity: 1;
     animation-timing-function: ease-out;
   }
   20% {
-    opacity: 0.8;
+    opacity: 1;
   }
   30% {
     opacity: 0
