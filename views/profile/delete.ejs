@@ -1,16 +1,33 @@
 <%- include("../partials/header") %>
 
-<h1>
-	Warning! This action is final. Are you sure you want to delete your profile?
-</h1>
-<h3>
-	Deleting the profile will also premanently delete all your journals and galleries!
-</h3>
+<header>
+	<div class="container">
+		
+		<div class="jumbotron text-danger">
+			
+			<h1>Warning! This action is final. Are you sure you want to delete your profile?</h1>
+			
+			<br>
+	
+			<h3>Deleting the profile will also premanently delete all your journals and galleries!</h3>
+			
+		</div>
+		
+	</div>
+</header>
 
-<form action="/profile/<%= user._id %>?_method=DELETE" method=POST>
-	<button class="btn bnt-danger">Delete My Profile</button>
-</form>
 
-<a class="btn btn-success" href="/profile/<%= user._id %>">Go back</a>
+<main>
+	<div class="container text-center mt-5">
+		
+		<a class="btn btn-success" href="/profile/<%= user._id %>">Go back</a>
+	
+		<form class="d-inline" action="/profile/<%= user._id %>?_method=DELETE" method=POST>
+			<button class="btn bnt-danger">Delete My Profile</button>
+		</form>
+		
+	</div>
+</main>
 
-<%- include("../partials/header") %>
+
+<%- include("../partials/footer") %>

@@ -1,10 +1,155 @@
-<%- include("./partials/header") %>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="/stylesheets/landing.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+    <title>Intense Traveller</title>
+</head>
+	
+	
+<body>
 
+	<!-- Flash messages -->
+	<section>
+	
+		<div class="container">
+			
+			<% if(error && error.length > 0){ %>
+				<div class="alert alert-danger" role="alert">
+					<%= error %>
+				</div>
+			<% } %>
+			
+			<% if(success && success.length > 0){ %>
+				<div class="alert alert-success" role="alert">
+					<%= success %>
+				</div>
+			<% } %>
 
-<h1>This is the landing page</h1>
+    	</div>
+		
+	</section>
+	
+	
+	<!-- Navbar -->
+	<header>
+	
+		<nav class="navbar navbar-expand-lg navbar-dark bg-none fixed-top">
 
-<a href="/blog">Travel Journal</a>
-<a href="/gallery">Picture Gallery</a>
+			<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
 
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- content -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<!-- items on the left -->
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/blog"> Journal <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link mr-3" href="/gallery"> Gallery </a>
+					</li>
+				</ul>
+
+				<!-- items on the right -->
+				<ul class="navbar-nav ml-auto">
+					
+					<!-- decide what to show based on wheather or not the user is logged in -->
+					<% if(!currentUser){ %>
+
+						<!-- if user is not logged in, show logIn and SignUp links -->
+						<li class="nav-item active">
+							<a class="nav-link" href="/register">SignUp</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="/login">LogIn</a>
+						</li>
+
+					<% }else{ %>
+
+						<!-- notifications dropdown -->
+						<li class="nav-item dropdown">
+							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
+
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+								<!-- link to all notifications -->
+								<li> 
+									<a class="dropdown-item" href="/notifications">Past notifications</a> 
+								</li>
+								<div class="dropdown-divider">
+								</div>
+
+								<!-- show unseen notifications -->
+								<% notifications.forEach(function(notification) { %>                          
+									<a class="dropdown-item" href="/notifications/<%= notification.id %>"> 
+										<%= notification.username %> published a new 
+											<% if(notification.gallery){ %> 
+												Gallery	
+											<% }else{ %> 
+												Journal 
+										<% } %>
+									</a>
+								<% }); %>
+							</ul>
+						</li>	
+
+						<!-- user profile link -->
+						<li class="nav-item active">
+							<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
+						</li>
+
+						<!-- logOut button -->
+						<li class="nav-item ml-md-5">
+							<a class="nav-link" href="/logout">LogOut</a>
+						</li>
+					
+					<% } %>
+					
+				</ul>
+				
+			</div>
+			
+		</nav>
+
+	</header>
+    
+	
+	<!-- Title and buttons -->
+	<main>
+		
+		<div id="landing-header">
+ 		
+			<h1> <em> Intense Traveller </em> </h1>
+
+			<a href="/blog">Travel Journal</a>
+			<a href="/gallery">Picture Gallery</a>
+		
+    	</div>
+		
+	</main>
+	
+    
+    <!-- Changing background imgs -->
+    <section>
+	
+		<ul class="slideshow">
+			<li></li>
+		    <li></li>
+		    <li></li>
+		    <li></li>
+		    <li></li>
+   		</ul>
+
+	</section>
+	
+	
 
 <%- include("./partials/footer") %>

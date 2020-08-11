@@ -6,6 +6,8 @@ const Gallery = require("../../models/gallery/gallery");
 const User = require("../../models/user");
 const Notification = require("../../models/notification/notification");
 
+const js = require("../../public/js/galleryShowPage.js");
+
 // CLOUDINARY SETUP
 const multer = require("multer");
 const storage = multer.diskStorage({
