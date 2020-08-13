@@ -32,34 +32,59 @@ cloudinary.config({
 });
 
 
+// ::::::::::: ROUTES ::::::::::::
+
+
 // INDEX
 router.get("/", function(req, res){
+	// pagination
 	let perPage = 8;
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
-	Blog.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
-        Blog.count().exec(function (err, count) {
-			if(err){
-				console.log(err);
-				res.redirect("back");
-			}else{
-				res.render("blog/index", { 
-					blogs: blogs, 
-					current: pageNumber, 
-					pages: Math.ceil(count / perPage) 
-				});
-			}
+	// search
+	if(req.query.search) {
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Blog.find({title: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
+			Blog.count().exec(function (err, count) {
+				if(err){
+					console.log(err);
+					res.redirect("back");
+				}else{
+					if(blogs.length === 0){
+						req.flash("success", "No Journal name matches the search term.");
+						res.render("blog/index", { 
+							blogs: blogs, 
+							current: pageNumber, 
+							pages: Math.ceil(count / perPage) 
+						});
+					}else{
+						res.render("blog/index", { 
+							blogs: blogs, 
+							current: pageNumber, 
+							pages: Math.ceil(count / perPage) 
+						});
+					}
+				}
+			});
 		});
-	});
+	// no search
+	}else{
+		Blog.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
+			Blog.count().exec(function (err, count) {
+				if(err){
+					console.log(err);
+					res.redirect("back");
+				}else{
+					res.render("blog/index", { 
+						blogs: blogs, 
+						current: pageNumber, 
+						pages: Math.ceil(count / perPage) 
+					});
+				}
+			});
+		});
+	}
 });
-
-
-
-
-
-
-
-
 
 
 // NEW
@@ -182,6 +207,12 @@ router.delete("/:id", middleware.checkBlogOwnership, function(req, res){
 		}
 	});
 });
+
+
+// fuzzy search
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router

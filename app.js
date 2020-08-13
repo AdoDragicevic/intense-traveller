@@ -26,8 +26,6 @@ const indexRoutes 		 = require("./routes"),
 	  galleryRoutes		 = require("./routes/gallery"),
 	  galleryLikeRoutes  = require("./routes/gallery/like");
 
-const js = require("./public/js/galleryShowPage.js");
-
 
 // MONGOOSE SETUP
 mongoose.connect('mongodb://localhost:27017/IntenseTraveller', {
