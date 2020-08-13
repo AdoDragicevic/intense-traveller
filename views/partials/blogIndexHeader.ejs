@@ -1,43 +1,27 @@
+<!-- header is custom on the index pages, because of the navbar search input, there is also some button and icon customization -->
+
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<link rel="stylesheet" href="/stylesheets/landing.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-    <title>Intense Traveller</title>
-</head>
-	
-	
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
+	  <link rel="stylesheet" href="/stylesheets/main.css">
+	  <link rel="stylesheet" href="/stylesheets/blogIndex.css">
+	<title>Intense Traveller</title>
+  </head>
 <body>
-
-	<!-- Flash messages -->
-	<section>
 	
-		<div class="container">
-			
-			<% if(error && error.length > 0){ %>
-				<div class="alert alert-danger" role="alert">
-					<%= error %>
-				</div>
-			<% } %>
-			
-			<% if(success && success.length > 0){ %>
-				<div class="alert alert-success" role="alert">
-					<%= success %>
-				</div>
-			<% } %>
-
-    	</div>
-		
-	</section>
-	
+<!-- Navbar, Flash messages, Carousel, Jumbotron -->
+<header>
 	
 	<!-- Navbar -->
-	<header>
-	
-		<nav class="navbar navbar-expand-lg navbar-dark bg-none fixed-top">
+	<section>
+		
+		<nav class="navbar navbar-expand-lg navbar-dark bg-none fixed-top mb-2">
 
 			<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
 
@@ -51,25 +35,30 @@
 				<!-- items on the left -->
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="/blog"> Journal <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="/blog"> <i class="fas fa-feather-alt"></i> Journal <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link mr-3" href="/gallery"> Gallery </a>
+						<a class="nav-link mr-3" href="/gallery"> <i class="fas fa-camera"></i> Gallery </a>
 					</li>
+					<!-- search form -->
+					<form action="/blog" method="GET" class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="text" name="search" placeholder="Search by Journal name" aria-label="Search">
+						<button class="btn btn-light my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i> </button>
+					</form>
 				</ul>
 
 				<!-- items on the right -->
 				<ul class="navbar-nav ml-auto">
-					
 					<!-- decide what to show based on wheather or not the user is logged in -->
+
 					<% if(!currentUser){ %>
 
 						<!-- if user is not logged in, show logIn and SignUp links -->
 						<li class="nav-item active">
-							<a class="nav-link" href="/register">SignUp</a>
+							<a class="nav-link" href="/register"> <i class="fas fa-user-plus"></i> SignUp</a>
 						</li>
 						<li class="nav-item active">
-							<a class="nav-link" href="/login">LogIn</a>
+							<a class="nav-link" href="/login"> <i class="fas fa-user"></i> LogIn</a>
 						</li>
 
 					<% }else{ %>
@@ -110,45 +99,57 @@
 						<li class="nav-item ml-md-5">
 							<a class="nav-link" href="/logout">LogOut</a>
 						</li>
-					
 					<% } %>
-					
 				</ul>
-				
 			</div>
-			
 		</nav>
-
-	</header>
-    
-	
-	<!-- Title and buttons -->
-	<main>
-		
-		<div id="landing-header">
- 		
-			<h1> <em> Intense Traveller </em> </h1>
-
-			<a class="stretched-link" href="/blog">Share Your Dreams</a>
-		
-    	</div>
-		
-	</main>
-	
-    
-    <!-- Changing background imgs -->
-    <section>
-	
-		<ul class="slideshow">
-			<li></li>
-		    <li></li>
-		    <li></li>
-		    <li></li>
-		    <li></li>
-   		</ul>
 
 	</section>
 	
 	
+	<!-- req.flash error and success messages -->
+	<section>
+	
+		<div class="container mt-5">
+			<% if(error && error.length > 0){ %>
+				<div id="to-front" class="alert alert-danger" role="alert">
+					<%= error %> 
+				</div>
+			<% } %>
+			<% if(success && success.length > 0){ %>
+				<div id="to-front" class="alert alert-success" role="alert">
+					<%= success %> 
+				</div>
+			<% } %>
+		</div>
+			
+	</section>
+	
+	
+	<!-- Carousel -->
+    <section>
+		<ul class="slideshow">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</section>
+	
+		
+	<!-- Jumbotron -->
+	<section>
+		
+		<div class="container text-center">
+			<div id="content" class="jumbotron">
+				<h1 class="display-3"> <em>Intense Traveller</em></h1>
+				<p class="lead"> <em> Write travel Journals, publish picture Galleries, Follow your favorite travellers, and more . . .  </em> </p>
+				<hr class="my-4">
+				<a class="btn btn-lg btn-success" href="/blog/new" role="button"> <i class="fas fa-feather-alt mr-2"></i> Write a New Journal</a>
+			</div>
+		</div>
+		
+	</section>
 
-<%- include("./partials/footer") %>
+</header>
