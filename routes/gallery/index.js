@@ -36,24 +36,56 @@ cloudinary.config({
 
 // INDEX
 router.get("/", function(req, res){
+	// pagination
 	let perPage = 12;
     let pageQuery = parseInt(req.query.page);
     let pageNumber = pageQuery ? pageQuery : 1;
-	Gallery.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
-		Gallery.count().exec(function (err, count) {
-			if(err){
-				console.log(err);
-				req.flash("error", "No albums found. Feel free to add one!");
-				res.redirect("back");
-			}else{
-				res.render("gallery/index", {
-					galleries: galleries, 
-					current: pageNumber,
-					pages: Math.ceil(count / perPage)
-				});
-			}
+	// search
+	if(req.query.search) {
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Gallery.find({title: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
+			Gallery.count().exec(function (err, count) {
+				if(err){
+					console.log(err);
+					req.flash("error", "No albums found. Feel free to add one!");
+					res.redirect("back");
+				}else{
+					// if there are no galleries with the searched name
+					if(galleries.length === 0){
+						res.render("gallery/index", {
+							success: "No galleries match the searched term.",
+							galleries: galleries, 
+							current: pageNumber,
+							pages: Math.ceil(count / perPage)
+						});
+					}else{
+						res.render("gallery/index", {
+							galleries: galleries, 
+							current: pageNumber,
+							pages: Math.ceil(count / perPage)
+						});
+					}
+					
+				}
+			});
 		});
-	});
+	}else{
+		Gallery.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
+			Gallery.count().exec(function (err, count) {
+				if(err){
+					console.log(err);
+					req.flash("error", "No albums found. Feel free to add one!");
+					res.redirect("back");
+				}else{
+					res.render("gallery/index", {
+						galleries: galleries, 
+						current: pageNumber,
+						pages: Math.ceil(count / perPage)
+					});
+				}
+			});
+		});
+	}
 });
 
 // NEW
@@ -200,6 +232,12 @@ router.delete("/:id", middleware.checkGalleryOwnership, function(req, res){
 		}
 	});
 });
+
+
+// fuzzy search
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router;

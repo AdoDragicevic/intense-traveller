@@ -50,9 +50,10 @@ router.get("/", function(req, res){
 					console.log(err);
 					res.redirect("back");
 				}else{
+					// if there are no blogs with the searched name
 					if(blogs.length === 0){
-						req.flash("success", "No Journal name matches the search term.");
 						res.render("blog/index", { 
+							success: "No Journals match the searched term.",
 							blogs: blogs, 
 							current: pageNumber, 
 							pages: Math.ceil(count / perPage) 
