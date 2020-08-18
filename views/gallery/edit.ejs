@@ -1,31 +1,62 @@
 <%- include("../partials/header") %>
 
-
-<h1>Edit <em> "<%= gallery.title %>" </em> </h1>
-
-
-<form action="/gallery/<%= gallery._id %>?_method=PUT" method="POST" enctype="multipart/form-data"> 
-	<input type="text" name="gallery[title]" value="<%= gallery.title %>">
-	<input type="file" id="imgUpload" name="img" accept="images/*" multiple>
-	<input type="submit" value="Update">
-</form>
-
-<br>
-
-<% gallery.imgs.forEach(function(img){ %>
-	<div>
-		<img src="<%= img.img %>" style="width: 200px">
-		<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
-			<input type="submit" value="x">
-		</form>
+<!-- Form for creating a new gallery -->
+<div class="container">
+	
+	<div class="row text-center my-5">
+		<a href="/gallery">Go Back</a>
+		<h1 class="mx-auto">Edit <em> "<%= gallery.title %>" </em> </h1>
 	</div>
-<% }); %>
+	
+	<div style="max-width: 750px; margin: auto;">
+		
+		<!-- Delete current pictures -->
+	<div class="row">
+		<div class="col-12">
+			<h6> <strong> Current Pictures: </strong> </h6>
+		</div>
+		<% gallery.imgs.forEach(function(img){ %>
+			<div class="col-3">
+				<img class="img-thumbnail img-fluid" src="<%= img.img %>" style="object-fit: cover; width: 100%; height: 100px">
+				<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
+					<input class="btn btn-outline-danger btn-block my-1" type="submit" value="X">
+				</form>
+			</div>
+		<% }); %>
+	</div>
+	
+		<hr>
+		
+	</div>
+	
+	
+	<!-- Add new pictures" -->
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			
+			<!-- form -->
+			<form class="my-2" action="/gallery/<%= gallery._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+				
+				<!-- title -->
+				<div class="form-group">
+					<label for="input1"> <strong> Title </strong> </label>
+					<input id="input1" class="form-control" type="text" name="gallery[title]" value="<%= gallery.title %>" required>
+				</div>
+				
+				<!-- picture -->
+				<div class="form-group">
+					<label for="input2"> <strong> Add Pictures </strong> </label>
+				  	<div class="custom-file">
+						<input id="input2" class="custom-file-input" type="file" name="img" accept="images/*" multiple>
+						<label class="custom-file-label" for="input2"> Imgs </label>
+				  	</div>
+				</div>
+				<button class="btn btn-primary btn-block">Update!</button>
+			</form>
+		</div>
+	</div>
 
-<br>
-
-<form action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
-	<input type="submit" value="Delete Gallery">
-</form>
+</div>
 
 
-<%- include("../partials/header") %>
+<%- include("../partials/footer") %>

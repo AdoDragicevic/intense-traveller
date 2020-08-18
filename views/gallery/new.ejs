@@ -1,13 +1,39 @@
 <%- include("../partials/header") %>
 
-
-<h1>Create a Picture Album</h1>
-
-<form action="/gallery" method="POST" enctype="multipart/form-data">
-	<input type="text" name="gallery[title]" placeholder="Album name">
-	<input type="file" name="img" accept="images/*" multiple>
-	<input type="submit" value="Create">
-</form>
+<!-- Form for creating a new gallery -->
+<div class="container">
+	
+	<div class="row text-center mt-5">
+		<a href="/gallery">Go Back</a>
+		<h1 class="mx-auto">Create a New Gallery</h1>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			
+			<!-- form -->
+			<form class="my-2" action="/gallery" method="POST" enctype="multipart/form-data">
+				
+				<!-- title -->
+				<div class="form-group">
+					<label for="input1"> <strong> Title </strong> </label>
+					<input id="input1" class="form-control" type="text" name="gallery[title]" placeholder="My trip to Spain..." required>
+				</div>
+				
+				<!-- picture -->
+				<div class="form-group">
+					<label for="input2"> <strong> Picture </strong> </label>
+				  	<div class="custom-file">
+						<input id="input2" class="custom-file-input" type="file" name="img" accept="images/*" multiple required>
+						<label class="custom-file-label" for="input2">Choose files</label>
+				  	</div>
+				</div>
+			
+				<button class="btn btn-primary btn-block">Submit!</button>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 <%- include("../partials/footer") %>

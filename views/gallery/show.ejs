@@ -16,13 +16,25 @@
 			<!-- title -->
 			<h1> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
         
-			<!-- author, date, total likes -->
+			<!-- author, date, total likes, edit and delete -->
 			<div>
 				<p> Published by: <a href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
 				<p> <em> Posted on <%= gallery.created.toDateString() %> </em> </p>
-				<p>
+				
+				
+				<!-- show edit and delete buttons only if current user is author or admin -->
+				<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUsser.isAdmin){ %>
+					
+				<!-- Edit button -->
+					<a class="btn btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
 
-				</p>	
+					<!-- Delete button -->
+					<form class="d-inline float-right" action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
+						<input class="btn btn-danger mx-auto" type="submit" value="Delete">
+					</form>
+				
+				<% } %>
+				
 			</div>
     	</div>
 	</div>
