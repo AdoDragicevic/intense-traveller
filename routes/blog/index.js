@@ -53,13 +53,6 @@ router.get("/", function(req, res){
 					// if there are no blogs with the searched name
 					if(blogs.length === 0){
 						res.render("blog/index", { 
-							success: "No Journals match the searched term.",
-							blogs: blogs, 
-							current: pageNumber, 
-							pages: Math.ceil(count / perPage) 
-						});
-					}else{
-						res.render("blog/index", { 
 							blogs: blogs, 
 							current: pageNumber, 
 							pages: Math.ceil(count / perPage) 

@@ -53,13 +53,6 @@ router.get("/", function(req, res){
 					// if there are no galleries with the searched name
 					if(galleries.length === 0){
 						res.render("gallery/index", {
-							success: "No galleries match the searched term.",
-							galleries: galleries, 
-							current: pageNumber,
-							pages: Math.ceil(count / perPage)
-						});
-					}else{
-						res.render("gallery/index", {
 							galleries: galleries, 
 							current: pageNumber,
 							pages: Math.ceil(count / perPage)
