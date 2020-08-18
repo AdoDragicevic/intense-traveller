@@ -87,3 +87,12 @@ h1 {
 	z-index: 1;
 	background: none;
 }
+
+
+
+@media (max-width: 400px) {
+	.slideshow, .slideshow li {
+		height: 90%;
+	}
+	
+}
