@@ -1,141 +1,19 @@
-<!-- header is custom on the index page, because of the navbar search input -->
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
-	  <link rel="stylesheet" href="/stylesheets/main.css">
-	<title>Intense Traveller</title>
-  </head>
-<body>
-	
-	
-<header>
-	
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-			
-		<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
-  			
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    		<span class="navbar-toggler-icon"></span>
-  		</button>
-			
-		<!-- content -->
-  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				
-			<!-- items on the left -->
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-    				<a class="nav-link" href="/blog"> Journal <span class="sr-only">(current)</span></a>
-      			</li>
-				<li class="nav-item active">
-					<a class="nav-link mr-3" href="/gallery"> Gallery </a>
-				</li>
-				<!-- search form -->
-				<form action="/gallery" method="GET" class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="text" name="search" placeholder="Search by Gallery name" aria-label="Search">
-					<button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
-    			</form>
-			</ul>
-				
-			<!-- items on the right -->
-			<ul class="navbar-nav ml-auto">
-				<!-- decide what to show based on wheather or not the user is logged in -->
-					
-				<% if(!currentUser){ %>
-				
-					<!-- if user is not logged in, show logIn and SignUp links -->
-					<li class="nav-item active">
-						<a class="nav-link" href="/register">SignUp</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="/login">LogIn</a>
-					</li>
-					
-				<% }else{ %>
-						
-					<!-- notifications dropdown -->
-					<li class="nav-item dropdown">
-        				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
-							
-            			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							
-							<!-- link to all notifications -->
-							<li> 
-								<a class="dropdown-item" href="/notifications">Past notifications</a> 
-							</li>
-							<div class="dropdown-divider">
-							</div>
-							
-							<!-- show unseen notifications -->
-							<% notifications.forEach(function(notification) { %>                          
-								<a class="dropdown-item" href="/notifications/<%= notification.id %>"> 
-									<%= notification.username %> published a new 
-										<% if(notification.gallery){ %> 
-											Gallery	
-										<% }else{ %> 
-											Journal 
-									<% } %>
-								</a>
-            				<% }); %>
-            			</ul>
-        			</li>	
-					
-					<!-- user profile link -->
-					<li class="nav-item active">
-						<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
-					</li>
-					
-					<!-- logOut button -->
-					<li class="nav-item ml-md-5">
-						<a class="nav-link" href="/logout">LogOut</a>
-					</li>
-				<% } %>
-			</ul>
-  		</div>
-	</nav>
-</header>
-	
-	
-	<!-- req.flash error and success messages -->
-	<div class="container">
-		<% if(error && error.length > 0){ %>
-			<div id="to-front" class="alert alert-danger" role="alert">
-				<%= error %> 
-			</div>
-		<% } %>
-		<% if(success && success.length > 0){ %>
-			<div id="to-front" class="alert alert-success" role="alert">
-				<%= success %> 
-			</div>
-		<% } %>
-	</div>
-	
-    
-
-<!-- Jumbotron -->
-<header>
-	<div class="container text-center">
-		<div class="jumbotron" style="background-color: white">
-  			<h1 class="display-3"> <em>Intense Traveller</em></h1>
-			<p class="lead"> <em> Create Travel Journals, add Picture Galleries, Follow your favorite travellers, and more . . .  </em> </p>
-  			<hr class="my-4">
-			<a class="btn btn-lg btn-primary" href="/gallery/new" role="button">Create New Gallery</a>
-		</div>
-	</div>
-</header>
+<%- include("../partials/galleryIndexHeader") %>
 
 
-<!-- shwo all galleries -->
+<!-- show all galleries -->
 <main>
-	<div class="container">
-		<div class="row">
+	<div class="container-lg">
+		
+		<% if(galleries.length !== 0){ %>
+						<h5 class="text-center pt-5 pt-sm-0 mt-sm-0 pt-lg-5 mt-lg-5">Journals:</h5>
+					<% }else{ %>
+						 <h5 class="text-center pt-5 pt-sm-0 mt-sm-0 pt-lg-5 mt-lg-5">No Journals found</h5>
+					<% } %>
+		
+		
+		
+		<div class="row mt-3">
 			
 				<!-- show pagination container only if there is more than 7 items or the user is not on the first page -->
 				<% var numOfGalleries = 0; %>
