@@ -7,6 +7,11 @@ h1 {
 	font-size: 4rem;
 }
 
+.navbar.scrolled {
+	background-color: #2b2c30;
+  	transition: background-color 200ms linear;
+}
+
 .slideshow { 
   position: absolute;
   width: 100%;
@@ -95,4 +100,11 @@ h1 {
 		height: 90%;
 	}
 	
+}
+
+/* change navbar background on collapse */
+@media (max-width: 768px) {
+  nav.navbar {
+    background: #2b2c30;
+  }
 }

@@ -9,14 +9,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
-	  <link rel="stylesheet" href="/stylesheets/main.css">
-	  <link rel="stylesheet" href="/stylesheets/blogIndex.css">
+		<link rel="stylesheet" href="/stylesheets/main.css">
+		<link rel="stylesheet" href="/stylesheets/index.css">
 	<title>Intense Traveller</title>
-  </head>
+	</head>
 <body>
+	
 	
 <!-- Navbar, Flash messages, Carousel, Jumbotron -->
 <header>
+	
 	
 	<!-- Navbar -->
 	<section>
@@ -29,6 +31,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
+			
 			<!-- content -->
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -41,12 +44,17 @@
 						<a class="nav-link mr-3" href="/gallery"> <i class="fas fa-camera"></i> Gallery </a>
 					</li>
 					<!-- search form -->
-					<form action="/blog" method="GET" class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="text" name="search" placeholder="Search by Journal name" aria-label="Search">
-						<button class="btn btn-light my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i> </button>
-					</form>
+					<form action="/blog" method="GET" class="form-group my-2 my-lg-0">
+						<div class="input-group">
+							<input class="form-control mr-sm-2" type="text" name="search" placeholder="Search by Journal name" aria-label="Search">
+							<div class="input-group-append mt-0 pt-0">
+								<button class="btn btn-light" type="submit"> <i class="fas fa-search"></i> </button>
+					  		</div>
+						</div>
+					</form>	
 				</ul>
 
+				
 				<!-- items on the right -->
 				<ul class="navbar-nav ml-auto">
 					<!-- decide what to show based on wheather or not the user is logged in -->
@@ -148,7 +156,6 @@
 				<a class="btn btn-lg btn-success" href="/blog/new" role="button"> <i class="fas fa-feather-alt mr-2"></i> Write a New Journal</a>
 			</div>
 		</div>
-		
 	</section>
 
 </header>
