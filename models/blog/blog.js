@@ -30,7 +30,13 @@ const blogSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         }
-    ]
+    ],
+	link: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Gallery"
+		}
+	]
 });
 
 
