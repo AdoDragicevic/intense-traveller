@@ -1,18 +1,45 @@
 <%- include("../partials/header") %>
 
+<div class="container">
+	
+	<div class="row text-center mt-5">
+		<a href="/profile/<%= user._id %>">Go Back</a>
+		<h1 class="mx-auto mb-4">
+			<% if(user.img.length < 1 || user.about.length < 1){ %>
+				Add a profile picture and description!
+			<% }else{ %>
+				Update profile picture and description
+			<% } %>
+		</h1>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-8 mx-auto">
+			
+			<!-- form -->
+			<form class="my-2" action="/profile/<%= user._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+				
+				<!-- picture -->
+				<div class="form-group">
+					<label for="profileImg"> <strong> Profile Picture </strong> </label>
+				  	<div class="custom-file">
+						<input id="profileImg" class="custom-file-input" type="file" name="img" accept="image/*">
+						<label class="custom-file-label" for="profileImg">Choose file</label>
+				  	</div>
+				</div>
+				
+				<!-- about -->
+				<div class="form-group">
+					<label for="profileAbout"> <strong> About You </strong> </label>
+					<textarea id="profileAbout" class="form-control" name="user[about]" rows="15"> <%= user.about %> </textarea> 
+				</div>
+				
+				<button class="btn btn-primary btn-block mb-4">Submit!</button>
+			</form>
+			
+		</div>
+	</div>
+</div>
 
-<h1>Edit <em> "<%= gallery.title %>" </em> </h1>
 
-
-<form action="/profile" method="POST" enctype="multipart/form-data"> 
-	<input type="text" name="gallery[title]" value="<%= gallery.title %>">
-	<input type="file" id="imgUpload" name="img" accept="images/*" multiple>
-	<input type="submit" value="Update">
-</form>
-
-<form action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
-	<input type="submit" value="Delete Gallery">
-</form>
-
-
-<%- include("../partials/header") %>
+<%- include("../partials/footer") %>

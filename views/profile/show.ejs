@@ -6,85 +6,103 @@
 <header>
 	<div class="container text-center my-5">
 		
-		<!-- title -->
-		<h1 class="display-4 mt-5"><%= user.username %>'s profile</h1>
+		<!-- Edit & Delete profile -->
+		<% if(currentUser && currentUser._id.equals(user.id)  || currentUser && currentUser.isAdmin){ %>
+			<a class="btn btn-danger float-right" href="/profile/<%= user.id %>/delete">Delete</a>	
+			<a class="btn btn-warning float-right mr-3" href="/profile/<%= user.id %>/edit">Edit</a>
+		<% } %>	
 		
-		<!-- num of followers, delete/follow button -->
-		<div class="d-flex justify-content-around m-auto" style="max-width: 600px">
-			
-			<!-- Show number of followers -->
-			<span> Followers: <%= user.followers.length %> </span> 
-
-
-			<!-- Delete profile -->
-			<% if(currentUser && currentUser._id.equals(user.id)  || currentUser && currentUser.isAdmin){ %>
-				<a class="btn btn-link ml-5" href="/profile/<%= user.id %>/delete">Delete profile</a>
-			<% } %>
-
-			<!-- Follow / Stop following -->
-			<% if(currentUser && !currentUser._id.equals(user.id)){ %>
-				<a class="btn btn-sm btn-success ml-5" href="/follow/<%= user.id %>">
-					<!-- change text from follow to stop following -->
-					<% if(user.followers.some(function(follower){ %>
-						<% return follower.equals(currentUser._id); %>
-					<% })){ %>
-						Stop following
-					<% }else{ %>
-						Follow
-					<% } %>
-				</a>
-			<% } %>
-		</div>
+		<!-- Follow / Stop following -->
+		<% if(currentUser && !currentUser._id.equals(user.id)){ %>
+			<a class="btn btn-success float-right" href="/follow/<%= user.id %>">
+				<!-- change text from follow to stop following -->
+				<% if(user.followers.some(function(follower){ %>
+					<% return follower.equals(currentUser._id); %>
+				<% })){ %>
+					Unfollow
+				<% }else{ %>
+					Follow
+				<% } %>
+			</a>
+		<% } %>
+		
+		<br>
+		
+		<!-- title -->
+		<h1 class="display-4 mt-3"><%= user.username %>'s profile</h1>
+		
+		<!-- num of followers -->
+		<p class="text-center"> Followers: <%= user.followers.length %> </p> 
 		
 		<hr>
 		
 	</div>
 </header>
 
-<!-- display published journals and galleries -->
+
+<!-- User img & description -->
 <main>
+	<div class="row">
+		<div class="col-md-6">
+			<!-- img -->
+			<img src="<%= user.img %>">		
+		</div>
+		
+		<div class="col-md-6">
+			<!-- about -->
+			<p> <%= user.about %> </p>	
+		</div>
+		
+	</div>
+	
+	<hr>
+	
+</main>
+
+
+<!-- display published journals and galleries -->
+<footer>
 	<div class="container">
 		<div class="row">
-			
-			
+		
 			<!-- list of published journals -->
-			<div class="col-md-6 d-flex justify-content-center">
-				
+			<div class="col-md-6 d-flex justify-content-center">	
 				<div>
 					<h4 class="my-4">Published Journals:</h4>
-				
-					<% if(blogs && blogs.length !== 0){ %>
+					<ul>
+						<% if(blogs && blogs.length !== 0){ %>
 						<% blogs.forEach(function(blog){ %>
 							<li> <a href="/blog/<%= blog._id %>"> <%= blog.title %> </a> </li>
 						<% }) %>
-					<% }else{ %>
-						<li>No published Journals</li>
-						<li> <a href="/blog/new">Create Journal</a> </li>
-					<% } %>
+						<% }else{ %>
+							<li>No published Journals</li>
+							<li> <a href="/blog/new">Create Journal</a> </li>
+						<% } %>
+					</ul>
 				</div>
 			</div>
 			
 			
 			<!-- list of published galleries -->
 			<div class="col-md-6 d-flex justify-content-center">
-				
 				<div>
 					<h4 class="my-4">Published Albums</h4>
-				
-					<% if(galleries && galleries.length !== 0){ %>
+					<ul>
+						<% if(galleries && galleries.length !== 0){ %>
 						<% galleries.forEach(function(gallery){ %>
 							<li> <a href="/gallery/<%= gallery._id %>"> <%= gallery.title %> </a> </li>
 						<% }); %>
-					<% }else{ %>
-						<li>No published Albums</li>
-						<li> <a href="/gallery/new">Create Album</a> </li>
-					<% } %>
+						<% }else{ %>
+							<li>No published Albums</li>
+							<li> <a href="/gallery/new">Create Album</a> </li>
+						<% } %>
+					</ul>
 				</div>
-				
 			</div>
+			
 		</div>
 	</div>
-</main>
+</footer>
 
 
 

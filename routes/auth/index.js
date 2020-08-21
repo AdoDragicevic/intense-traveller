@@ -16,7 +16,7 @@ router.get("/register", function(req, res){
 
 // REGISTER LOGIC
 router.post("/register", function(req, res){
-	let newUser = new User({username: req.body.username, email: req.body.email});
+	let newUser = new User({username: req.body.username, email: req.body.email, img: "", imgId: "", about: ""});
 	if(req.body.username === "Admin"){
 		newUser.isAdmin = true;
 	}

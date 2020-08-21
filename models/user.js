@@ -9,8 +9,9 @@ const UserSchema = new mongoose.Schema({
 	resetPasswordToken: String,
     resetPasswordExpires: Date,
 	isAdmin: {type: Boolean, default: false},
-	profilePic: String,
-	description: String,
+	img: String,
+	imgId: String,
+	about: String,
 	notifications: [
     	{
     	   type: mongoose.Schema.Types.ObjectId,
