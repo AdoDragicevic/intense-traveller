@@ -43,11 +43,14 @@
 				
 				<!-- blog picture, date, text, and buttons  -->
 				<div class="col-lg-9">
+					
+					<!-- image -->
 					<div class="card">
 						<img class="card-img-top img-fluid p-1" src=" <%= blog.img %> ">
 					</div>
 					
-					<div class="card">
+					<!-- date, text, buttons -->
+					<div class="card mb-5">
 						
 						<!-- Time posted and like button -->
 						<ul class="list-group list-group-flush">
@@ -87,9 +90,8 @@
 							</li>	
 						</ul>
 						
-						
 						<!-- blog text -->
-						<p class="card-text m-4 mt-5" style="white-space: pre-line; white-space: pre-wrap;"><%= blog.content %></p>
+						<p class="card-text m-4 mt-5 p-1" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"><%= blog.content %></p>
 					</div>
 				</div>
 			</div>
@@ -102,7 +104,7 @@
 			<div class="row">
 				<div class="col-lg-3"></div>
 			<div class="col-lg-9">
-				<div class="card-footer my-5">
+				<div class="card-footer border-top-0 my-5">
 					<!-- Collapse button -->
 					<div class="float-right">
 						<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
