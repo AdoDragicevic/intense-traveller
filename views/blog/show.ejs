@@ -69,9 +69,9 @@
 									<!-- Like button -->
 									<form class="d-inline" action="/blog/<%= blog._id %>/like" method="POST">
 										<div>
-											<% if (currentUser && blog.likes.some(function (like) {
-												return like.equals(currentUser._id)
-											})) { %>
+											<% if (currentUser && blog.likes.some(function (like) { %>
+												<% return like.equals(currentUser._id) %>
+											<% })) { %>
 												<button class="btn btn-sm btn-info">
 													<i class="fas fa-thumbs-up"></i> Liked (<%= blog.likes.length %>)
 												</button>
@@ -89,7 +89,7 @@
 						
 						
 						<!-- blog text -->
-						<p class="card-text m-4 mt-5"><%= blog.content %></p>
+						<p class="card-text m-4 mt-5" style="white-space: pre-line; white-space: pre-wrap;"><%= blog.content %></p>
 					</div>
 				</div>
 			</div>
