@@ -23,7 +23,7 @@
 				
 				
 				<!-- show edit and delete buttons only if current user is author or admin -->
-				<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUsser.isAdmin){ %>
+				<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 					
 				<!-- Edit button -->
 					<a class="btn btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
