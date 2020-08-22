@@ -3,53 +3,60 @@
 
 <!-- show all galleries -->
 <main>
-	<div class="container-lg">
+	<div class="container-lg mb-5">
 		
 		<% if(galleries.length !== 0){ %>
-						<h5 class="text-center mt-5 pt-5">Galleries:</h5>
-					<% }else{ %>
-						 <h5 class="text-center mt-5 pt-5">No Galleries found</h5>
-					<% } %>
-		
-		
+			<h5 class="text-center mt-5 pt-5">Galleries:</h5>
+		<% }else{ %>
+			<h5 class="text-center mt-5 pt-5">No Galleries found</h5>
+		<% } %>
 		
 		<div class="row mt-3">
 			
 				<!-- show pagination container only if there is more than 7 items or the user is not on the first page -->
 				<% var numOfGalleries = 0; %>
-				
+			
+				<!-- show all galleries -->
 				<% galleries.forEach(function(gallery){ %>
 			
 					<% numOfGalleries = numOfGalleries + 1; %>
 					
 					<div class="col-md-6 col-lg-4">		
 
-						<div class="card p-0 my-4">
+						<div class="card p-0 my-4 border border-light">
 
 							<!-- show first img from the gallery -->
-							<img class="card-img-top" src="<%= gallery.imgs[0].img %>" style="object-fit: cover; width: 100%; height: 200px">
+							<img class="card-img-top" src="<%= gallery.imgs[0].img %>" style="object-fit: cover; width: 100%; height: 200px;">
 							
-							<!-- title, author, total likes of all pics in the gallery -->
-							<div class="card-body py-2">
+							<!-- title, author, num of imgs, total likes of all pics in the gallery -->
+							<div class="card-body p-0 px-4 bg-light">
 								
 								<!-- title -->
 								<h5 class="card-title text-center"> <%= gallery.title %> </h5>
 								
-								<!-- author and total likes -->
+								<!-- author, num of imgs, total likes -->
 								<p class="card-text">
 									
-									<!-- author -->
-									<span> Posted by <em> <%= gallery.author.username %> </em> </span>
+									<div class="d-flex justify-content-between">
 									
-									<!-- calculate all the likes inside the gallery -->
-									<% let numOfLikes = 0; %>
-									<% gallery.imgs.forEach(function(img, i){ %>
-										<% numOfLikes = numOfLikes + img.likes.length; %>
-									<% }); %>
-									<span class="float-right">
-										<i class="fas fa-thumbs-up"></i> 
-										<%= numOfLikes %> 
-									</span> 
+										<!-- author -->
+										<span> <strong> <%= gallery.author.username %> </strong> </span>
+
+
+										<!-- num of imgs -->
+										<span> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>
+
+
+										<!-- calculate all the likes inside the gallery -->
+										<% let numOfLikes = 0; %>
+										<% gallery.imgs.forEach(function(img, i){ %>
+											<% numOfLikes = numOfLikes + img.likes.length; %>
+										<% }); %>
+										<span class="float-right">
+											<i class="fas fa-thumbs-up"></i> 
+											<%= numOfLikes %> 
+										</span>
+									</div>
 								</p>
 							</div>
 							<a class="stetched-link stretched-link" href="/gallery/<%= gallery._id %>"></a>	
@@ -63,7 +70,7 @@
 
 <!-- Pagination -->
 <footer>
-	<div class="container">
+	<div class="container mb-5">
 		<nav aria-label="Page navigation ">
 			
 			<!-- show pagination container only if there is more than 7 items or the user is not on the first page -->

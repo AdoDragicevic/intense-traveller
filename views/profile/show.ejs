@@ -1,7 +1,6 @@
 <%- include("../partials/header") %>
 
 
-
 <!-- title, num of followers, delete/follow button -->
 <header>
 	<div class="container text-center my-5">
@@ -24,6 +23,8 @@
 					Follow
 				<% } %>
 			</a>
+		<% }else if(!currentUser){ %>
+			<a class="btn btn-outline-success float-right" href="/follow/<%= user.id %>"> Follow </a>
 		<% } %>
 		
 		<br>
@@ -42,28 +43,54 @@
 
 <!-- User img & description -->
 <main>
-	<div class="row">
-		<div class="col-md-6">
-			<!-- img -->
-			<img src="<%= user.img %>">		
+	<div class="container">
+		<div class="row mb-5">
+			<div class="col-md-6">
+				<div class="d-flex justify-content-center">
+					<!-- img -->
+					<img class="img-fluid rounded-circle img-thumbnail m-auto" src="<%= user.img %>" style="height: 270px; width: 270px; object-fit: cover;">	
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<!-- about and personal data -->
+				<div class="p-3" style="max-height: 270px; width: 100%; overflow: auto; overflow-x: hidden;">
+					<div class="cart-text">
+						
+						<!-- about -->
+						<label for="aboutMe"> <strong> About Me </strong> </label>
+						<p id="aboutMe"> <%= user.about %> </p>
+						
+						<!-- personal data -->		
+						<label for="personalData"> <strong> Personal Data </strong> </label>
+						<div id="personalData">
+							<% for(let i = 0; i < user.personalData.length; i++){ %>
+								<% if(user.personalData[i] !== ""){ %>
+									<p> <%= user.personalData[i] %> </p>						
+								<% } %>											
+							<% } %>
+						
+						</div>
+						
+					</div>
+				</div>
+				
+				
+					
+				
+			</div>
 		</div>
 		
-		<div class="col-md-6">
-			<!-- about -->
-			<p> <%= user.about %> </p>	
-		</div>
+		<hr>
 		
 	</div>
-	
-	<hr>
-	
 </main>
 
 
 <!-- display published journals and galleries -->
 <footer>
 	<div class="container">
-		<div class="row">
+		<div class="row mb-5">
 		
 			<!-- list of published journals -->
 			<div class="col-md-6 d-flex justify-content-center">	
@@ -103,15 +130,6 @@
 		</div>
 	</div>
 </footer>
-
-
-
-
-
-
-
-
-
 
 
 <%- include("../partials/footer") %>

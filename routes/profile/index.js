@@ -49,7 +49,7 @@ router.get("/:id", async function(req, res){
 });
 
 // EDIT
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", middleware.checkProfileOwnership, function(req, res){
 	User.findById(req.params.id, function(err, user){
 		if(err){
 			console.log(err);
@@ -63,7 +63,7 @@ router.get("/:id/edit", function(req, res){
 
 
 // UPDATE
-router.put("/:id", upload.single("img"), function(req, res){
+router.put("/:id", middleware.checkProfileOwnership, upload.single("img"), function(req, res){
 	User.findById(req.params.id, async function(err, user){
 		if(err){
 			console.log(err);
@@ -74,7 +74,7 @@ router.put("/:id", upload.single("img"), function(req, res){
 			if(req.file){
 				try{
 					// if profile img already exists
-					if(!user.imgId === ""){
+					if(user.imgId !== ""){
 						// delete current img from cloudinary
 						await cloudinary.v2.uploader.destroy(user.imgId);	
 					}
@@ -90,6 +90,7 @@ router.put("/:id", upload.single("img"), function(req, res){
 			}
 			// update data
 			user.about = req.body.user.about;
+			user.personalData = req.body.personalData;
 			await user.save();
 			req.flash("success", "Successfully updated!");
 			res.redirect("/profile/" + user._id);	

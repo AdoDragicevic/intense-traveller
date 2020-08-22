@@ -12,6 +12,15 @@ const UserSchema = new mongoose.Schema({
 	img: String,
 	imgId: String,
 	about: String,
+	personalData: {
+		name: String,
+		gender: String,
+		location: String,
+		profession: String,
+		contact: String,
+		hobbies: String,
+		relationship: String,
+	},
 	notifications: [
     	{
     	   type: mongoose.Schema.Types.ObjectId,
