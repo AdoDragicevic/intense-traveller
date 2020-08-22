@@ -64,9 +64,12 @@
 						<!-- personal data -->		
 						<label for="personalData"> <strong> Personal Data </strong> </label>
 						<div id="personalData">
-							<% for(let i = 0; i < user.personalData.length; i++){ %>
+							
+							
+							
+							<% for(let i = 0; i < Object.keys(user.personalData).length; i++){ %>
 								<% if(user.personalData[i] !== ""){ %>
-									<p> <%= user.personalData[i] %> </p>						
+									<p> <%= Object.values(user.personalData) %> </p>						
 								<% } %>											
 							<% } %>
 						

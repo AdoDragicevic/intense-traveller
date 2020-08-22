@@ -3,7 +3,19 @@
 <!--  blog title -->
 <header>
 	<div class="container">
-		<div class="row mt-5">
+		<div class="row mr-4 mt-5 d-flex justify-content-end">
+			<!-- Edit & Delete Buttons -->
+			<div>
+				<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+					<a class="btn btn-sm btn-warning" href="/blog/<%= blog._id %>/edit">Edit</a>
+					<form class="d-inline" action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-sm btn-danger">Delete</button>
+					</form>
+				<% } %>
+			</div>
+		</div>
+		
+		<div class="row mt-3">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
 				<h1> <%= blog.title %> </h1>
@@ -45,29 +57,18 @@
 				<div class="col-lg-9">
 					
 					<!-- image -->
-					<div class="card">
+					<div class="card mx-md-3">
 						<img class="card-img-top img-fluid p-1" src=" <%= blog.img %> ">
 					</div>
 					
-					<!-- date, text, buttons -->
-					<div class="card mb-5">
+					<!-- date, text, like buttons -->
+					<div class="card mb-5 mx-md-3">
 						
 						<!-- Time posted and like button -->
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
 								<div class="d-flex justify-content-between">
-									<span> <em> Posted on <%= blog.created.toDateString() %> </em> </span>
-									
-									<!-- Edit & Delete Buttons -->
-									<div>
-										<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-											<a class="btn btn-sm btn-warning" href="/blog/<%= blog._id %>/edit">Edit</a>
-											<form class="d-inline" action="/blog/<%= blog._id %>?_method=DELETE" method="POST">
-												<button class="btn btn-sm btn-danger">Delete</button>
-											</form>
-										<% } %>
-									</div>
-									
+									<span> <em> <%= blog.created.toDateString() %> </em> </span>
 									
 									<!-- Like button -->
 									<form class="d-inline" action="/blog/<%= blog._id %>/like" method="POST">
@@ -91,7 +92,7 @@
 						</ul>
 						
 						<!-- blog text -->
-						<p class="card-text m-4 mt-5 p-1" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"><%= blog.content %></p>
+						<p class="card-text m-4 my-5 py-1 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"><%= blog.content %></p>
 					</div>
 				</div>
 			</div>
