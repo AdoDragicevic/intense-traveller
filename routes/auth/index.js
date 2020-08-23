@@ -44,7 +44,7 @@ router.post("/register", function(req, res){
 		}else{
 			passport.authenticate("local")(req, res, function(){
 				req.flash("Success", req.user.username + "  welcome to the Intense Traveller community!");
-				res.redirect("/");
+				res.redirect("/blog");
 			});
 		}
 	});
@@ -57,7 +57,7 @@ router.get("/login", function(req, res){
 
 // LOGIN LOGIC
 router.post("/login", passport.authenticate("local", {
-	successRedirect: "/",
+	successRedirect: "/blog",
 	failureRedirect: "/login"
 }), function(req, res){
 });
@@ -65,7 +65,7 @@ router.post("/login", passport.authenticate("local", {
 // LOGOUT
 router.get("/logout", function(req, res){
 	req.logout();
-	res.redirect("/");
+	res.redirect("/blog");
 });
 
 
@@ -186,7 +186,7 @@ router.post("/reset/:token", function(req, res) {
     	}
   		], 
 		function(err) {
-    		res.redirect("/");
+    		res.redirect("/blog");
   	});
 });
 

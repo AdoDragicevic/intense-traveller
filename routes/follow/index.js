@@ -26,7 +26,7 @@ router.get("/follow/:id", middleware.isLoggedIn, async function(req, res){
 			req.flash("success", "You are following " + user.username + "!");
 		}		
 		user.save();
-		res.redirect("/profile/" + req.params.id);
+		res.redirect("back");
 	}catch(err){
 		console.log(err);
 		req.flash("error", "Unable to follow this user at this time. Please, try again later.");

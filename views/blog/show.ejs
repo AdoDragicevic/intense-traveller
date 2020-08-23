@@ -18,7 +18,7 @@
 		<div class="row mt-3">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
-				<h1> <%= blog.title %> </h1>
+				<h1 class="display-4 text-center py-3"> <%= blog.title %> </h1>
 			</div>
 		</div>
 	</div>
@@ -31,30 +31,49 @@
 		<div class="container">
 			<div class="row">
 				
-				<!--author info -->
-				<div class="col-lg-3">
+				<!-- info -->
+				<div class="col-lg-3 border-right">
 					
 					<div class="mt-2">
-					
-						<!-- Small img -->
-						<img src="#">
 						
-						<!-- authors name -->
-						<h2> <a href="/profile/<%= blog.author.id %>"> <%= blog.author.username %> </a> </h2>
+						<!-- author -->
+						<label class="text-secondary" for="blogAuthor"> <strong>Author</strong> </label>
+						<p id="blogAuthor"> <a class="text-dark" href="/profile/<%= blog.author.id %>"> <%= blog.author.username %> </a> </p>
 						
-						<!-- follow button -->
+						<!-- date created -->
+						<label class="text-secondary" for="blogDate"> <strong>Date</strong> </label>
+						<p id="blogDate"> <%= blog.created.toDateString() %> </p>
+						
+						<!-- Follow / Stop following -->
+						<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
+							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
+							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>">
+							<!-- change text from follow to stop following -->
+								<% if(user.followers.some(function(follower){ %>
+									<% return follower.equals(currentUser._id); %>
+								<% })){ %>
+									Unfollow
+								<% }else{ %>
+									Follow
+								<% } %>	
+							</a>
+						<% }else if(!currentUser){ %>
+							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
+							<a id="blogFollow" class="btn btn-sm btn-outline-success btn-block mb-3" href="/follow/<%= user.id %>"> Follow </a>
+						<% }else{ %>
+							<label class="text-secondary" for="blogFollowers"> <strong> Number of Followers </strong></label>
+							<p id="blogFollowers"> <%= user.followers.length %> </p>
+						<% } %>
 						
 						<!-- gallery related to this blog -->
-					
+						<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
+						
 					</div>
-
-					<p> <em> <%= blog.author.description %> </em> </p>
-					<h5> <a href="#">See the Gallery related to this Journal!</a> </h5>
 				</div>
 				
 				
-				<!-- blog picture, date, text, and buttons  -->
-				<div class="col-lg-9">
+				<!-- blog picture, like buttons, text  -->
+				<div class="col-lg-9 border-bottom">
 					
 					<!-- image -->
 					<div class="card mx-md-3">
@@ -62,13 +81,12 @@
 					</div>
 					
 					<!-- date, text, like buttons -->
-					<div class="card mb-5 mx-md-3">
+					<div class="card border-0 mx-md-3">
 						
-						<!-- Time posted and like button -->
+						<!-- like buttons -->
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
-								<div class="d-flex justify-content-between">
-									<span> <em> <%= blog.created.toDateString() %> </em> </span>
+								<div class="d-flex justify-content-end">
 									
 									<!-- Like button -->
 									<form class="d-inline" action="/blog/<%= blog._id %>/like" method="POST">
@@ -84,16 +102,24 @@
 													<i class="fas fa-thumbs-up"></i> Like (<%= blog.likes.length %>)
 												</button>
 											<% } %>
-											<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#blogLikes">Liked by</button>
 										</div>
 									</form>
+									
+									<!-- who liked it, modal button -->
+									<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#blogLikes">Liked by</button>
+									
 								</div>
 							</li>	
 						</ul>
+					</div>
+
+					<div class="card border-left-0 border-right-0 border-bottom-0 mb-2 pb-5 mx-md-3">
 						
 						<!-- blog text -->
-						<p class="card-text m-4 my-5 py-1 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"><%= blog.content %></p>
+						<p class="card-text m-4 mt-5 py-1 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 20px;"><%= blog.content %></p>
+						
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -104,68 +130,73 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3"></div>
-			<div class="col-lg-9">
-				<div class="card-footer border-top-0 my-5">
-					<!-- Collapse button -->
-					<div class="float-right">
-						<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
+				<div class="col-lg-9 px-4">
+					<div class="card-footer border-top-0 my-5">
+						<h3 class="d-inline">Comments</h3>
+						<!-- Collapse button -->
+						<div class="float-right">
+							<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
+						</div>
+
+						<hr class="mt-4">
+
+						<!-- comment form-->
+						<div class="collapse" id="collapseComment">
+
+							<% if(!currentUser) { %>
+
+								<!--If the user is not logged in, direct him to the login page -->
+								<h5>You need to login to post a comment. <a href="/login">Click here</a> to go to the login page.</h5>
+							<% } %>
+
+							<% if(currentUser) { %>
+
+								<!--If the user is logged in, show the new comment form-->
+								<form id="add-comment-form" action="/blog/<%= blog._id %>/comment" method="POST">
+
+									<textarea class="form-control" name="comment[text]" placeholder="comment..." form="add-comment-form" rows="2" cols="70"></textarea>
+									<button class="btn btn-sm btn-success my-2">Comment</button>
+								</form>
+							<% } %>
+						</div>
+
+
+						<!-- display comments -->
+						<div class="mt-3">
+
+							<% blog.comments.forEach(function(comment){ %>
+
+								<div class="px-3">
+									<a class="text-dark" href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
+									<p class="px-3 mb-0" style="text-align: justify;"><%= comment.text %></p>
+
+									<!-- if User owns the comment, show edit and delete buttons -->
+									<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+
+										<!--Edit comment form-->
+										<div class="collapse" id="collapseEdit<%= comment._id %>">
+											<form id="edit-comment-form<%= comment._id %>" action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=PUT" method="POST">
+												<textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="2" cols="70"><%= comment.text %></textarea>
+												<button class="btn btn-sm btn-success mt-1">Save changes</button>
+											</form>
+										</div>
+
+										<!--edit and delete button-->
+										<div class="float-right">
+											<a class="btn btn-sm btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">Edit</a>
+											<form class="d-inline" action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+												<button class="btn btn-sm btn-danger">Delete</button>
+											</form>	
+										</div>
+										<br>
+									<% } %>
+									
+									<hr>
+								</div>
+							<% }); %>
+						</div>
 					</div>
-
-					<hr class="mt-5">
-
-					<!-- comment form-->
-					<div class="collapse" id="collapseComment">
-
-						<% if(!currentUser) { %>
-
-							<!--If the user is not logged in, direct him to the login page -->
-							<h5>You need to login to post a comment. <a href="/login">Click here</a> to go to the login page.</h5>
-						<% } %>
-
-						<% if(currentUser) { %>
-
-							<!--If the user is logged in, show the new comment form-->
-							<form id="add-comment-form" action="/blog/<%= blog._id %>/comment" method="POST">
-
-								<textarea class="form-control" name="comment[text]" placeholder="comment..." form="add-comment-form" rows="2" cols="70"></textarea>
-								<button class="btn btn-sm btn-success my-2">Comment</button>
-							</form>
-						<% } %>
-					</div>
-
-
-					<!-- display comments -->
-					<div class="mt-3">
-
-						<% blog.comments.forEach(function(comment){ %>
-
-							<div>
-								<span> <strong> <%= comment.author.username %> </strong> </span>
-								<p class="px-1"><%= comment.text %></p>
-
-								<!-- if User owns the comment, show edit and delete buttons -->
-								<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-
-									<!--E+edit comment form-->
-									<div class="collapse" id="collapseEdit<%= comment._id %>">
-										<form id="edit-comment-form<%= comment._id %>" action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=PUT" method="POST">
-											<textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="2" cols="70"><%= comment.text %></textarea>
-											<button class="btn btn-sm btn-success mt-1">Save changes</button>
-										</form>
-									</div>
-
-									<!--edit and delete button-->
-									<a role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">Edit</a>
-									<form class="d-inline" action="/blog/<%= blog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
-										<button class="btn btn-link  mb-1">Delete</button>
-									</form>	
-								<% } %>
-								<hr>
-							</div>
-						<% }); %>
-					</div>
-				</div>
-			</div>	
+				</div>	
 			</div>
 		</div>
 	</section>	

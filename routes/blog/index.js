@@ -119,14 +119,22 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req
 });
 
 //SHOW
-router.get("/:id", function(req, res){
+router.get("/:id", async function(req, res){
 	Blog.findById(req.params.id).populate("comments likes").exec(function(err, blog){
 		if(err || !blog){
 			console.log(err);
 			req.flash("error", "Journal not found.");
 			res.redirect("back");
 		}else{
-			res.render("blog/show", {blog: blog});
+			User.findById(blog.author.id).populate("followers").exec(function(err, user){
+				if(err){
+					console.log(err);
+					req.flash("error", "Journal not found.");
+					res.redirect("back");
+				}else{
+					res.render("blog/show", {blog: blog, user: user});	
+				}
+			});
 		}
 	});
 });
