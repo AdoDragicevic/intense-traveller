@@ -72,8 +72,8 @@
 					<% }else{ %>
 
 						<!-- notifications dropdown -->
-						<li class="nav-item dropdown">
-							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
+						<li class="nav-item active dropdown mr-2">
+							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-bell"></i> <span class="badge"><%= notifications.length %></span> </a>
 
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -100,11 +100,13 @@
 
 						<!-- user profile link -->
 						<li class="nav-item active">
-							<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
+							<a class="nav-link" href="/profile/<%= currentUser._id %>">
+								<em> <%= currentUser.username %> </em> 
+							</a>
 						</li>
 
 						<!-- logOut button -->
-						<li class="nav-item ml-md-5">
+						<li class="nav-item">
 							<a class="nav-link" href="/logout">LogOut</a>
 						</li>
 					<% } %>

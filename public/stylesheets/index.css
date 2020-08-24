@@ -1,11 +1,15 @@
 body {
   	background-color: white;
-	/* #f3f3f3 */
+
 	padding-top:0;
 }
 
 h1 {
 	font-size: 4rem;
+}
+
+.navbar {
+	font-size: 1.1rem;
 }
 
 .navbar.scrolled {
@@ -100,13 +104,13 @@ h1 {
 
 @media (max-width: 400px) {
 	.slideshow, .slideshow li {
-		height: 90%;
+		height: 0%;
 	}
 	
 }
 
 /* change navbar background on collapse */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   nav.navbar {
     background: #2b2c30;
   }
