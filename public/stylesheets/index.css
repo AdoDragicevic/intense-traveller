@@ -109,9 +109,9 @@ h1 {
 	
 }
 
-/* change navbar background on collapse */
+/* change navbar background on collapse 
 @media (max-width: 992px) {
   nav.navbar {
     background: #2b2c30;
   }
-}
+} */
