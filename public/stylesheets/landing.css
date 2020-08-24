@@ -3,9 +3,52 @@ body {
 }
 
 h1 {
-	font-size: 4rem;
+	font-size: 6rem;
+	color: #f3f3f3;
 }
 
+a h3 {
+	font-family: 'Srisakdi', cursive;
+	font-size: 4rem;
+	color: #f3f3f3;
+}
+
+
+h1 {
+	font-size: 6rem;
+	text-shadow:
+   -1px -1px 0 gray,  
+    1px -1px 0 gray,
+    -1px 1px 0 gray,
+     1px 1px 0 gray;
+}
+
+a h3 {
+	font-family: 'Srisakdi', cursive;
+	font-size: 4rem;
+	color: #f3f3f3;
+	text-shadow:
+   -1px -1px 0 gray,  
+    1px -1px 0 gray,
+    -1px 1px 0 gray,
+     1px 1px 0 gray;
+}
+
+@media screen and (max-width: 767px) {
+  h1 {
+	font-size: 4rem;
+	}
+}
+
+.navbar {
+	font-size: 1.1rem;	
+}
+
+.navBg {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+	
 .slideshow { 
   position: fixed;
   width: 100%;
@@ -52,6 +95,13 @@ h1 {
   animation-delay: 30s; 
 }
 
+/* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
+
+
+
 #landing-header {
 	z-index: 1;
   	position: relative;
@@ -59,6 +109,12 @@ h1 {
   	padding-top: 40vh;
 	color: #fff;
 }
+
+#landingSubtitle {
+	text-decoration: none;
+}
+
+
 
 
 @keyframes imageAnimation { 
@@ -78,8 +134,3 @@ h1 {
   }
 }
 
-
-/* Older browser support - .no-cssanimations class added by modernizr */
-.no-cssanimations .slideshow li {
-	opacity: 1;
-}

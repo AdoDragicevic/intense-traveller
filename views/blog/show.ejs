@@ -4,6 +4,7 @@
 <header>
 	<div class="container">
 		<div class="row mr-4 mt-5 d-flex justify-content-end">
+			
 			<!-- Edit & Delete Buttons -->
 			<div>
 				<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
@@ -18,7 +19,7 @@
 		<div class="row mt-3">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
-				<h1 class="display-4 text-center py-3"> <%= blog.title %> </h1>
+				<h1 class="display-4 pl-4 py-3"> <%= blog.title %> </h1>
 			</div>
 		</div>
 	</div>
@@ -38,7 +39,7 @@
 						
 						<!-- author -->
 						<label class="text-secondary" for="blogAuthor"> <strong>Author</strong> </label>
-						<p id="blogAuthor"> <a class="text-dark" href="/profile/<%= blog.author.id %>"> <%= blog.author.username %> </a> </p>
+						<p id="blogAuthor"> <a class="text-info" href="/profile/<%= blog.author.id %>"> <%= blog.author.username %> </a> </p>
 						
 						<!-- date created -->
 						<label class="text-secondary" for="blogDate"> <strong>Date</strong> </label>
@@ -47,7 +48,7 @@
 						<!-- Follow / Stop following -->
 						<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>">
+							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>" style="max-width: 250px">
 							<!-- change text from follow to stop following -->
 								<% if(user.followers.some(function(follower){ %>
 									<% return follower.equals(currentUser._id); %>
@@ -59,21 +60,24 @@
 							</a>
 						<% }else if(!currentUser){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-outline-success btn-block mb-3" href="/follow/<%= user.id %>"> Follow </a>
-						<% }else{ %>
-							<label class="text-secondary" for="blogFollowers"> <strong> Number of Followers </strong></label>
-							<p id="blogFollowers"> <%= user.followers.length %> </p>
+							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 250px"> Follow </a>
 						<% } %>
 						
-						<!-- gallery related to this blog -->
-						<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
+						<!-- number of followers -->
+						<label class="text-secondary" for="blogFollowers"> <strong> Followers </strong></label>
+						<!-- modal button -->
+						<p> <a id="blogFollowers" class="text-info" type="button" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> </p>
+						
+						
+							<!-- gallery related to this blog -->
+							<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
 						
 					</div>
 				</div>
 				
 				
 				<!-- blog picture, like buttons, text  -->
-				<div class="col-lg-9 border-bottom">
+				<div class="col-lg-9 border-right">
 					
 					<!-- image -->
 					<div class="card mx-md-3">
@@ -113,10 +117,10 @@
 						</ul>
 					</div>
 
-					<div class="card border-left-0 border-right-0 border-bottom-0 mb-2 pb-5 mx-md-3">
+					<div class="card border-left-0 border-right-0 border-bottom pb-5 mx-md-3">
 						
 						<!-- blog text -->
-						<p class="card-text m-4 mt-5 py-1 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 20px;"><%= blog.content %></p>
+						<p class="card-text m-4 mt-5 py-3 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 20px;"><%= blog.content %></p>
 						
 					</div>
 					
@@ -127,18 +131,19 @@
 	
 	<!-- Comments -->
 	<section>
-		<div class="container">
+		<div class="container mt-5">
 			<div class="row">
 				<div class="col-lg-3"></div>
-				<div class="col-lg-9 px-4">
+				<div class="col-lg-9 px-3">
 					<div class="card-footer border-top-0 my-5">
-						<h3 class="d-inline">Comments</h3>
+						 <h3 class="d-block d-sm-inline">Comments</h3>
 						<!-- Collapse button -->
-						<div class="float-right">
+						<div class="d-none d-sm-inline float-right">
 							<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
 						</div>
+						<a class="btn btn-success d-block d-sm-none" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
 
-						<hr class="mt-4">
+						<hr class="">
 
 						<!-- comment form-->
 						<div class="collapse" id="collapseComment">
@@ -158,8 +163,8 @@
 									<button class="btn btn-sm btn-success my-2">Comment</button>
 								</form>
 							<% } %>
+							<hr>
 						</div>
-
 
 						<!-- display comments -->
 						<div class="mt-3">
@@ -167,8 +172,10 @@
 							<% blog.comments.forEach(function(comment){ %>
 
 								<div class="px-3">
-									<a class="text-dark" href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
-									<p class="px-3 mb-0" style="text-align: justify;"><%= comment.text %></p>
+									
+									<a class="text-secondary" href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
+									
+									<p class=" mx-3 mb-0" style="text-align: justify;"> <%= comment.text %> </p>
 
 									<!-- if User owns the comment, show edit and delete buttons -->
 									<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
@@ -239,5 +246,43 @@
     	</div>
 	</div>
 	
+
+<!-- Follower Modal to show who follows the user - this is shown only if the current user is the bologs author -->
+	<div id="followers" class="modal fade" role="dialog">
+    	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+            	<div class="modal-header">
+					<h4 class="modal-title">Number of Followers: <%= user.followers.length %></h4>
+            	</div>
+            	<div class="modal-body">
+                	<table class="table table-striped">
+                    	<thead>
+                    		<tr>
+                        		<th>Followers:</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+							
+                    		<% user.followers.forEach(function(follower) { %>
+                        		<tr>
+                            		<td><span class="badge"><i class="fas fa-user"></i></span> <%= follower.username %></td>
+                        		</tr>
+                    		<% }); %>
+                    		<% if (user.followers.length === 0) { %>
+                        		<tr>
+                            		<td><em>No followers yet.</em></td>
+                        		</tr>
+                    		<% } %>
+                    	</tbody>
+                	</table>
+            	</div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+        	</div>
+    	</div>
+	</div>
+
 
 <%- include("../partials/footer") %>

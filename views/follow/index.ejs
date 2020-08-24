@@ -1,18 +1,27 @@
 <%- include ("../partials/header") %>
 
-<h1>All Notifications</h1>
+<div class="container">
+	
+	<h1>All Notifications</h1>
 
-<% allNotifications.forEach(function(notification){ %>
-	<li> 
-		<a href="/notifications/<%= notification.id %>">
-			<%= notification.username %> published a 
-			<% if(notification.gallery){ %>
-				Gallery
-			<% }else{ %>
-				Journal
-			<% } %>
-		</a> 
-	</li>
-<% }); %>
+	<ul class="mt-5 m-auto">
+		<% allNotifications.forEach(function(notification){ %>
+			<li> 
+				<a href="/notifications/<%= notification.id %>">
+					<%= notification.username %> published a new
+					<% if(notification.gallery){ %>
+						Gallery
+					<% }else{ %>
+						Journal
+					<% } %>
+				</a> 
+			</li>
+		<% }); %>
+	</ul>
+	
+	
+</div>
+
+
 
 <%- include ("../partials/footer") %>

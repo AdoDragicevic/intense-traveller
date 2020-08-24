@@ -25,13 +25,13 @@
 				<!-- show edit and delete buttons only if current user is author or admin -->
 				<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 					
-				<!-- Edit button -->
-					<a class="btn btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
-
 					<!-- Delete button -->
 					<form class="d-inline float-right" action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
-						<input class="btn btn-danger mx-auto" type="submit" value="Delete">
+						<input class="btn btn-sm btn-danger mx-auto" type="submit" value="Delete">
 					</form>
+				
+					<!-- Edit button -->
+					<a class="btn btn-sm btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
 				
 				<% } %>
 				

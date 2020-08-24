@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Srisakdi:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="/stylesheets/landing.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+	<!-- ovaj link ispod samo projevri što je -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     <title>Intense Traveller</title>
 </head>
 	
@@ -38,9 +40,9 @@
 	<!-- Navbar -->
 	<header>
 	
-		<nav class="navbar navbar-expand-lg navbar-dark bg-none fixed-top">
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 
-			<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
+			<a class="navbar-brand" href="/"> <em>Intense Traveller </em> </a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -79,7 +81,7 @@
 						<li class="nav-item dropdown">
 							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
 
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<ul class="dropdown-menu bg-light" aria-labelledby="navbarDropdown">
 
 								<!-- link to all notifications -->
 								<li> 
@@ -123,14 +125,16 @@
 	</header>
     
 	
-	<!-- Title and buttons -->
+	<!-- Title and subtitle -->
 	<main>
 		
-		<div id="landing-header">
+		<div id="landing-header" class="text-center">
  		
 			<h1> <em> Intense Traveller </em> </h1>
 
-			<a class="stretched-link" href="/blog">Share Your Dreams</a>
+			<a id="landingSubtitle" class="stretched-link" href="/blog">
+				<h3 class="d-none d-md-inline"> Share Your Dreams </h3>
+			</a>
 		
     	</div>
 		
@@ -150,6 +154,41 @@
 
 	</section>
 	
+
+	
 	
 
-<%- include("./partials/footer") %>
+
+    <!-- Bootstap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	
+	<script>
+	
+		// I could not only use toggleClass, because the navbar is hiddent not only when navbar button is clicked, but also when the screen size changes. This can lead to class remaining on the navbar even after the screen size is increased, and then being hidden once the but
+
+		$(".navbar > button").on("click", function(){
+			
+			if($(".navbar").height() > 100){
+				$(".navbar").removeClass("navBg");
+			}else{
+				$(".navbar").addClass("navBg");
+			}
+			
+		});
+		
+		$(window).resize(function(){
+			if( $(window).width() > 989 ){
+				$(".navbar").removeClass("navBg");
+			}
+			if( $(window).width() < 989 && $(".navbar").height() > 200 ){
+				$(".navbar").addClass("navBg");
+			}
+		});
+			
+
+	</script>
+
+  </body>
+</html>
