@@ -10,9 +10,17 @@
 	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
 	  
 	  <link rel="stylesheet" href="/stylesheets/main.css">
+	  <link rel="stylesheet" href="/stylesheets/darkMode.css">
+	  
 	<title>Intense Traveller</title>
   </head>
-<body>
+
+<!-- darkMode -->
+<body    
+	<% if(currentUser && currentUser.darkMode){ %>
+		class="darkMode"  
+	<% } %>  
+>
 	
 	
 <header>

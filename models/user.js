@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
 	img: String,
 	imgId: String,
 	about: String,
+	darkMode: { type: Boolean, default: false },
 	personalData: {
 		name: String,
 		gender: String,
