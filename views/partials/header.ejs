@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
-
+	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
 	  
 	  <link rel="stylesheet" href="/stylesheets/main.css">
 	<title>Intense Traveller</title>
@@ -56,7 +56,7 @@
 						
 					<!-- notifications dropdown -->
 					<li class="nav-item dropdown">
-        				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Notifications <span class="badge"><%= notifications.length %></span> </a>
+        				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-bell"></i> <span class="badge"><%= notifications.length %></span> </a>
 							
             			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							
@@ -83,7 +83,7 @@
 					
 					<!-- user profile link -->
 					<li class="nav-item active">
-						<a class="nav-link" href="/profile/<%= currentUser._id %>">Logged in as <em> <%= currentUser.username %> </em> </a>
+						<a class="nav-link" href="/profile/<%= currentUser._id %>"> <em> <%= currentUser.username %> </em> </a>
 					</li>
 					
 					<!-- logOut button -->
