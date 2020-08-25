@@ -17,10 +17,10 @@ a h3 {
 h1 {
 	font-size: 6rem;
 	text-shadow:
-   -0.4px -0.4px 0 gray,  
-    0.4px -0.4px 0 gray,
-    -0.4px 0.4px 0 gray,
-     0.4px 0.4px 0 gray;
+   -0.8px -0.8px 0 gray,  
+    0.8px -0.8px 0 gray,
+    -0.8px 0.8px 0 gray,
+     0.8px 0.8px 0 gray;
 }
 
 a h3 {
