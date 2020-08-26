@@ -11,9 +11,17 @@
     <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/stylesheets/main.css">
 	<link rel="stylesheet" href="/stylesheets/index.css">
+	<link rel="stylesheet" href="/stylesheets/darkMode.css">
+	  
 	<title>Intense Traveller</title>
 	</head>
-<body>
+
+<!-- darkMode -->
+<body    
+	<% if(currentUser && currentUser.darkMode){ %>
+		class="darkModeBody"  
+	<% } %>  
+>
 	
 	
 <!-- Navbar, Flash messages, Carousel, Jumbotron -->
@@ -70,7 +78,14 @@
 						</li>
 
 					<% }else{ %>
-
+					
+						<!-- dark mode button -->
+						<form action="/darkMode?_method=PUT" method="POST">
+							<button class="btn btn-warning-info mr-2 text-white">
+								<i class="fas fa-lightbulb d-inlin"></i>
+							</button>
+						</form>
+						
 						<!-- notifications dropdown -->
 						<li class="nav-item active dropdown mr-2">
 							<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-bell"></i> <span class="badge"><%= notifications.length %></span> </a>
@@ -106,7 +121,7 @@
 						</li>
 
 						<!-- logOut button -->
-						<li class="nav-item ml-md-5">
+						<li class="nav-item">
 							<a class="nav-link" href="/logout">LogOut</a>
 						</li>
 					<% } %>
@@ -157,7 +172,8 @@
 	<section>
 		<div class="container text-center">
 			<div id="content" class="jumbotron">
-				<h1 class="display-3 mx-3"> <em>Intense Traveller</em></h1>
+				<h1 class="d-none d-md-block display-3 mx-3"> <em>Intense Traveller</em></h1>
+				<h1 class="d-sm-block d-md-none display-4 mx-3"> <em>Intense Traveller</em></h1>
 				<p class="lead d-none d-md-inline" style="letter-spacing: 1.5px; font-size: rem;"> <em> Write travel Journals, publish picture Galleries, Follow your favorite travellers, and more . . .  </em> </p>
 				<hr>
 				<a class="btn btn-lg btn-success" href="/blog/new" role="button"> <i class="fas fa-feather-alt mr-2"></i> Write a New Journal</a>

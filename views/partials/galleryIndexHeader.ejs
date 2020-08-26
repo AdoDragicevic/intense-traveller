@@ -11,9 +11,16 @@
     <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
 	  <link rel="stylesheet" href="/stylesheets/main.css">
 	  <link rel="stylesheet" href="/stylesheets/index.css">
+	  <link rel="stylesheet" href="/stylesheets/darkMode.css">
 	<title>Intense Traveller</title>
   </head>
-<body>
+
+<!-- darkMode -->
+<body    
+	<% if(currentUser && currentUser.darkMode){ %>
+		class="darkModeBody"  
+	<% } %>  
+>
 	
 <!-- Navbar, Flash messages, Carousel, Jumbotron -->
 <header>
@@ -96,7 +103,7 @@
 						</li>
 
 						<!-- logOut button -->
-						<li class="nav-item ml-md-5">
+						<li class="nav-item">
 							<a class="nav-link" href="/logout">LogOut</a>
 						</li>
 					<% } %>

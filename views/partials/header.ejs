@@ -7,10 +7,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
-	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet">
-	  
-	  <link rel="stylesheet" href="/stylesheets/main.css">
-	  <link rel="stylesheet" href="/stylesheets/darkMode.css">
+	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="/stylesheets/darkMode.css">
 	  
 	<title>Intense Traveller</title>
   </head>
@@ -18,14 +17,23 @@
 <!-- darkMode -->
 <body    
 	<% if(currentUser && currentUser.darkMode){ %>
-		class="darkMode"  
+		class="darkModeBody"  
 	<% } %>  
 >
 	
 	
 <header>
 	<!-- navbar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+	<nav class="navbar navbar-expand-lg fixed-top
+				
+				<% if(currentUser && currentUser.darkMode){ %>
+					bg-dark navbar-dark
+				<% }else{ %>
+					bg-white navbar-light
+				<% } %>
+				
+				
+				">
 			
 		<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
   			
@@ -61,6 +69,14 @@
 					</li>
 					
 				<% }else{ %>
+				
+					<!-- dark mode button -->
+					<form action="/darkMode?_method=PUT" method="POST">
+						<button class="btn btn-warning-info mr-2 text-white">
+							<i class="fas fa-lightbulb d-inlin"></i>
+						</button>
+					</form>
+				
 						
 					<!-- notifications dropdown -->
 					<li class="nav-item dropdown">
@@ -95,7 +111,7 @@
 					</li>
 					
 					<!-- logOut button -->
-					<li class="nav-item ml-md-5">
+					<li class="nav-item">
 						<a class="nav-link" href="/logout">LogOut</a>
 					</li>
 				<% } %>

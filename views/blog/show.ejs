@@ -19,7 +19,8 @@
 		<div class="row mt-3">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
-				<h1 class="display-4 pl-4 py-3"> <%= blog.title %> </h1>
+				<h1 class="d-none d-md-block display-4 pl-md-4 py-3"> <%= blog.title %> </h1>
+				<h1 class="d-block d-md-none pl-md-4 py-3 text-center" style="font-weight: 300;"> <%= blog.title %> </h1>
 			</div>
 		</div>
 	</div>
@@ -33,7 +34,7 @@
 			<div class="row">
 				
 				<!-- info -->
-				<div class="col-lg-3 border-right">
+				<div class="col-lg-3 order-2 order-lg-1">
 					
 					<div class="mt-2">
 						
@@ -48,7 +49,7 @@
 						<!-- Follow / Stop following -->
 						<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>" style="max-width: 250px">
+							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px">
 							<!-- change text from follow to stop following -->
 								<% if(user.followers.some(function(follower){ %>
 									<% return follower.equals(currentUser._id); %>
@@ -60,7 +61,7 @@
 							</a>
 						<% }else if(!currentUser){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 250px"> Follow </a>
+							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px"> Follow </a>
 						<% } %>
 						
 						<!-- number of followers -->
@@ -77,7 +78,15 @@
 				
 				
 				<!-- blog picture, like buttons, text  -->
-				<div class="col-lg-9 border-right">
+				
+				<!-- dark mode -->
+				<div class="col-lg-9 order-1 order-lg-2 border-right border-left 
+							
+					<% if(currentUser && currentUser.darkMode){ %>
+						border-secondary
+					<% } %>
+
+					">
 					
 					<!-- image -->
 					<div class="card mx-md-3">
@@ -110,17 +119,23 @@
 									</form>
 									
 									<!-- who liked it, modal button -->
-									<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#blogLikes">Liked by</button>
+									<button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#blogLikes"><i class="fas fa-user-friends text-secondary"></i></button>
 									
 								</div>
 							</li>	
 						</ul>
 					</div>
 
-					<div class="card border-left-0 border-right-0 border-bottom pb-5 mx-md-3">
+					<div class="card border-left-0 border-right-0 border-bottom pb-5 mx-md-3 
+								
+								<% if(currentUser && currentUser.darkMode){ %>
+									darkModeCard border-secondary
+								<% } %>
+
+								">
 						
 						<!-- blog text -->
-						<p class="card-text m-4 mt-5 py-3 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 21px; font-family: 'Cardo', serif;"><%= blog.content %></p>
+						<p class="card-text m-2 m-sm-4 mt-5 py-3 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 19px; font-family: 'Cardo', serif;"><%= blog.content %></p>
 						
 					</div>
 					

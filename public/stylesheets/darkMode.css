@@ -1,4 +1,16 @@
-.darkMode {
+.darkModeBody {
 	background-color: #212529;
 	color: gray;
+}
+
+.darkModeCard{
+	background-color: #212529 /*#2b2c30*/;
+}
+
+.darkModeCard2 {
+	background-color: #2b2c30;
+}
+
+.darkModeImgThumbnail {
+	
 }
