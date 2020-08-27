@@ -127,10 +127,19 @@ router.get("/:id", function(req, res){
 			req.flash("error", "Album not found");
 			res.redirect("back");
 		}else{
-			res.render("gallery/show", {gallery: gallery});
+			User.findById(gallery.author.id).populate("followers").exec(function(err, user){
+				if(err){
+					console.log(err);
+					req.flash("error", "Journal not found.");
+					res.redirect("back");
+				}else{
+					res.render("gallery/show", {gallery: gallery, user: user});	
+				}
+			});			
 		}
 	})
 });
+
 
 // EDIT
 router.get("/:id/edit", middleware.checkGalleryOwnership, function(req, res){
@@ -143,6 +152,7 @@ router.get("/:id/edit", middleware.checkGalleryOwnership, function(req, res){
 		}
 	});
 });
+
 
 // UPDATE
 router.put("/:id", middleware.checkGalleryOwnership, upload.array("img"), async function(req, res){

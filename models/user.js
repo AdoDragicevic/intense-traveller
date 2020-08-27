@@ -14,13 +14,13 @@ const UserSchema = new mongoose.Schema({
 	about: String,
 	darkMode: { type: Boolean, default: false },
 	personalData: {
-		name: String,
-		gender: String,
-		location: String,
-		profession: String,
-		contact: String,
-		hobbies: String,
-		relationship: String,
+		Name: { type: String, default: "" },
+		Gender: { type: String, default: "" },
+		Location: { type: String, default: "" },
+		Profession: { type: String, default: "" },
+		Contact: { type: String, default: "" },
+		Hobbies: { type: String, default: "" },
+		Relationship: { type: String, default: "" }
 	},
 	notifications: [
     	{

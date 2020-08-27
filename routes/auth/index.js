@@ -23,16 +23,6 @@ router.post("/register", function(req, res){
 			img: "https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1987&q=80", 
 			imgId: "", 
 			about: "No information entered yet.",
-			darkMode: false,
-			personalData: {
-				name: "",
-				gender: "",
-				location: "",
-				profession: "",
-				contact: "",
-				hobbies: "",
-				relationship: ""
-			}
 		});
 	if(req.body.username === "Admin"){
 		newUser.isAdmin = true;

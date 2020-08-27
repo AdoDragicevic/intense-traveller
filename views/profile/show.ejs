@@ -41,16 +41,16 @@
 </header>
 
 
-<div class="container">
-	<form action="/darkMode?_method=PUT" method="POST">
-		<button>
-			Try the Dark Mode!
-		</button>
-	</form>
-</div>
-
-
-
+<!-- try the dark mode button -->
+<% if(currentUser && !currentUser.darkMode){ %>
+	<div class="container">
+		<form action="/darkMode?_method=PUT" method="POST">
+			<button>
+				Try the Dark Mode! 
+			</button>
+		</form>
+	</div>	
+<% } %>
 
 
 <!-- User img & description -->
@@ -77,21 +77,30 @@
 						<label for="personalData"> <strong> Personal Data </strong> </label>
 						<div id="personalData">
 							
-							
-							
-							<% for(let i = 0; i < Object.keys(user.personalData).length; i++){ %>
-								<% if(user.personalData[i] !== ""){ %>
-									<p> <%= Object.values(user.personalData) %> </p>						
-								<% } %>											
+							<!-- loop through each name and value in the user.personalData object, and display them if the value is not "" -->
+							<% let key = Object.keys(user.personalData); %>
+							<% let value = Object.values(user.personalData); %>
+							<% let empty = 0; %>
+							<% value.forEach(function(val){ %>
+								<% if(val !== "" && val !== "$init"){ %>
+									<% empty = empty += 1; %>
+								<% } %>
+							<% }); %>
+							<% if(empty > 1){ %>
+								<% for(let i = 0; i < key.length; i++){ %>
+									<% if(value[i] !== "" && key[i] !== "$init"){ %>
+										<p> <strong> <%= key[i] %> </strong>: <%= value[i] %> </p>										
+									<% } %>	
+								<% } %>	
+							<% }else{ %>
+								<p> No information entered yet. </p>
 							<% } %>
-						
+							
+	
 						</div>
 						
 					</div>
 				</div>
-				
-				
-					
 				
 			</div>
 		</div>
@@ -123,7 +132,6 @@
 					</ul>
 				</div>
 			</div>
-			
 			
 			<!-- list of published galleries -->
 			<div class="col-md-6 d-flex justify-content-center">

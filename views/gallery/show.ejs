@@ -11,31 +11,77 @@
 <!-- Jumbotron -->
 <header>
 	<div class="container">
-    	<div class="jumbotron" style=" color: #2c3e50; background-color: #ecf0f1;">
-        
-			<!-- title -->
-			<h1> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
-        
-			<!-- author, date, total likes, edit and delete -->
-			<div>
-				<p> Published by: <a href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
-				<p> <em> Posted on <%= gallery.created.toDateString() %> </em> </p>
-				
-				
-				<!-- show edit and delete buttons only if current user is author or admin -->
-				<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+    	<div class="jumbotron pl-5 pt-0 pt-md-3 pb-2" style=" color: #2c3e50; background-color: #ecf0f1;">
+			
+			<!-- show edit and delete buttons only if current user is author or admin -->
+			<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 					
-					<!-- Delete button -->
-					<form class="d-inline float-right" action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
-						<input class="btn btn-sm btn-danger mx-auto" type="submit" value="Delete">
-					</form>
+				<!-- Delete button -->
+				<form class="d-inline float-right" action="/gallery/<%= gallery._id %>?_method=DELETE" method="POST">
+					<input class="btn btn-sm btn-danger mx-auto" type="submit" value="Delete">
+				</form>
 				
-					<!-- Edit button -->
-					<a class="btn btn-sm btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
+				<!-- Edit button -->
+				<a class="btn btn-sm btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
+				
+			<% } %>
+        
+			<br>
+			
+			<!-- title -->
+			
+			<!-- xs, sm -->
+			<h1 class="d-block d-md-none pl-md-4 py-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h1>
+			
+			<!-- md, lg, xl -->
+			<h1 class="d-none d-md-block display-4"> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
+        
+			
+			<!-- author, date, followers, connected gallery -->
+			<div class="mt-3 text-dark">
+				<p> <strong> Author: </strong> <a href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
+				<p> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
+				<p> <strong> Followers: </strong> <%= user.followers.length %> </p>
+				<p> <strong> Related Journal: </strong> / </p>
+			
+				<!-- Follow / Stop following -->
+				<% if(currentUser && !currentUser._id.equals(gallery.author.id)){ %>
+
+					<!-- dark mode -->
+					<a class="btn btn-sm float-right 
+													  
+						<% if(currentUser && currentUser.darkMode){ %>
+							darkModeBtn					  
+						<% }else{ %>
+							btn-info 
+						<% } %>
+													  
+						" href="/follow/<%= user.id %>" style="min-width: 300px">
+							
+						<!-- change text from follow to stop following -->
+						<% if(user.followers.some(function(follower){ %>
+							<% return follower.equals(currentUser._id); %>
+						<% })){ %>
+							Unfollow
+						<% }else{ %>
+							Follow
+						<% } %>	
+					</a>
+				
+				<% }else if(!currentUser){ %>
+				
+					<a class="btn btn-sm btn-outline-info mb-3" href="/follow/<%= user.id %>" style="min-width: 300px;"> Follow </a>
 				
 				<% } %>
-				
+			
+			
+			
 			</div>
+			
+			
+		
+			
+			
     	</div>
 	</div>
 </header>
