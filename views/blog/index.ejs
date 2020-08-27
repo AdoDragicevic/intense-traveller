@@ -30,7 +30,7 @@
 			<div class="card my-4 my-md-5 mx-lg-5 px-md-4  
 						
 						<% if(currentUser && currentUser.darkMode){ %>
-							darkModeCard border-top-0 border-left-0 border-right-0 border-secondary pt-3
+							darkModeBody border-top-0 border-left-0 border-right-0 border-secondary pt-3
 						<% }else{ %>
 							border-top-0 border-left-0 border-right-0
 						<% } %>  
@@ -106,20 +106,20 @@
 				<ul class="pagination justify-content-center">
 					
 					<% if (current == 1) { %>
-						<li class="page-item disabled"><a class="page-link">First</a></li>
+						<li class="page-item disabled"><a class="page-link bg-light">First</a></li>
 					<% } else { %>
 						<li><a class="page-link" href="/blog">First</a></li>
 					<% } %>
 
 					<% if (current == 1) { %>
-						<li class="page-item disabled"><a class="page-link">«</a></li>
+						<li class="page-item disabled"><a class="page-link bg-light">«</a></li>
 					<% } else { %>
 						<li><a class="page-link" href="/blog?page=<%= Number(current) - 1 %>">«</a></li>
 					<% } %>
 
 					<% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
 					<% if (i !== 1) { %>
-						<li class="page-item disabled"><a class="page-link">...</a></li>
+						<li class="page-item disabled"><a class="page-link bg-light">...</a></li>
 					<% } %>
 					<% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
 						<% if (i == current) { %>
@@ -128,18 +128,18 @@
 						<li><a class="page-link" href="/blog?page=<%= i %>"><%= i %></a></li>
 						<% } %>
 						<% if (i == Number(current) + 4 && i < pages) { %>
-							<li class="page-item disabled"><a class="page-link">...</a></li>
+							<li class="page-item disabled"><a class="page-link bg-light">...</a></li>
 						<% } %>
 					<% } %>
 
 					<% if (current == pages) { %>
-						<li class="page-item disabled"><a class="page-link">»</a></li>
+						<li class="page-item disabled"><a class="page-link bg-light">»</a></li>
 					<% } else { %>
 						<li><a class="page-link" href="/blog?page=<%= Number(current) + 1 %>">»</a></li>
 					<% } %>
 
 					<% if (current == pages) { %>
-						<li class="page-item disabled"><a class="page-link">Last</a></li>
+						<li class="page-item disabled"><a class="page-link bg-light">Last</a></li>
 					<% } else { %>
 						<li><a class="page-link" href="/blog?page=<%= pages %>">Last</a></li>
 					<% } %>	

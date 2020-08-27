@@ -71,7 +71,12 @@
 						
 						<!-- about -->
 						<label for="aboutMe"> <strong> About Me </strong> </label>
-						<p id="aboutMe"> <%= user.about %> </p>
+						<% if(user.about !== ""){ %>
+							<p id="aboutMe" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"> <%= user.about %> </p>
+						<% }else{ %>
+							<p id="aboutMe" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"> No information entered yet. </p>
+						<% } %>
+						
 						
 						<!-- personal data -->		
 						<label for="personalData"> <strong> Personal Data </strong> </label>
@@ -81,17 +86,20 @@
 							<% let key = Object.keys(user.personalData); %>
 							<% let value = Object.values(user.personalData); %>
 							<% let empty = 0; %>
+							<!-- check if its empty -->
 							<% value.forEach(function(val){ %>
 								<% if(val !== "" && val !== "$init"){ %>
 									<% empty = empty += 1; %>
 								<% } %>
 							<% }); %>
+							<!-- if the values are not empty, print out the filled out values and their name pair -->
 							<% if(empty > 1){ %>
 								<% for(let i = 0; i < key.length; i++){ %>
 									<% if(value[i] !== "" && key[i] !== "$init"){ %>
 										<p> <strong> <%= key[i] %> </strong>: <%= value[i] %> </p>										
 									<% } %>	
 								<% } %>	
+							<!-- if the values are empty -->
 							<% }else{ %>
 								<p> No information entered yet. </p>
 							<% } %>

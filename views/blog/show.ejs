@@ -119,7 +119,15 @@
 						
 						<!-- like buttons -->
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
+							
+							<!-- dark mode -->
+							<li class="list-group-item 
+									   
+									   <% if(currentUser && currentUser.darkMode){ %>
+									   		darkModeBody
+									   <% } %>
+									   
+									   ">
 								<div class="d-flex justify-content-end">
 									
 									<!-- Like button -->
@@ -164,6 +172,7 @@
 			</div>
 		</div>
 	</section>
+	
 	
 	<!-- Comments -->
 	<section>
@@ -239,15 +248,15 @@
 								<div class="px-3">
 									
 									<!-- dark mode -->
-									<a
+									<a class="
 									   
 									   <% if(currentUser && currentUser.darkMode){ %>
-									   		style="color: #ff9900;"		
+									   		darkModeOrangeText	
 									   <% }else{ %>
-									   		class="text-secondary"
+									   		text-secondary
 									   <% } %>
 									   
-									    href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
+									    " href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
 									
 									<p class=" mx-3 mb-0" style="text-align: justify;"> <%= comment.text %> </p>
 

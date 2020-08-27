@@ -11,7 +11,18 @@
 <!-- Jumbotron -->
 <header>
 	<div class="container">
-    	<div class="jumbotron pl-5 pt-0 pt-md-3 pb-2" style=" color: #2c3e50; background-color: #ecf0f1;">
+    	
+		<!-- dark mode -->
+		<div class="jumbotron pl-md-5 pt-0 pt-md-3 pb-5
+					
+					
+					<% if(currentUser && currentUser.darkMode){ %>
+						darkModeJumbotron
+					<% }else{ %>
+						lightJumbotron
+					<% } %>
+					
+					">
 			
 			<!-- show edit and delete buttons only if current user is author or admin -->
 			<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
@@ -31,24 +42,60 @@
 			<!-- title -->
 			
 			<!-- xs, sm -->
-			<h1 class="d-block d-md-none pl-md-4 py-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h1>
+			<h2 class="d-block d-md-none pl-md-4 py-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h2>
 			
 			<!-- md, lg, xl -->
 			<h1 class="d-none d-md-block display-4"> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
         
 			
-			<!-- author, date, followers, connected gallery -->
-			<div class="mt-3 text-dark">
-				<p> <strong> Author: </strong> <a href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
+			<!-- Author, date, followers, connected gallery -->
+			
+			<!-- dark mode -->
+			<div class="mt-3 
+						
+				<%if(currentUser && currentUser.darkMode){ %>
+					text-secondary
+				<% } %>
+						
+				">
+				
+				<!-- author -->
+				<p> <strong> Author: </strong> <a class="text-info" href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
+				
+				<!-- date -->
 				<p> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
-				<p> <strong> Followers: </strong> <%= user.followers.length %> </p>
+				
+				
+				<!-- number of followers and modal button -->
+				<p> <strong> Followers: </strong> 
+					<a class="text-info" type="badge" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> 
+				</p>
+				
+				
+				
+				<!-- related journal -->
 				<p> <strong> Related Journal: </strong> / </p>
+				
+				<p class="d-inline">
+					<strong> 
+						Total likes: 
+					</strong> 
+					
+					<!-- calculate all the likes inside the gallery -->
+					<% var numOfLikes = 0; %>
+						<% gallery.imgs.forEach(function(img, i){ %>
+							<% numOfLikes = numOfLikes + img.likes.length; %>
+						<% }); %>
+					
+					<!-- display total likes number -->
+					<%= numOfLikes %>
+				</p>
 			
 				<!-- Follow / Stop following -->
 				<% if(currentUser && !currentUser._id.equals(gallery.author.id)){ %>
 
 					<!-- dark mode -->
-					<a class="btn btn-sm float-right 
+					<a class="btn btn-sm float-right mt-2 
 													  
 						<% if(currentUser && currentUser.darkMode){ %>
 							darkModeBtn					  
@@ -56,7 +103,7 @@
 							btn-info 
 						<% } %>
 													  
-						" href="/follow/<%= user.id %>" style="min-width: 300px">
+						" href="/follow/<%= user.id %>" style="min-width: 250px">
 							
 						<!-- change text from follow to stop following -->
 						<% if(user.followers.some(function(follower){ %>
@@ -70,18 +117,12 @@
 				
 				<% }else if(!currentUser){ %>
 				
-					<a class="btn btn-sm btn-outline-info mb-3" href="/follow/<%= user.id %>" style="min-width: 300px;"> Follow </a>
+					<a class="btn btn-sm btn-outline-info mb-3 float-right mt-2" href="/follow/<%= user.id %>" style="min-width: 250px;"> Follow </a>
 				
 				<% } %>
 			
-			
-			
 			</div>
-			
-			
-		
-			
-			
+
     	</div>
 	</div>
 </header>
@@ -97,17 +138,22 @@
 
 				<!-- img -->
 				<div class="col-sm-6 col-lg-4">
-					<img id="<%= i %>" class="img-thumbnail my-2 img-fluid" src="<%= img.img %>" style="width: 100%; height: 200px; object-fit: cover">	
+					<img id="<%= i %>" class="my-2 img-fluid
+											  
+						<% if(currentUser && currentUser.darkMode){ %>
+							darkModeImgThumbnail					  
+						<% }else{ %>
+							img-thumbnail
+						<% } %>				  
+											  
+						" src="<%= img.img %>" style="width: 100%; height: 200px; object-fit: cover">	
 				</div>
 				
 			
 				<!-- save indx of clicked image, in order to acces that img in the modal -->
 				
 			
-				
-			
-				
-			
+	
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog" role="document">
@@ -132,8 +178,6 @@
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 							</div>
 
-
-
 						</div>
 					</div>
 				</div>
@@ -142,7 +186,6 @@
 		</div>
 	</div>
 </main>
-
 
 
 <% gallery.imgs.forEach(function(img, i){ %>
@@ -169,5 +212,43 @@
 		</button>	
 	</form>
 <% }); %>
+
+
+<!-- Follower Modal to show who follows the user - this is shown only if the current user is the bologs author -->
+	<div id="followers" class="modal fade" role="dialog">
+    	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+            	<div class="modal-header">
+					<h4 class="modal-title">Number of Followers: <%= user.followers.length %></h4>
+            	</div>
+            	<div class="modal-body">
+                	<table class="table table-striped">
+                    	<thead>
+                    		<tr>
+                        		<th>Followers:</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<% user.followers.forEach(function(follower) { %>
+                        		<tr>
+                            		<td><span class="badge"><i class="fas fa-user"></i></span> <%= follower.username %></td>
+                        		</tr>
+                    		<% }); %>
+                    		<% if (user.followers.length === 0) { %>
+                        		<tr>
+                            		<td><em>No followers yet.</em></td>
+                        		</tr>
+                    		<% } %>
+                    	</tbody>
+                	</table>
+            	</div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+        	</div>
+    	</div>
+	</div>
+
 
 <%- include("../partials/footer") %>
