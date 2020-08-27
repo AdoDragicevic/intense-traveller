@@ -19,7 +19,9 @@
 		<div class="row mt-3">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
+				<!-- xs, sm -->
 				<h1 class="d-none d-md-block display-4 pl-md-4 py-3"> <%= blog.title %> </h1>
+				<!-- md, lg, xl -->
 				<h1 class="d-block d-md-none pl-md-4 py-3 text-center" style="font-weight: 300;"> <%= blog.title %> </h1>
 			</div>
 		</div>
@@ -49,8 +51,18 @@
 						<!-- Follow / Stop following -->
 						<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-success btn-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px">
-							<!-- change text from follow to stop following -->
+							<!-- dark mode -->
+							<a id="blogFollow" class="btn btn-sm btn-block mb-3 
+													  
+								<% if(currentUser && currentUser.darkMode){ %>
+									darkModeBtn					  
+								<% }else{ %>
+									btn-success 
+								<% } %>
+													  
+									" href="/follow/<%= user.id %>" style="max-width: 300px">
+							
+								<!-- change text from follow to stop following -->
 								<% if(user.followers.some(function(follower){ %>
 									<% return follower.equals(currentUser._id); %>
 								<% })){ %>
@@ -61,7 +73,7 @@
 							</a>
 						<% }else if(!currentUser){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px"> Follow </a>
+							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px background-color: #ff9900;"> Follow </a>
 						<% } %>
 						
 						<!-- number of followers -->
@@ -70,8 +82,8 @@
 						<p> <a id="blogFollowers" class="text-info" type="button" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> </p>
 						
 						
-							<!-- gallery related to this blog -->
-							<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
+						<!-- gallery related to this blog -->
+						<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
 						
 					</div>
 				</div>
@@ -90,7 +102,7 @@
 					
 					<!-- image -->
 					<div class="card mx-md-3">
-						<img class="card-img-top img-fluid p-1" src=" <%= blog.img %> ">
+						<img class="card-img-top img-thumbnail img-fluid p-1" src=" <%= blog.img %>">
 					</div>
 					
 					<!-- date, text, like buttons -->
@@ -153,10 +165,29 @@
 					<div class="card-footer border-top-0 my-5">
 						 <h3 class="d-block d-sm-inline">Comments</h3>
 						<!-- Collapse button -->
-						<div class="d-none d-sm-inline float-right">
+						
+						<!-- dark mode / light mode -->
+						<% if(currentUser && currentUser.darkMode){ %>
+							
+							<!-- sm, md, lg, xl -->
+							<div class="d-none d-sm-inline float-right">
+							<a class="btn darkModeBtn" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
+							<!-- xs -->
+							</div>
+							<a class="btn darkModeBtn d-block d-sm-none" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>							
+						
+						<% }else{ %>
+						
+							<!-- sm, md, lg, xl -->
+							<div class="d-none d-sm-inline float-right">
 							<a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
-						</div>
-						<a class="btn btn-success d-block d-sm-none" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>
+							<!-- xs -->
+							</div>
+							<a class="btn btn-success d-block d-sm-none" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">Write a Comment</a>						
+						
+						<% } %>
+						
+
 
 						<hr class="">
 
@@ -175,7 +206,17 @@
 								<form id="add-comment-form" action="/blog/<%= blog._id %>/comment" method="POST">
 
 									<textarea class="form-control" name="comment[text]" placeholder="comment..." form="add-comment-form" rows="2" cols="70"></textarea>
-									<button class="btn btn-sm btn-success my-2">Comment</button>
+									
+									<!-- dark mode -->
+									<button class="btn btn-sm my-2
+												   
+										<% if(currentUser && currentUser.darkMode){ %>
+											darkModeBtn		   	
+										<% }else{ %>
+											btn-success		   
+										<% } %>
+												   
+											">Comment</button>
 								</form>
 							<% } %>
 							<hr>
@@ -188,7 +229,16 @@
 
 								<div class="px-3">
 									
-									<a class="text-secondary" href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
+									<!-- dark mode -->
+									<a
+									   
+									   <% if(currentUser && currentUser.darkMode){ %>
+									   		style="color: #ff9900;"		
+									   <% }else{ %>
+									   		class="text-secondary"
+									   <% } %>
+									   
+									    href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
 									
 									<p class=" mx-3 mb-0" style="text-align: justify;"> <%= comment.text %> </p>
 

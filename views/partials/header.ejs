@@ -24,6 +24,7 @@
 	
 <header>
 	<!-- navbar -->
+	<!-- dark mode -->
 	<nav class="navbar navbar-expand-lg fixed-top
 				
 				<% if(currentUser && currentUser.darkMode){ %>
@@ -31,7 +32,6 @@
 				<% }else{ %>
 					bg-white navbar-light
 				<% } %>
-				
 				
 				">
 			
@@ -71,8 +71,15 @@
 				<% }else{ %>
 				
 					<!-- dark mode button -->
+					<!-- dark mode -->
 					<form action="/darkMode?_method=PUT" method="POST">
-						<button class="btn btn-warning-info mr-2 text-white">
+						<button class="btn mr-2 pl-0
+									   
+							<% if(currentUser && currentUser.darkMode){ %>
+								text-white		
+							<% } %>
+							
+						   ">
 							<i class="fas fa-lightbulb d-inlin"></i>
 						</button>
 					</form>
