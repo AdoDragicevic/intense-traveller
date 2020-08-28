@@ -61,7 +61,7 @@ router.get("/", function(req, res){
 			});
 		});
 	}else{
-		Gallery.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
+		Gallery.find({}).sort({'_id':-1}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
 			Gallery.count().exec(function (err, count) {
 				if(err){
 					console.log(err);

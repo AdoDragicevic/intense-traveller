@@ -5,7 +5,7 @@
 <div class="container">
 	
 	<!-- Title -->
-	<div class="row text-center mt-5">
+	<div class="row text-center my-5">
 		<a href="/blog/<%= blog.id %>">Go Back</a>
 		<h1 class="mx-auto"> Connect <em> <%= blog.title %> </em>  with a Gallery</h1>
 	</div>
@@ -33,21 +33,47 @@
 						
 						</div>
 						
+						<div>
+							
 									
-						<!-- title -->
-						<!-- depending on screen size cut the title -->
-						<h6 class="d-block d-md-none card-title text-center mb-2"> <%= gallery.title.substring(0, 50) %> ... </h6>	
-						<h6 class="d-none d-md-block d-lg-none card-title text-center mb-2"> <%= gallery.title.substring(0, 22) %> ... </h6>	
-						<h5 class="d-none d-lg-block d-xl-none card-title text-center mb-2"> <%= gallery.title.substring(0, 22) %> ... </h5>	
-						<h5 class="d-none d-xl-block card-title text-center mb-2"> <%= gallery.title.substring(0, 22) %> ... </h5>		
-						
+							<!-- title -->
+							<!-- depending on screen size cut the title -->
+							<h6 class="d-block d-md-none card-title text-center mb-2">
+								<% if(gallery.title.length > 50){ %>
+									<%= gallery.title.substring(0, 50) %> ... </h6>	
+								<% }else{ %>
+									<%= gallery.title %>
+								<% } %>
+
+							<h6 class="d-none d-md-block d-lg-none card-title text-center mb-2">
+								<% if(gallery.title.length > 22){ %>
+									<%= gallery.title.substring(0, 22) %> ... </h6>
+								<% }else{ %>
+									<%= gallery.title %>
+								<% } %>
+
+							<h5 class="d-none d-lg-block d-xl-none card-title text-center mb-2">
+								<% if(gallery.title.length > 22){ %>
+									<%= gallery.title.substring(0, 22) %> ... </h5>
+								<% }else{ %>
+									<%= gallery.title %>
+								<% } %>
+
+							<h5 class="d-none d-xl-block card-title text-center mb-2">
+								<% if(gallery.title.length > 22){ %>
+									<%= gallery.title.substring(0, 22) %> ... </h5>	
+								<% }else{ %>
+									<%= gallery.title %>
+								<% } %>
+
+						</div>
 						
 						<!-- link form -->
 						<div>
 							
 							<form class="d-inline" action="/blog/<%= blog._id %>?_method=PUT" method="POST">
 								<button class="btn btn-sm btn-success my-1">
-									<i class="fas fa-link"></i> Link
+									<i class="fas fa-link mx-1"></i> Link
 								</button>
 							</form>
 							

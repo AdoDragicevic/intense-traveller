@@ -55,14 +55,14 @@ router.get("/", function(req, res){
 						success: "No Journals match the searched term.",
 						blogs: blogs, 
 						current: pageNumber, 
-						pages: Math.ceil(count / perPage) 
+						pages: Math.ceil(count / perPage)
 					});
 				}
 			});
 		});
 	// no search
 	}else{
-		Blog.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
+		Blog.find({}).sort({'_id':-1}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
 			Blog.count().exec(function (err, count) {
 				if(err){
 					console.log(err);
