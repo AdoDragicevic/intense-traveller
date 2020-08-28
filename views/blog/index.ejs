@@ -73,9 +73,9 @@
 									<!-- depending on sizes -->
 									
 									<!-- xs -->
-									<h5 class="d-block d-sm-none card-title"> 
-										 <% if(blog.title.length > 45){ %>
-											<%= blog.title.substring(0, 45) %> ...
+									<h5 class="d-block d-sm-none card-title pb-0 mb-1"> 
+										 <% if(blog.title.length > 25){ %>
+											<%= blog.title.substring(0, 25) %> ...
 										<% }else{ %>
 											<%= blog.title %>
 										<% } %>	
@@ -121,7 +121,7 @@
 									
 
 									<!-- short description shown only on this index page -->
-									<p class="card-text mb-0 pb-0" style="overflow: hidden"> <em> <%= blog.description %> </em> </p>	
+									<p class="card-text mb-1" style="overflow: hidden"> <em> <%= blog.description %> </em> </p>	
 
 									<!-- author name, number of likes and readMe button -->
 									<div class="mt-auto">
