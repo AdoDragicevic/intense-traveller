@@ -69,8 +69,56 @@
 								<div class="card-body d-flex flex-column pt-1" style="height: 255px">
 
 									<!-- title -->
-									<h2 class="d-none d-sm-inline card-title"> <%= blog.title %> </h2>
-									<h5 class="d-inline d-sm-none card-title"> <%= blog.title %> </h5>
+									
+									<!-- depending on sizes -->
+									
+									<!-- xs -->
+									<h5 class="d-block d-sm-none card-title"> 
+										 <% if(blog.title.length > 45){ %>
+											<%= blog.title.substring(0, 45) %> ...
+										<% }else{ %>
+											<%= blog.title %>
+										<% } %>	
+									</h5>
+									
+									<!-- sm -->
+									<h5 class="d-none d-sm-block d-md-none card-title"> 
+										 <% if(blog.title.length > 55){ %>
+											<%= blog.title.substring(0, 55) %> ...
+										<% }else{ %>
+											<%= blog.title %>
+										<% } %>	
+									</h5>
+									
+									<!-- md -->
+									<h5 class="d-none d-md-block d-lg-none card-title"> 
+										 <% if(blog.title.length > 65){ %>
+											<%= blog.title.substring(0, 65) %> ...
+										<% }else{ %>
+											<%= blog.title %>
+										<% } %>	
+									</h5>
+									
+									<!-- lg -->
+									<h2 class="d-none d-lg-block d-xl-none card-title"> 
+										 <% if(blog.title.length > 27){ %>
+											<%= blog.title.substring(0, 27) %> ...
+										<% }else{ %>
+											<%= blog.title %>
+										<% } %>	
+									</h2>
+									
+									<!-- xl -->
+									<h2 class="d-none d-xl-block card-title"> 
+										 <% if(blog.title.length > 35){ %>
+											<%= blog.title.substring(0, 35) %> ...
+										<% }else{ %>
+											<%= blog.title %>
+										<% } %>	
+									</h2>
+									
+									
+									
 
 									<!-- short description shown only on this index page -->
 									<p class="card-text mb-0 pb-0" style="overflow: hidden"> <em> <%= blog.description %> </em> </p>	

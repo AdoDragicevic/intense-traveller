@@ -52,7 +52,24 @@
 								">
 								
 								<!-- title -->
-								<h5 class="card-title text-center"> <%= gallery.title %> </h5>
+								<h5 class="d-none d-lg-block d-xl-none card-title text-center"> 
+									<!-- if the title is too long, cut it -->
+										<% if(gallery.title.length > 20){ %>
+											<%= gallery.title.substring(0, 20) %> ...
+										<% }else{ %>
+											<%= gallery.title %>
+										<% } %>	
+								</h5>
+								
+								<!-- title -->
+								<h5 class="d-block d-lg-none d-xl-block card-title text-center"> 
+									<!-- if the title is too long, cut it -->
+										<% if(gallery.title.length > 34){ %>
+											<%= gallery.title.substring(0, 30) %> ...
+										<% }else{ %>
+											<%= gallery.title %>
+										<% } %>	
+								</h5>
 								
 								<!-- author, num of imgs, total likes -->
 								<p class="card-text">
