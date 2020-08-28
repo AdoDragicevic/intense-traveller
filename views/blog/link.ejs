@@ -1,0 +1,63 @@
+<%- include("../partials/header") %>
+
+
+<!-- Link Journal to a Gallery -->
+<div class="container">
+	
+	<!-- Title -->
+	<div class="row text-center mt-5">
+		<a href="/blog/<%= blog.id %>">Go Back</a>
+		<h1 class="mx-auto"> Connect <em> <%= blog.title %> </em>  with a Gallery</h1>
+	</div>
+	
+	<!-- Show each Gallery created by the same user -->
+	<div class="row">
+			
+			<% galleries.forEach(function(gallery){ %>
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					
+					<!-- dark mode -->
+					<div class="card my-3 mx-sm-5 mx-md-0 border border-light">
+
+						<div class="text-white" style="position: relative; width: 100%;">
+							<!-- show first img from the gallery -->
+							<img class="card-img-top " src="<%= gallery.imgs[0].img %>" style="object-fit: cover; width: 100%; height: 150px;" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+							
+							<!-- num of imgs -->
+							<p class="card-text">
+								<span style="width: 100%; height: 100%; position: absolute; top: 5px; left: 10px; font-size: 1.1rem;"> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>		
+							</p>
+							
+							<!-- view -->
+							<a class="d-inline float-right btn btn-sm btn-light text-dark" href="/gallery/<%= gallery._id %>" style="width: 50px; height: 35px; position: absolute; top: 10px; left: 85%; font-size: 1.1rem;"> <i class="fas fa-eye"></i> </a>
+						
+						</div>
+						
+									
+						<!-- title -->
+						<h5 class="card-title text-center mb-2"> <%= gallery.title %> </h5>	
+						
+						
+						<!-- link form -->
+						<div>
+							
+							<form class="d-inline" action="/blog/<%= blog._id %>?_method=PUT" method="POST">
+								<button class="btn btn-sm btn-success my-1">
+									<i class="fas fa-link"></i> Link
+								</button>
+							</form>
+							
+						</div>
+							
+					</div>
+				</div>
+		
+			<% }); %>
+			
+	</div>
+	
+</div>
+
+
+
+<%- include("../partials/footer") %>

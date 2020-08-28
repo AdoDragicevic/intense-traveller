@@ -8,23 +8,17 @@
 </style>
 
 
+
+
 <!-- Jumbotron -->
 <header>
 	<div class="container">
-    	
-		<!-- dark mode -->
-		<div class="jumbotron pl-md-5 pt-0 pt-md-3 pb-5
-					
-					
-					<% if(currentUser && currentUser.darkMode){ %>
-						darkModeJumbotron
-					<% }else{ %>
-						lightJumbotron
-					<% } %>
-					
-					">
+		
 			
-			<!-- show edit and delete buttons only if current user is author or admin -->
+		
+		<div class="row mr-1">
+			<div class="col-12 mb-3">
+				<!-- show edit and delete buttons only if current user is author or admin -->
 			<% if(currentUser && gallery.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 					
 				<!-- Delete button -->
@@ -36,47 +30,57 @@
 				<a class="btn btn-sm btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
 				
 			<% } %>
-        
-			<br>
-			
+			</div>
+		</div>
+    	
+		<!-- dark mode -->
+		<div class="jumbotron pt-xl-4 pl-md-5 pb-5 pt-2
+					
+					
+					<% if(currentUser && currentUser.darkMode){ %>
+						darkModeJumbotron
+					<% }else{ %>
+						lightJumbotron
+					<% } %>
+					
+					">
+        	
 			<!-- title -->
-			
 			<!-- xs, sm -->
-			<h2 class="d-block d-md-none pl-md-4 py-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h2>
-			
+			<h2 class="d-block d-md-none pl-md-4 mb-2 mb-xl-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h2>
 			<!-- md, lg, xl -->
-			<h1 class="d-none d-md-block display-4"> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
+			<h1 class="d-none d-md-block display-4 mb-2 mb-xl-3 text-muted"> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
         
 			
 			<!-- Author, date, followers, connected gallery -->
 			
 			<!-- dark mode -->
-			<div class="mt-3 
+			<div class=" 
 						
 				<%if(currentUser && currentUser.darkMode){ %>
-					text-secondary
+					text-muted
 				<% } %>
 						
 				">
 				
 				<!-- author -->
-				<p> <strong> Author: </strong> <a class="text-info" href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
+				<p class="mb-2 mb-xl-3"> <strong> Author: </strong> <a class="text-info" href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
 				
 				<!-- date -->
-				<p> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
+				<p class="mb-2 mb-xl-3"> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
 				
 				
 				<!-- number of followers and modal button -->
-				<p> <strong> Followers: </strong> 
+				<p class="mb-2 mb-xl-3"> <strong> Followers: </strong> 
 					<a class="text-info" type="badge" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> 
 				</p>
 				
 				
 				
 				<!-- related journal -->
-				<p> <strong> Related Journal: </strong> / </p>
+				<p class="mb-2 mb-xl-3"> <strong> Related Journal: </strong> / </p>
 				
-				<p class="d-inline">
+				<p class="d-inline mb-3">
 					<strong> 
 						Total likes: 
 					</strong> 
@@ -89,6 +93,7 @@
 					
 					<!-- display total likes number -->
 					<%= numOfLikes %>
+					
 				</p>
 			
 				<!-- Follow / Stop following -->
@@ -100,7 +105,7 @@
 						<% if(currentUser && currentUser.darkMode){ %>
 							darkModeBtn					  
 						<% }else{ %>
-							btn-info 
+							btn-success 
 						<% } %>
 													  
 						" href="/follow/<%= user.id %>" style="min-width: 250px">
@@ -138,6 +143,8 @@
 
 				<!-- img -->
 				<div class="col-sm-6 col-lg-4">
+					
+					<!-- dark mode -->
 					<img id="<%= i %>" class="my-2 img-fluid
 											  
 						<% if(currentUser && currentUser.darkMode){ %>
@@ -149,6 +156,9 @@
 						" src="<%= img.img %>" style="width: 100%; height: 200px; object-fit: cover">	
 				</div>
 				
+			
+			
+			
 			
 				<!-- save indx of clicked image, in order to acces that img in the modal -->
 				

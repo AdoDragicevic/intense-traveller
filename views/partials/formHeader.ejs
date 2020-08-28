@@ -1,0 +1,135 @@
+<!-- this is the same header as header.ejs, without the lightbulb in the navbar. Reson being that changing the light mode sends a new request and refreshes the page, and all data entered in the form - and not submitted - are lost, which is a terrible user experience -->
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Cardo&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="/stylesheets/darkMode.css">
+	  
+	<title>Intense Traveller</title>
+  </head>
+
+<!-- darkMode -->
+<body    
+	<% if(currentUser && currentUser.darkMode){ %>
+		class="darkModeBody"  
+	<% } %>  
+>
+	
+	
+<header>
+	<!-- navbar -->
+	<!-- dark mode -->
+	<nav class="navbar navbar-expand-lg fixed-top
+				
+				<% if(currentUser && currentUser.darkMode){ %>
+					bg-dark navbar-dark
+				<% }else{ %>
+					bg-white navbar-light
+				<% } %>
+				
+				">
+			
+		<a class="navbar-brand" href="/"> <em>Intense Traveller</em> </a>
+  			
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+			
+		<!-- content -->
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				
+			<!-- items on the left -->
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+    				<a class="nav-link" href="/blog"> <i class="fas fa-feather-alt"></i> Journal <span class="sr-only">(current)</span></a>
+      			</li>
+				<li class="nav-item active">
+					<a class="nav-link mr-3" href="/gallery"> <i class="fas fa-camera"></i> Gallery </a>
+				</li>
+			</ul>
+				
+			<!-- items on the right -->
+			<ul class="navbar-nav ml-auto">
+				<!-- decide what to show based on wheather or not the user is logged in -->
+					
+				<% if(!currentUser){ %>
+				
+					<!-- if user is not logged in, show logIn and SignUp links -->
+					<li class="nav-item active">
+						<a class="nav-link" href="/register"> <i class="fas fa-user-plus"> </i> SignUp</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/login"> <i class="fas fa-user"></i> LogIn</a>
+					</li>
+					
+				<% }else{ %>
+					
+					<!-- notifications dropdown -->
+					<li class="nav-item dropdown">
+        				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-bell"></i> <span class="badge"><%= notifications.length %></span> </a>
+							
+            			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							
+							<!-- link to all notifications -->
+							<li> 
+								<a class="dropdown-item" href="/notifications">Past notifications</a> 
+							</li>
+							<div class="dropdown-divider">
+							</div>
+							
+							<!-- show unseen notifications -->
+							<% notifications.forEach(function(notification) { %>                          
+								<a class="dropdown-item" href="/notifications/<%= notification.id %>"> 
+									<%= notification.username %> published a new 
+										<% if(notification.gallery){ %> 
+											Gallery	
+										<% }else{ %> 
+											Journal 
+									<% } %>
+								</a>
+            				<% }); %>
+            			</ul>
+        			</li>	
+					
+					<!-- user profile link -->
+					<li class="nav-item active">
+						<a class="nav-link" href="/profile/<%= currentUser._id %>"> <em> <%= currentUser.username %> </em> </a>
+					</li>
+					
+					<!-- logOut button -->
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">LogOut</a>
+					</li>
+				<% } %>
+			</ul>
+  		</div>
+	</nav>
+</header>
+	
+	
+	<!-- req.flash error and success messages -->
+	<div class="container text-center">
+		<% if(error && error.length > 0){ %>
+			<div id="to-front" class="alert alert-danger" role="alert">
+				<%= error %> 
+			</div>
+		<% } %>
+		<% if(success && success.length > 0){ %>
+			<div id="to-front" class="alert alert-success" role="alert">
+				<%= success %> 
+			</div>
+		<% } %>
+	</div>
+	
+    
+	
+

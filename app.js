@@ -25,7 +25,9 @@ const indexRoutes 		 = require("./routes"),
 	  blogLikeRoutes	 = require("./routes/blog/like"),
 	  galleryRoutes		 = require("./routes/gallery"),
 	  galleryLikeRoutes  = require("./routes/gallery/like"),
-	  darkModeRoutes	 = require("./routes/darkMode");
+	  darkModeRoutes	 = require("./routes/darkMode"),
+	  blogLinkRoutes	 = require("./routes/blog/link"),
+	  galleryLinkRoutes	 = require("./routes/gallery/link");
 
 
 // MONGOOSE SETUP
@@ -82,8 +84,10 @@ app.use("/profile", profileRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
 app.use("/blog/:id/like", blogLikeRoutes);
+app.use("/blog/:id", blogLinkRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/gallery/:id/like", galleryLikeRoutes);
+app.use("/gallery/:id", galleryLinkRoutes);
 
 
 
