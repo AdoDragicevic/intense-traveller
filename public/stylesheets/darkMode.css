@@ -3,6 +3,10 @@
 	color: gray;
 }
 
+.darkModeJumbotron {
+	background-color: #2D2D2D;
+}
+
 .darkModeCard{
 	background-color: #212529;
 }
@@ -28,6 +32,12 @@
 	color: #df8800;
 }
 
-.darkModeJumbotron {
-	background-color: #2D2D2D;
+.btn-warning{
+	background-color: #df8800;
+	color: white;
+}
+
+.darkModeBtnOutline{
+	border: 1px solid #df8800;
+	color: #df8800;
 }

@@ -82,10 +82,52 @@
 						<!-- modal button -->
 						<p> <a id="blogFollowers" class="text-info" type="button" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> </p>
 						
-						
 						<!-- gallery related to this blog -->
-						<label class="text-secondary" for="blogGallery"> <strong>Related Gallery</strong> </label>
+						<label class="text-secondary" for="relatedGallery"> <strong>Linked Gallery</strong> </label>
 						
+
+						<!-- for each related galley show a picture -->
+						<div class="row">
+							
+							<!-- number of linked galleries -->
+							<div class="col-12">
+								<% if(blog.link.length === 0){ %>
+									<p class="ml-3"> / </p>
+								<% }else if(blog.link.length === 1){ %>
+									<p> <%= blog.link.length %> Gallery linked to this Journal: </p>
+								<% }else{ %>
+									<p> <%= blog.link.length %> Galleries linked to this Journal: </p>
+								<% } %>	
+							</div>
+							
+							
+							<% blog.link.forEach(function(link){ %>
+								<div class="col-6 col-md-4 col-lg-6">
+									<a href="/gallery/<%= link._id %>">
+										<img class="img-responsive 
+													
+											<% if(currentUser && currentUser.darkMode){ %>
+												darkModeImgThumbnail		
+											<% }else{ %>
+												img-thumbnail		
+											<% } %>		
+													
+											" src="<%= link.imgs[0].img %>">
+									</a>
+								</div>
+							<% }); %>
+
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col-12">
+								<!-- if current user is author enable him to change links -->
+								<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+									<p> <a id="relatedGallery" class="text-info" href="/blog/link/<%= blog._id %>"> Edit links </a> </p>
+								<% } %>
+							</div>
+						</div>
+	
 					</div>
 				</div>
 				

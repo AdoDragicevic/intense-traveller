@@ -13,7 +13,7 @@ const User = require("../../models/user");
 
 
 // EDIT
-router.get("/link", middleware.isLoggedIn, async function(req, res){
+router.get("/", middleware.isLoggedIn, async function(req, res){
 	try{
 		let blog = await Blog.findById(req.params.id).populate("link").exec();
 		let galleries = await Gallery.find().where("author.id").equals(req.user._id).populate("link").exec();
@@ -29,14 +29,30 @@ router.get("/link", middleware.isLoggedIn, async function(req, res){
 
 // UPDATE
 router.put("/", function(req, res){
-	Blog.findByIdAndUpdate(req.params.id, req.body.link, function(err, blog){
+	Blog.findById(req.params.id, function(err, blog){
 		if(err){
 			console.log(err);
 			req.flash("error", "Unable to link choosen Gallery. Please, try again later.");
 			res.redirect("back");
 		}else{
-			req.flash("success", "Your Journal now shows a link to the choosen Gallery.");
-			res.redirect("/blog/" + req.params.id);
+			// check if req.body.link exists in blog.likes
+			let foundLink = blog.link.some(function(link){
+				return link.equals(req.body.link);
+			});
+			if(foundLink){
+				// user already liked, removing like
+				blog.link.pull(req.body.link);
+				blog.save();
+				req.flash("success", "Link between Journal and Gallery has been removed.");
+				res.redirect("/blog/link/" + req.params.id);
+			}else{
+				// add new user like to blog.likes
+				blog.link.push(req.body.link);
+				blog.save();
+				req.flash("success", "Link between Journal and Gallery has been created.");
+				res.redirect("/blog/link/" + req.params.id);
+			}
+			
 		}
 	});
 });

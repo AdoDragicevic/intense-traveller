@@ -84,10 +84,10 @@ app.use("/profile", profileRoutes);
 app.use("/blog", blogRoutes);
 app.use("/blog/:id/comment", blogCommentRoutes);
 app.use("/blog/:id/like", blogLikeRoutes);
-app.use("/blog/:id", blogLinkRoutes);
+app.use("/blog/link/:id", blogLinkRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/gallery/:id/like", galleryLikeRoutes);
-app.use("/gallery/:id", galleryLinkRoutes);
+app.use("/gallery/link/:id", galleryLinkRoutes);
 
 
 

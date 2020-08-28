@@ -7,7 +7,7 @@
 	<!-- Title -->
 	<div class="row text-center my-5">
 		<a href="/blog/<%= blog.id %>">Go Back</a>
-		<h1 class="mx-auto"> Connect <em> <%= blog.title %> </em>  with a Gallery</h1>
+		<h1 class="mx-auto display-4"> Connect <em>  <%= blog.title %> </em>  with a Gallery</h1>
 	</div>
 	
 	<!-- Show each Gallery created by the same user -->
@@ -17,15 +17,21 @@
 				<div class="col-sm-12 col-md-4 col-xl-3">
 					
 					<!-- dark mode -->
-					<div class="card my-3 mx-sm-5 mx-md-0 border border-light" stlye="width: 100%;">
+					<div class="card mt-5 mx-sm-5 mx-md-0 border border-light
+								
+						<% if(currentUser && currentUser.darkMode){ %>
+							border-dark bg-dark		
+						<% } %>		
+						
+						">
 
-						<div class="text-white" style="position: relative; width: 100%;">
+						<div class="text-white" style="position: relative; width: 100%; height: 50%;">
 							<!-- show first img from the gallery -->
 							<img class="card-img-top" src="<%= gallery.imgs[0].img %>" style="object-fit: cover; width: 100%; height: 150px;" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
 							
 							<!-- num of imgs -->
 							<p class="card-text">
-								<span style="width: 100%; height: 100%; position: absolute; top: 5px; left: 10px; font-size: 1.1rem;"> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>		
+								<span style="width: 100%; height: 50%; position: absolute; top: 5px; left: 10px; font-size: 1.2rem;"> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>		
 							</p>
 							
 							<!-- view -->
@@ -38,48 +44,81 @@
 									
 							<!-- title -->
 							<!-- depending on screen size cut the title -->
-							<h6 class="d-block d-md-none card-title text-center mb-2">
+							<h6 class="d-block d-md-none card-title text-center">
 								<% if(gallery.title.length > 50){ %>
 									<%= gallery.title.substring(0, 50) %> ... </h6>	
 								<% }else{ %>
 									<%= gallery.title %>
 								<% } %>
 
-							<h6 class="d-none d-md-block d-lg-none card-title text-center mb-2">
+							<h6 class="d-none d-md-block d-lg-none card-title text-center">
 								<% if(gallery.title.length > 22){ %>
 									<%= gallery.title.substring(0, 22) %> ... </h6>
 								<% }else{ %>
 									<%= gallery.title %>
 								<% } %>
 
-							<h5 class="d-none d-lg-block d-xl-none card-title text-center mb-2">
+							<h6 class="d-none d-lg-block d-xl-none card-title text-center">
 								<% if(gallery.title.length > 22){ %>
-									<%= gallery.title.substring(0, 22) %> ... </h5>
+									<%= gallery.title.substring(0, 30) %> ... </h6>
 								<% }else{ %>
 									<%= gallery.title %>
 								<% } %>
 
-							<h5 class="d-none d-xl-block card-title text-center mb-2">
+							<h6 class="d-none d-xl-block card-title text-center">
 								<% if(gallery.title.length > 22){ %>
-									<%= gallery.title.substring(0, 22) %> ... </h5>	
+									<%= gallery.title.substring(0, 30) %> ... </h6>	
 								<% }else{ %>
 									<%= gallery.title %>
 								<% } %>
 
 						</div>
 						
-						<!-- link form -->
-						<div>
+						
 							
-							<form class="d-inline" action="/blog/<%= blog._id %>?_method=PUT" method="POST">
-								<button class="btn btn-sm btn-success my-1">
-									<i class="fas fa-link mx-1"></i> Link
-								</button>
+					</div>
+					
+					<!-- link form -->
+						<div class="mt-0">
+							
+							<form class="d-inline" action="/blog/link/<%= blog._id %>?_method=PUT" method="POST">
+								<input type="hidden" name="link" value="<%= gallery._id %>">
+
+									<!-- check if link already exists -->
+									<% let foundLink = blog.link.some(function(link){ %>
+										<% return link.equals(gallery._id); %>
+									<% }); %>
+
+									<!-- unlink -->
+									<% if(foundLink){ %>
+										<button class="btn btn-sm btn-block
+											
+											<% if(currentUser && currentUser.darkMode){ %>
+												darkModeBtnOutline  
+											<% }else{ %>
+												btn-outline-success		   
+											<% } %>		   
+													   
+											 ">
+										<i class="fas fa-link mx-1"></i> Unlink </button>
+									
+									<!-- link -->
+									<% }else{ %>
+										<button class="btn btn-sm btn-block
+											
+											<% if(currentUser && currentUser.darkMode){ %>
+												 darkModeBtn
+											<% }else{ %>
+												 btn-success
+											<% } %>		   
+													   
+											 ">
+										<i class="fas fa-link mx-1"></i> Link </button>
+									<% } %>
+
 							</form>
 							
 						</div>
-							
-					</div>
 				</div>
 		
 			<% }); %>
