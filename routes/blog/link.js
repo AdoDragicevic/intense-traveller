@@ -30,7 +30,7 @@ router.get("/", middleware.isLoggedIn, async function(req, res){
 // UPDATE
 router.put("/", function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
-		if(err){
+		if(err || !blog){
 			console.log(err);
 			req.flash("error", "Unable to link choosen Gallery. Please, try again later.");
 			res.redirect("back");
@@ -38,7 +38,8 @@ router.put("/", function(req, res){
 			// check if req.body.link exists in blog.likes
 			let foundLink = blog.link.some(function(link){
 				return link.equals(req.body.link);
-			});
+			});	
+			
 			if(foundLink){
 				// user already liked, removing like
 				blog.link.pull(req.body.link);

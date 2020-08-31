@@ -86,13 +86,15 @@
 
 									<!-- check if link already exists -->
 									<% let foundLink = blog.link.some(function(link){ %>
-										<% return link.equals(gallery._id); %>
+										<% if(link){ %>
+											<% return link.equals(gallery._id); %>
+										<% } %>
+										
 									<% }); %>
 
 									<!-- unlink -->
 									<% if(foundLink){ %>
 										<button class="btn btn-sm btn-block
-											
 											<% if(currentUser && currentUser.darkMode){ %>
 												darkModeBtnOutline  
 											<% }else{ %>

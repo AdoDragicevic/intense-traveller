@@ -102,19 +102,22 @@
 							
 							
 							<% blog.link.forEach(function(link){ %>
-								<div class="col-6 col-md-4 col-lg-6">
-									<a href="/gallery/<%= link._id %>">
-										<img class="img-responsive 
-													
-											<% if(currentUser && currentUser.darkMode){ %>
-												darkModeImgThumbnail		
-											<% }else{ %>
-												img-thumbnail		
-											<% } %>		
-													
-											" src="<%= link.imgs[0].img %>">
-									</a>
-								</div>
+								<% if(link){ %>
+									<div class="col-6 col-md-4 col-lg-6">
+										<a href="/gallery/<%= link._id %>">
+											<img class="img-responsive 
+
+												<% if(currentUser && currentUser.darkMode){ %>
+													darkModeImgThumbnail		
+												<% }else{ %>
+													img-thumbnail		
+												<% } %>		
+
+												" src="<%= link.imgs[0].img %>">
+										</a>
+									</div>
+								<% } %>
+								
 							<% }); %>
 
 						</div>
