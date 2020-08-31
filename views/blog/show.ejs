@@ -84,26 +84,43 @@
 						
 						<!-- gallery related to this blog -->
 						<label class="text-secondary" for="relatedGallery"> <strong>Linked Gallery</strong> </label>
-						
 
 						<!-- for each related galley show a picture -->
 						<div class="row">
 							
 							<!-- number of linked galleries -->
 							<div class="col-12">
-								<% if(blog.link.length === 0){ %>
-									<p class="ml-3"> / </p>
-								<% }else if(blog.link.length === 1){ %>
-									<p> <%= blog.link.length %> Gallery linked to this Journal: </p>
+								
+								<!-- if user is author/admin, show number as a link to manage links; else show as string -->
+								<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+									
+									<a id="relatedGallery" class="text-info" href="/blog/link/<%= blog._id %>">
+										<% if(blog.link.length === 0){ %>
+											<p> Create a link </p>
+										<% }else if(blog.link.length === 1){ %>
+											<em> <p> <%= blog.link.length %> Gallery: </p> </em>
+										<% }else{ %>
+											<em> <p> <%= blog.link.length %> Galleries: </p> </em> 
+										<% } %>	
+									</a>	
+								
 								<% }else{ %>
-									<p> <%= blog.link.length %> Galleries linked to this Journal: </p>
-								<% } %>	
-							</div>
+								
+									<% if(blog.link.length === 0){ %>
+										<p class="ml-3"> / </p>
+									<% }else if(blog.link.length === 1){ %>
+										<em> <p> <%= blog.link.length %> Gallery: </p> </em>
+									<% }else{ %>
+										<em> <p> <%= blog.link.length %> Galleries: </p> </em> 
+									<% } %>	
+
+									<% } %>
 							
+							</div>
 							
 							<% blog.link.forEach(function(link){ %>
 								<% if(link){ %>
-									<div class="col-6 col-md-4 col-lg-6">
+									<div class="col-6 col-md-4 col-lg-6 px-2">
 										<a href="/gallery/<%= link._id %>">
 											<img class="img-responsive 
 
@@ -113,22 +130,13 @@
 													img-thumbnail		
 												<% } %>		
 
-												" src="<%= link.imgs[0].img %>">
+												" src="<%= link.imgs[0].img %>" style="width: 100%; height: 50%; object-fit: cover;">
 										</a>
 									</div>
 								<% } %>
 								
 							<% }); %>
 
-						</div>
-						
-						<div class="row mt-2">
-							<div class="col-12">
-								<!-- if current user is author enable him to change links -->
-								<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-									<p> <a id="relatedGallery" class="text-info" href="/blog/link/<%= blog._id %>"> Edit links </a> </p>
-								<% } %>
-							</div>
 						</div>
 	
 					</div>
