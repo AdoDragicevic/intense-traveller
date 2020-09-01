@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-style
+
 <!-- title, num of followers, delete/follow button -->
 <header>
 	<div class="container text-center my-5">
@@ -60,21 +60,21 @@ style
 			<div class="col-md-6">
 				<div class="d-flex justify-content-center">
 					<!-- img -->
-					<img class="img-fluid rounded-circle img-thumbnail m-auto" src="<%= user.img %>" style="height: 270px; width: 270px; object-fit: cover;">	
+					<img id="profileImg" class="img-fluid rounded-circle img-thumbnail m-auto" src="<%= user.img %>">	
 				</div>
 			</div>
 
 			<div class="col-md-6">
 				<!-- about and personal data -->
-				<div class="p-3" style="max-height: 270px; width: 100%; overflow: auto; overflow-x: hidden;">
+				<div id="profileAbout" class="p-3">
 					<div class="cart-text">
 						
 						<!-- about -->
 						<label for="aboutMe"> <strong> About Me </strong> </label>
 						<% if(user.about !== ""){ %>
-							<p id="aboutMe" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"> <%= user.about %> </p>
+							<p id="aboutMe"> <%= user.about %> </p>
 						<% }else{ %>
-							<p id="aboutMe" style="white-space: pre-line; white-space: pre-wrap; text-align: justify;"> No information entered yet. </p>
+							<p id="aboutMe"> No information entered yet. </p>
 						<% } %>
 						
 						
