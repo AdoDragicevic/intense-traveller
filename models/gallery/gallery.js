@@ -22,13 +22,7 @@ const gallerySchema = new mongoose.Schema({
 		},
 		username: String
 	},
-	created: {type: Date, default: Date.now},
-	link: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Blog"
-		}
-	]
+	created: {type: Date, default: Date.now}
 });
 
 

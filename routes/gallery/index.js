@@ -3,6 +3,7 @@ const router = express.Router();
 const middleware = require("../../middleware");
 
 const Gallery = require("../../models/gallery/gallery");
+const Blog = require("../../models/blog/blog");
 const User = require("../../models/user");
 const Notification = require("../../models/notification/notification");
 
@@ -133,7 +134,16 @@ router.get("/:id", function(req, res){
 					req.flash("error", "Journal not found.");
 					res.redirect("back");
 				}else{
-					res.render("gallery/show", {gallery: gallery, user: user});	
+					// find blogs linked to this gallery
+					Blog.find().where("link").equals(req.params.id).exec(function(err, blogs){
+						if(err){
+							console.log(err);
+							req.flash("error", "Journal not found.");
+							res.redirect("back");
+						}else{
+							res.render("gallery/show", {gallery: gallery, user: user, blogs: blogs});			
+						}
+					});
 				}
 			});			
 		}

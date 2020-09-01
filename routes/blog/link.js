@@ -13,14 +13,14 @@ const User = require("../../models/user");
 
 
 // EDIT
-router.get("/", middleware.isLoggedIn, async function(req, res){
+router.get("/", middleware.checkBlogOwnership, async function(req, res){
 	try{
 		let blog = await Blog.findById(req.params.id).populate("link").exec();
 		let galleries = await Gallery.find().where("author.id").equals(req.user._id).populate("link").exec();
 		res.render("blog/link", {blog: blog, galleries: galleries});
 	}catch(err){
 		console.log(err);
-		req.flash("Unable to execute this functionality at the moment. Please, try again later.");
+		req.flash("Unable to execute at the moment. Please, try again later.");
 		res.redirect("back");
 	}
 	
@@ -28,7 +28,7 @@ router.get("/", middleware.isLoggedIn, async function(req, res){
 
 
 // UPDATE
-router.put("/", function(req, res){
+router.put("/", middleware.checkBlogOwnership, function(req, res){
 	Blog.findById(req.params.id, function(err, blog){
 		if(err || !blog){
 			console.log(err);
@@ -39,7 +39,6 @@ router.put("/", function(req, res){
 			let foundLink = blog.link.some(function(link){
 				return link.equals(req.body.link);
 			});	
-			
 			if(foundLink){
 				// user already liked, removing like
 				blog.link.pull(req.body.link);
@@ -52,8 +51,7 @@ router.put("/", function(req, res){
 				blog.save();
 				req.flash("success", "Link between Journal and Gallery has been created.");
 				res.redirect("/blog/link/" + req.params.id);
-			}
-			
+			}		
 		}
 	});
 });

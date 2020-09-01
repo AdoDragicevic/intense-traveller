@@ -69,21 +69,14 @@
 				<!-- date -->
 				<p class="mb-2 mb-xl-3"> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
 				
-				
 				<!-- number of followers and modal button -->
 				<p class="mb-2 mb-xl-3"> <strong> Followers: </strong> 
 					<a class="text-info" type="badge" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> 
 				</p>
-				
-				
-				
-				<!-- related journal -->
-				<p class="mb-2 mb-xl-3"> <strong> Related Journal: </strong> / </p>
-				
+
+				<!-- total likes of all pics in this gallery -->
 				<p class="d-inline mb-3">
-					<strong> 
-						Total likes: 
-					</strong> 
+					<strong> Total likes: </strong> 
 					
 					<!-- calculate all the likes inside the gallery -->
 					<% var numOfLikes = 0; %>
@@ -93,6 +86,30 @@
 					
 					<!-- display total likes number -->
 					<%= numOfLikes %>
+					
+				</p>
+				
+				
+				<!-- related journal -->
+				<p class="mb-2 mb-xl-3 mt-3"> <strong> Related Journal: </strong>
+					
+					<!-- change message depending on their number -->
+					<% if(blogs.length === 0){ %>
+							
+						<% if(currentUser && gallery.author.id.equals(currentUser._id)){ %>
+							Create a link to this Gallery from your <a class="text-info" href="/profile/<%= gallery.author.id %>">Journals</a>
+						<% }else{ %>
+							/
+						<% } %>
+					
+					<% }else if(blogs.length === 1){ %>
+						<a class="text-info" href="/blog/<%= blogs[0]._id %>">
+							<%= blogs[0].title %>
+						</a>
+						
+					<% }else{ %>
+						<%= blogs.length %> Journals - find them <a class="text-info" type="badge" data-toggle="modal" data-target="#linkedBlogs"> here</a>!						
+					<% } %>
 					
 				</p>
 			
@@ -250,6 +267,33 @@
                             		<td><em>No followers yet.</em></td>
                         		</tr>
                     		<% } %>
+                    	</tbody>
+                	</table>
+            	</div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+        	</div>
+    	</div>
+	</div>
+
+
+<!-- Follower Modal to show who follows the user - this is shown only if the current user is the bologs author -->
+	<div id="linkedBlogs" class="modal" role="dialog">
+    	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+            	<div class="modal-header">
+					<h4 class="modal-title">Linked Journals:</h4>
+            	</div>
+            	<div class="modal-body">
+                	<table class="table table-striped">
+                    	<tbody>
+                    		<div class="list-group">
+								<% blogs.forEach(function(blog){ %>
+									<a class="list-group-item list-group-item-action" href="/blog/<%= blog._id %>"> <%= blog.title %> </a>
+								<% }); %>
+							</div>
                     	</tbody>
                 	</table>
             	</div>
