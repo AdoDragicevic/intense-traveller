@@ -25,17 +25,17 @@
 						
 						">
 
-						<div class="text-white" style="position: relative; width: 100%; height: 50%;">
+						<div class="text-white linkOverImg">
 							<!-- show first img from the gallery -->
-							<img class="card-img-top" src="<%= gallery.imgs[0].img %>" style="object-fit: cover; width: 100%; height: 150px;" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0;">
+							<img class="card-img-top linkImg" src="<%= gallery.imgs[0].img %>">
 							
 							<!-- num of imgs -->
 							<p class="card-text">
-								<span style="width: 100%; height: 50%; position: absolute; top: 5px; left: 10px; font-size: 1.2rem;"> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>		
+								<span class="linkOverImg1"> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>		
 							</p>
 							
 							<!-- view -->
-							<a class="d-inline float-right btn btn-sm btn-light text-dark" href="/gallery/<%= gallery._id %>" style="width: 50px; height: 35px; position: absolute; top: 10px; left: 85%; font-size: 1.1rem;"> <i class="fas fa-eye"></i> </a>
+							<a class="d-inline float-right btn btn-sm btn-light text-dark linkOverImg2" href="/gallery/<%= gallery._id %>"> <i class="fas fa-eye"></i> </a>
 						
 						</div>
 						
@@ -73,10 +73,9 @@
 								<% } %>
 
 						</div>
-						
-						
-							
+								
 					</div>
+					
 					
 					<!-- link form -->
 						<div class="mt-0">
@@ -128,7 +127,6 @@
 	</div>
 	
 </div>
-
 
 
 <%- include("../partials/footer") %>

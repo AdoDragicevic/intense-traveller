@@ -1,5 +1,6 @@
 <%- include("../partials/formHeader") %>
 
+
 <!-- Form for creating a new gallery -->
 <div class="container">
 	
@@ -8,22 +9,23 @@
 		<h1 class="mx-auto">Edit <em> "<%= gallery.title %>" </em> </h1>
 	</div>
 	
-	<div style="max-width: 750px; margin: auto;">
+	<!-- class ed is short for edit blog, which means all ed classes are in the editBlog.css -->
+	<div id="editBlogWidth">
 		
 		<!-- Delete current pictures -->
-	<div class="row">
-		<div class="col-12">
-			<h6> <strong> Current Pictures: </strong> </h6>
-		</div>
-		<% gallery.imgs.forEach(function(img){ %>
-			<div class="col-3">
-				<img class="img-thumbnail img-fluid" src="<%= img.img %>" style="object-fit: cover; width: 100%; height: 100px">
-				<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
-					<input class="btn btn-outline-danger btn-block my-1" type="submit" value="X">
-				</form>
+		<div class="row">
+			<div class="col-12">
+				<h6> <strong> Current Pictures: </strong> </h6>
 			</div>
-		<% }); %>
-	</div>
+			<% gallery.imgs.forEach(function(img){ %>
+				<div class="col-3">
+					<img id="editBlogImgs" class="img-thumbnail img-fluid" src="<%= img.img %>">
+					<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
+						<input class="btn btn-outline-danger btn-block my-1" type="submit" value="X">
+					</form>
+				</div>
+			<% }); %>
+		</div>
 	
 		<hr>
 		

@@ -1,20 +1,9 @@
 <%- include("../partials/header") %>
 
-<!-- style for CSS -->
-<style>
-	body{
-		margin-top: 70px;
-	}
-</style>
-
-
-
 
 <!-- Jumbotron -->
 <header>
-	<div class="container">
-		
-			
+	<div class="container mt-3">
 		
 		<div class="row mr-1">
 			<div class="col-12 mb-3">
@@ -30,12 +19,43 @@
 				<a class="btn btn-sm btn-warning float-right mx-1" href="/gallery/<%= gallery._id %>/edit">Edit</a>
 				
 			<% } %>
+				
+				
+			<!-- Follow / Stop following -->
+			<% if(currentUser && !currentUser._id.equals(gallery.author.id)){ %>
+
+				<!-- dark mode -->
+				<a class="btn btn-sm float-right mt-2 galleryFollowBtn
+													  
+					<% if(currentUser && currentUser.darkMode){ %>
+						darkModeBtn					  
+					<% }else{ %>
+						btn-success 
+					<% } %>
+													  
+					" href="/follow/<%= user.id %>">
+							
+					<!-- change text from follow to stop following -->
+					<% if(user.followers.some(function(follower){ %>
+						<% return follower.equals(currentUser._id); %>
+					<% })){ %>
+						Unfollow
+					<% }else{ %>
+						Follow
+					<% } %>	
+				</a>
+				
+				<% }else if(!currentUser){ %>
+				
+					<a class="btn btn-sm btn-outline-info float-right galleryFollowBtn" href="/follow/<%= user.id %>"> Follow </a>
+				
+				<% } %>
+			
 			</div>
 		</div>
     	
 		<!-- dark mode -->
-		<div class="jumbotron pt-xl-4 pl-md-5 pb-5 pt-2
-					
+		<div class="jumbotron pt-xl-4 pl-md-5 py-2
 					
 					<% if(currentUser && currentUser.darkMode){ %>
 						darkModeJumbotron
@@ -47,9 +67,9 @@
         	
 			<!-- title -->
 			<!-- xs, sm -->
-			<h2 class="d-block d-md-none pl-md-4 mb-2 mb-xl-3" style="font-weight: 300;"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h2>
+			<h2 class="d-block d-md-none pl-md-4 mb-2 mb-xl-3 showTitle"> <i class="fas fa-camera-retro"></i> <%= gallery.title %> </h2>
 			<!-- md, lg, xl -->
-			<h1 class="d-none d-md-block display-4 mb-2 mb-xl-3 text-muted"> <i class="fas fa-camera-retro"></i> <%= gallery.title %>  </h1>
+			<h1 class="d-none d-md-block display-4 mb-2 mb-xl-3 text-muted"> <i class="fas fa-camera-retro text-dark"></i> <%= gallery.title %>  </h1>
         
 			
 			<!-- Author, date, followers, connected gallery -->
@@ -99,7 +119,7 @@
 						<% if(currentUser && gallery.author.id.equals(currentUser._id)){ %>
 							Create a link to this Gallery from your <a class="text-info" href="/profile/<%= gallery.author.id %>">Journals</a>
 						<% }else{ %>
-							/
+							No Journal linked to Gallery
 						<% } %>
 					
 					<% }else if(blogs.length === 1){ %>
@@ -112,36 +132,6 @@
 					<% } %>
 					
 				</p>
-			
-				<!-- Follow / Stop following -->
-				<% if(currentUser && !currentUser._id.equals(gallery.author.id)){ %>
-
-					<!-- dark mode -->
-					<a class="btn btn-sm float-right mt-2 
-													  
-						<% if(currentUser && currentUser.darkMode){ %>
-							darkModeBtn					  
-						<% }else{ %>
-							btn-success 
-						<% } %>
-													  
-						" href="/follow/<%= user.id %>" style="min-width: 250px">
-							
-						<!-- change text from follow to stop following -->
-						<% if(user.followers.some(function(follower){ %>
-							<% return follower.equals(currentUser._id); %>
-						<% })){ %>
-							Unfollow
-						<% }else{ %>
-							Follow
-						<% } %>	
-					</a>
-				
-				<% }else if(!currentUser){ %>
-				
-					<a class="btn btn-sm btn-outline-info mb-3 float-right mt-2" href="/follow/<%= user.id %>" style="min-width: 250px;"> Follow </a>
-				
-				<% } %>
 			
 			</div>
 
@@ -162,7 +152,7 @@
 				<div class="col-sm-6 col-lg-4">
 					
 					<!-- dark mode -->
-					<img id="<%= i %>" class="my-2 img-fluid
+					<img id="galleryImgs" class="my-2 img-fluid
 											  
 						<% if(currentUser && currentUser.darkMode){ %>
 							darkModeImgThumbnail					  
@@ -170,17 +160,14 @@
 							img-thumbnail
 						<% } %>				  
 											  
-						" src="<%= img.img %>" style="width: 100%; height: 200px; object-fit: cover">	
+						" src="<%= img.img %>">	
 				</div>
-				
-			
-			
-			
+					
 			
 				<!-- save indx of clicked image, in order to acces that img in the modal -->
 				
 			
-	
+
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog" role="document">

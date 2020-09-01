@@ -1,5 +1,6 @@
 <%- include("../partials/header") %>
 
+
 <!--  blog title -->
 <header>
 	<div class="container">
@@ -20,7 +21,7 @@
 			<div class="col-lg-3"></div>
 			<div class="col-lg-9">
 				<!-- xs, sm -->
-				<h1 class="d-block d-md-none pl-md-4 py-3 text-center" style="font-weight: 300;"> <%= blog.title %> </h1>
+				<h1 class="d-block d-md-none pl-md-4 py-3 text-center showTitle"> <%= blog.title %> </h1>
 				
 				<!-- md, lg, xl -->
 				<h1 class="d-none d-md-block display-4 pl-md-4 py-3"> <%= blog.title %> </h1>
@@ -61,7 +62,7 @@
 									btn-success 
 								<% } %>
 													  
-									" href="/follow/<%= user.id %>" style="max-width: 300px">
+									" href="/follow/<%= user.id %>">
 							
 								<!-- change text from follow to stop following -->
 								<% if(user.followers.some(function(follower){ %>
@@ -74,7 +75,7 @@
 							</a>
 						<% }else if(!currentUser){ %>
 							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>" style="max-width: 300px background-color: #ff9900;"> Follow </a>
+							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>"> Follow </a>
 						<% } %>
 						
 						<!-- number of followers -->
@@ -122,7 +123,7 @@
 								<% if(link){ %>
 									<div class="col-6 col-md-4 col-lg-6 px-2">
 										<a href="/gallery/<%= link._id %>">
-											<img class="d-none d-lg-inline img-responsive 
+											<img class="d-none d-lg-inline img-responsive showLinkedImg 
 
 												<% if(currentUser && currentUser.darkMode){ %>
 													darkModeImgThumbnail		
@@ -130,9 +131,9 @@
 													img-thumbnail		
 												<% } %>		
 
-												" src="<%= link.imgs[0].img %>" style="width: 100%; height: 100px; object-fit: cover;">
+												" src="<%= link.imgs[0].img %>">
 											
-											<img class="d-inline d-lg-none img-responsive 
+											<img class="d-inline d-lg-none img-responsive showLinkedImg2
 
 												<% if(currentUser && currentUser.darkMode){ %>
 													darkModeImgThumbnail		
@@ -140,7 +141,7 @@
 													img-thumbnail		
 												<% } %>		
 
-												" src="<%= link.imgs[0].img %>" style="width: 100%; height: 150px; object-fit: cover;">
+												" src="<%= link.imgs[0].img %>">
 										</a>
 									</div>
 								<% } %>
@@ -227,7 +228,7 @@
 								">
 						
 						<!-- blog text -->
-						<p class="card-text m-2 m-sm-4 mt-5 py-3 px-md-5" style="white-space: pre-line; white-space: pre-wrap; text-align: justify; line-height: 150%; font-size: 19px; font-family: 'Cardo', serif;"><%= blog.content %></p>
+						<p class="card-text m-2 m-sm-4 mt-5 py-3 px-md-5 showBlogText"> <%= blog.content %> </p>
 						
 					</div>
 					
@@ -321,7 +322,7 @@
 									   
 									    " href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
 									
-									<p class=" mx-3 mb-0" style="text-align: justify;"> <%= comment.text %> </p>
+									<p class=" mx-3 mb-0 text-justify"> <%= comment.text %> </p>
 
 									<!-- if User owns the comment, show edit and delete buttons -->
 									<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>

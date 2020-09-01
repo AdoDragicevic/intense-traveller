@@ -7,18 +7,22 @@ h1 {
 	font-size: 4rem;
 }
 
-/*
-.card {
-	background-color: #212529;
-	color: gray;
+.indexImg {
+	height: 240px; 
+	width: 100%; 
+	object-fit: cover;
 }
-*/
 
-/*
-.img-thumbnail {
-	background-color: #e9e9e9;
+.indexImg2 {
+	height: 230px; 
+	width: 100%; 
+	object-fit: cover;
 }
-*/
+
+.indexCardHeight {
+	height: 255px;
+}
+
 
 .scrolled {
 	background-color: #2b2c30;
@@ -110,7 +114,10 @@ https://images.unsplash.com/photo-1510952267577-fc96d5ca660a?ixlib=rb-1.2.1&ixid
   animation-delay: 55s; 
 }
 
-
+/* Older browser support - .no-cssanimations class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
 
 .slideshow, .firstImg {
 	filter: brightness(60%);
@@ -145,31 +152,9 @@ https://images.unsplash.com/photo-1510952267577-fc96d5ca660a?ixlib=rb-1.2.1&ixid
   }
 }
 
-
-/* Older browser support - .no-cssanimations class added by modernizr */
-.no-cssanimations .slideshow li {
-	opacity: 1;
-}
-
 #content {
 	color: white;
 	position: relative;
 	z-index: 1;
 	background: none;
 }
-
-
-/*
-@media (max-width: 400px) {
-	.slideshow, .slideshow li {
-		height: 60%;
-	}
-	
-} */
-
-/* change navbar background on collapse 
-@media (max-width: 992px) {
-  nav.navbar {
-    background: #2b2c30;
-  }
-} */

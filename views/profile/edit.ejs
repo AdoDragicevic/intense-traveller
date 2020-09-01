@@ -1,5 +1,6 @@
 <%- include("../partials/formHeader") %>
 
+
 <div class="container">
 	
 	<div class="row text-center mt-5">
@@ -35,12 +36,8 @@
 				</div>
 				
 				<!-- personal data -->
-				<p>
-					<strong>Personal Data</strong>
-				</p>
+				<p> <strong>Personal Data</strong> </p>
 				<p> <small> If you'd like, you can share your personal data with others. This can help you in meeting new friends, finding travell buddies, and promoting your business. Information on how your personal data is being processed can be found <a href="/privacy">here</a>.</small> </p>
-				
-				
 				
 				<div class=form-group>
 					<label for="pdName">Full Name</label>
@@ -85,31 +82,13 @@
 </div>
 
 
-
-
-
-
-
     <!-- Bootstap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-
-<script>
 	
-	// If user did not enter any personal data, placeholder will fill in the input area. However, if user has provided certain personal data - and not all personal data - we want to hide all placeholders, as displaying them offers bad user experience. I.e. user leaves empty hobbies, and when he retunrs to the edit page, he is wondering if the placeholder is a placeholder or the data that is showed to other users.
-	
-	$(".pdInput").each(function(){
-		// if even one input is filled in, then all inputs will be without placeholders
-		if($(this).attr("value") !== ""){
-			$(".pdInput").each(function(){
-				$(this).removeAttr("placeholder");
-			}); 
-		}					   
-	});
-			
-</script>
+	<!-- My JS - If user did not enter any personal data, placeholder will fill in the input area. However, if user has provided certain personal data - and not all personal data - we want to hide all placeholders, as displaying them offers bad user experience. I.e. user leaves empty hobbies, and when he retunrs to the edit page, he is wondering if the placeholder is a placeholder or the data that is showed to other users. -->
+	<script src="/js/profile.js"></script>
 
 
   </body>

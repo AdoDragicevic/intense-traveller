@@ -33,7 +33,7 @@
 				<div class="col-12">
 			
 					<!-- card for each journal -->
-					<div class="card my-4 my-md-5 mx-lg-5 px-md-4  
+					<div class="card my-4 my-md-5 mx-lg-5 px-md-4 overflow-hidden 
 
 						<% if(currentUser && currentUser.darkMode){ %>
 							darkModeBody border-top-0 border-left-0 border-right-0 border-secondary pt-3
@@ -41,7 +41,7 @@
 							border-top-0 border-left-0 border-right-0
 						<% } %>  
 
-							" style="overflow: hidden">	
+							">	
 
 
 						<div class="row no-gutters">
@@ -51,7 +51,7 @@
 								<a href="/blog/<%= blog._id %>">
 									
 									<!-- dark mode -->
-									<img class="d-none d-sm-inline card-img 
+									<img class="d-none d-sm-inline card-img indexImg
 
 										<% if(currentUser && currentUser.darkMode){ %>
 											darkModeImgThumbnail
@@ -59,18 +59,16 @@
 											img-thumbnail		
 										<% } %> 
 
-											" style="height: 240px; width: 100%; object-fit: cover;" src="<%= blog.img %>">
-									<img class="d-inline d-sm-none card-img" style="height: 230px; width: 100%; object-fit: cover;" src="<%= blog.img %>">
+											" src="<%= blog.img %>">
+									<img class="d-inline d-sm-none card-img indexImg2" src="<%= blog.img %>">
 								</a>
 							</div>
 
 							<!-- title, text, likes and readMe button -->
 							<div class="col-lg-7">
-								<div class="card-body d-flex flex-column pt-1" style="height: 255px">
+								<div class="card-body d-flex flex-column pt-1 indexCardHeight">
 
-									<!-- title -->
-									
-									<!-- depending on sizes -->
+									<!-- title - depending on sizes -->
 									
 									<!-- xs -->
 									<h5 class="d-block d-sm-none card-title pb-0 mb-1"> 
@@ -117,11 +115,9 @@
 										<% } %>	
 									</h2>
 									
-									
-									
 
 									<!-- short description shown only on this index page -->
-									<p class="card-text mb-1" style="overflow: hidden"> <em> <%= blog.description %> </em> </p>	
+									<p class="card-text mb-1 overflow-hidden"> <em> <%= blog.description %> </em> </p>	
 
 									<!-- author name, number of likes and readMe button -->
 									<div class="mt-auto">
@@ -152,9 +148,8 @@
 </main>
 
 
+
 <!-- Pagination -->
-<footer>
-	
 	<div class="container">
 		<nav aria-label="Page navigation">
 			
@@ -208,11 +203,6 @@
 			
 		</nav>
 	</div>
-	
-</footer>
-
-
-
 
 
 
@@ -220,37 +210,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-<script>
 	
-	// add bg collor when navbar is expanded	
-	$(".navbar > button").on("click", function(){	
-		if($(".navbar").height() > 100){
-			$(".navbar").removeClass("scrolled");
-		}else{
-			$(".navbar").addClass("scrolled");
-		}
-	});
-	
-	// remove bg color when screen size is so wide that navbar is no longer extended, add back when it is
-	$(window).resize(function(){
-		if( $(window).width() > 989 ){
-			$(".navbar").removeClass("scrolled");
-		}
-		if( $(window).width() < 989 && $(".navbar").height() > 200 ){
-			$(".navbar").addClass("scrolled");
-		}
-	});
-	
-	// set bg to navbar when page is scrolled
-  	$(document).scroll(function () {
-		$(".navbar").toggleClass('scrolled', $(this).scrollTop() > $(".jumbotron").height());
-  	});
-	
-
-	
-		
-</script>
+	<!-- My JS for navbar background color -->
+	<script src="/js/indexNavbarBg.js"></script>
 
 
   </body>
