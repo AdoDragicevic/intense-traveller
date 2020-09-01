@@ -18,7 +18,7 @@
 	<!-- Flash messages -->
 	<section>
 	
-		<div class="container">
+		<div class="container mt-5">
 			
 			<% if(error && error.length > 0){ %>
 				<div class="alert alert-danger" role="alert">
@@ -42,7 +42,7 @@
 	
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 
-			<a class="navbar-brand" href="/"> <em>Intense Traveller </em> </a>
+			<a class="navbar-brand" href="/blog"> <em>Intense Traveller </em> </a>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -156,40 +156,13 @@
 	</section>
 	
 
-	
-	
-
-
     <!-- Bootstap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	
-	<script>
-	
-		// I could not only use toggleClass, because the navbar is hiddent not only when navbar button is clicked, but also when the screen size changes. This can lead to class remaining on the navbar even after the screen size is increased, and then being hidden once the but
-
-		$(".navbar > button").on("click", function(){
-			
-			if($(".navbar").height() > 100){
-				$(".navbar").removeClass("navBg");
-			}else{
-				$(".navbar").addClass("navBg");
-			}
-			
-		});
-		
-		$(window).resize(function(){
-			if( $(window).width() > 989 ){
-				$(".navbar").removeClass("navBg");
-			}
-			if( $(window).width() < 989 && $(".navbar").height() > 200 ){
-				$(".navbar").addClass("navBg");
-			}
-		});
-			
-
-	</script>
+	<!-- My JS for the navbar bg color -->
+	<script src="/js/landingNavbarBg.js"></script>
 
   </body>
 </html>
