@@ -166,11 +166,13 @@
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					
-					<div class="modal-dialog">
+					<div class="modal-dialog bg-danger">
 						
 						<div class="modal-content">
 					  		
-							<div class="modal-header bg-dark">
+							<div class="modal-header">
+								
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 								
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									
@@ -181,7 +183,7 @@
 							</div>
 							
 					  
-							<div class="modal-body bg-dark">
+							<div class="modal-body">
 								
 								
 								<div id="carouselExampleControls" class="carousel slide bg-dark" data-ride="carousel">
@@ -192,7 +194,7 @@
 											<% if(i < 1){ %>
 												<div class="carousel-item active">
 
-													<img class="carouselImg" src="<%= img.img %>"  alt="...">
+													<img src="<%= img.img %>" class="d-block w-100" alt="...">
 
 												</div>
 												  
@@ -200,7 +202,7 @@
 												
 												<div class="carousel-item">
 
-													<img class="carouselImg" src="<%= img.img %>"  alt="...">
+													<img src="<%= img.img %>" class="d-block w-100" alt="...">
 
 												</div>
 										
@@ -230,7 +232,7 @@
 
 							</div>
 							
-					  		<div class="modal-footer bg-dark">
+					  		<div class="modal-footer">
 
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						
@@ -249,31 +251,6 @@
 	</div>
 </main>
 
-
-<% gallery.imgs.forEach(function(img, i){ %>
-	<img src="<%= img.img %>">
-	<form action="/gallery/<%= gallery._id %>/like/<%= img._id %>" method="POST">
-		<button>
-			<div class="btn-group">
-            	<% if (currentUser && img.likes.some(function (like) {
-                	return like.equals(currentUser._id)
-            	})) { %>
-                	<button class="btn btn-primary">
-                    	<i class="fas fa-thumbs-up"></i> Liked (<%= img.likes.length %>)
-                	</button>
-            	<% } else { %>
-                	<button class="btn btn-secondary">
-                    	<i class="fas fa-thumbs-up"></i> Like (<%= img.likes.length %>)
-                	</button>
-            	<% } %>
-				<!-- add img._id to the button beneath each img -->
-            	<button id="<%= img._id %>" type="button" class="whoLiked btn btn-sm btn-default" data-toggle="modal"
-                    data-target="#pictureLikes">See more details
-				</button>
-        	</div>
-		</button>	
-	</form>
-<% }); %>
 
 
 

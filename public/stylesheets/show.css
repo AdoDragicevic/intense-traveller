@@ -36,19 +36,9 @@
 /* Gallery Show Page */
 /* ================= */
 
-.galleryFollowBtn {
-	min-width: 250px;
-}
-
 .galleryImgs {
 	width: 100%; 
 	height: 200px; 
 	object-fit: cover;
 }
 
-.carouselImg {
-	width: 100%;
-	height: 100%;
-	margin: auto auto;
-	
-}
