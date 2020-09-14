@@ -143,16 +143,15 @@
 <!-- Display all imgs -->
 <main>
 	<div class="container">
-		<div class="row" id="gallery" data-toggle="modal" data-target="#exampleModal">
-			
+		<div class="row">
+
 			<% gallery.imgs.forEach(function(img, i){ %>
-				
 
 				<!-- img -->
-				<div class="col-sm-6 col-lg-4">
+				<div id="gallery" class="col-sm-6 col-lg-4" data-toggle="modal" data-target="#exampleModal">
 					
 					<!-- dark mode -->
-					<img id="galleryImgs" class="my-2 img-fluid
+					<img class="galleryImgs my-2 img-fluid
 											  
 						<% if(currentUser && currentUser.darkMode){ %>
 							darkModeImgThumbnail					  
@@ -162,40 +161,89 @@
 											  
 						" src="<%= img.img %>">	
 				</div>
-					
-			
-				<!-- save indx of clicked image, in order to acces that img in the modal -->
-				
-			
 
+			
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog" role="document">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					
+					<div class="modal-dialog">
+						
 						<div class="modal-content">
-
-							<div class="modal-header">
+					  		
+							<div class="modal-header bg-dark">
+								
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">×</span>
+									
+									<span aria-hidden="true">&times;</span>
+									
 								</button>
+					  
 							</div>
+							
+					  
+							<div class="modal-body bg-dark">
+								
+								
+								<div id="carouselExampleControls" class="carousel slide bg-dark" data-ride="carousel">
+								  
+									<div class="carousel-inner">
+										
+										<% gallery.imgs.forEach(function(img, i){ %>
+											<% if(i < 1){ %>
+												<div class="carousel-item active">
 
-							<div class="modal-body">
-								
-								
-				
-								
-								<img src="<%= gallery.imgs[0].img %>">
-								
+													<img class="carouselImg" src="<%= img.img %>"  alt="...">
+
+												</div>
+												  
+											<% }else{ %>
+												
+												<div class="carousel-item">
+
+													<img class="carouselImg" src="<%= img.img %>"  alt="...">
+
+												</div>
+										
+											<% } %>
+											
+										<% }); %>
+
+									</div>
+									
+								  	<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+									
+									  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									
+									  	<span class="sr-only">Previous</span>
+									  
+								  	</a>
+									
+									<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+									
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									
+									  	<span class="sr-only">Next</span>
+								  
+									</a>
+									
+								</div>
+
 							</div>
+							
+					  		<div class="modal-footer bg-dark">
 
-							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						
+								<button type="button" class="btn btn-primary">Save changes</button>
+					  
 							</div>
-
+					
 						</div>
+				  
 					</div>
+				
 				</div>
-			
+
 			<% }); %>
 		</div>
 	</div>
@@ -226,6 +274,7 @@
 		</button>	
 	</form>
 <% }); %>
+
 
 
 <!-- Follower Modal to show who follows the user - this is shown only if the current user is the bologs author -->
