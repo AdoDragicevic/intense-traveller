@@ -141,13 +141,59 @@ router.get("/:id", function(req, res){
 							req.flash("error", "Journal not found.");
 							res.redirect("back");
 						}else{
-							res.render("gallery/show", {gallery: gallery, user: user, blogs: blogs});			
+							res.render("gallery/show", {gallery: gallery, user: user, blogs: blogs, paramsId: req.params.id});			
 						}
 					});
 				}
 			});			
 		}
 	})
+});
+
+// SHOW for each img in Gallery
+router.get("/:id/:imgId", function(req, res){
+	Gallery.findById(req.params.id, function(err, gallery){
+		if(err || !gallery){
+			console.log(err);
+			req.flash("error", "Image not found.");
+			res.redirect("back");
+		}else{
+			// we use these indx numbers in showOne.ejs, to display the right img and move to next/previous imgs in Gallery in relation to current img
+			let indx;
+			let indxNext;
+			let indxBack;
+			// indxNext can not be greater than imgs.length -1
+			let maxIndx = gallery.imgs.length -1;
+			// find index num of this pic in the gallery.imgs
+			for(let i = 0; i < gallery.imgs.length; i++){
+				if(gallery.imgs[i]._id.equals(req.params.imgId)){
+					indx = i;   
+				}
+			}
+			// indxNext is +1 than current index, except if it is equal to imgs.length, then it is set to 0
+			if(indx == maxIndx){
+				indxNext = 0;
+			}else{
+				indxNext = indx + 1;
+			}
+			// indxBack is -1 than current index, except if it is 0, then it is set to imgs.length
+			if(indx == 0){
+				indxBack = maxIndx;
+			}else{
+				indxBack = indx - 1;
+			}
+			// rended showOne.ejs
+			res.render("gallery/showOne", 
+				{
+					gallery: gallery, 
+					paramsId: req.params.id, 
+					imgId: req.params.imgId, 
+					indx: indx,
+					indxNext: indxNext,
+					indxBack: indxBack
+				});
+		}
+	});
 });
 
 
