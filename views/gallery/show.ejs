@@ -117,47 +117,51 @@
 					<% } %>
 					
 				</p>
-				
-				<!-- Like button -->
-		
-		<div class="d-flex justify-content-start mb-2">
-			
-			<form class="d-inline" action="/gallery/<%= gallery._id %>/like" method="POST">
-										<div>
-											<% if (currentUser && gallery.likes.some(function (like) { %>
-												<% return like.equals(currentUser._id) %>
-											<% })) { %>
-												<button class="btn btn-sm btn-info">
-													<i class="fas fa-thumbs-up"></i> Liked (<%= gallery.likes.length %>)
-												</button>
-											<% } else { %>
-												<button class="btn btn-sm btn-primary">
-													<i class="fas fa-thumbs-up"></i> Like (<%= gallery.likes.length %>)
-												</button>
-											<% } %>
-										</div>
-									</form>
-									
-									<!-- who liked it, modal button -->
-									<button type="button" class="btn btn-sm btn-default ml-1" data-toggle="modal" data-target="#blogLikes"><i class="fas fa-user-friends text-secondary"></i></button>
-			
-		</div>
 			
 			</div>
 
     	</div>
 		
 		
+		<!-- Like button and Modal -->
+		<div class="d-flex justify-content-end my-3">
+			
+			<!-- like button -->
+			<form class="d-inline" action="/gallery/<%= gallery._id %>/like" method="POST">
+										
+				<div>
+											
+					<% if (currentUser && gallery.likes.some(function (like) { %>
+												
+						<% return like.equals(currentUser._id) %>
+											
+					<% })) { %>
+												
+						<button class="btn btn-sm btn-info"> <i class="fas fa-thumbs-up"></i> Liked (<%= gallery.likes.length %>) </button>
+											
+					<% } else { %>
+							
+						<button class="btn btn-sm btn-primary"> <i class="fas fa-thumbs-up"></i> Like (<%= gallery.likes.length %>) </button>
+											
+					<% } %>
+					
+				</div>
+				
+			</form>
+			
+			
+			<!-- who liked it modal button -->
+			<button type="button" class="btn btn-sm btn-default ml-1" data-toggle="modal" data-target="#blogLikes"><i class="fas fa-user-friends text-secondary"></i></button>
+			
+		</div>
 									
-		
-		
 	</div>
 </header>
 
 
 <!-- Display all imgs -->
 <main>
-	<div class="container mt-5">
+	<div class="container">
 		<div class="row">
 
 			<% gallery.imgs.forEach(function(img, i){ %>
