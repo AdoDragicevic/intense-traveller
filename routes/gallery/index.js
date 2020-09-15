@@ -122,7 +122,7 @@ router.post("/", middleware.isLoggedIn, upload.array("img", 40), async function(
 
 // SHOW
 router.get("/:id", function(req, res){
-	Gallery.findById(req.params.id).populate({ path: "imgs", populate: {path: "likes"} }).exec(function(err, gallery){
+	Gallery.findById(req.params.id).populate("likes").exec(function(err, gallery){
 		if(err || !gallery){
 			console.log(err);
 			req.flash("error", "Album not found");

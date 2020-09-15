@@ -87,15 +87,12 @@
 										<span> <i class="fas fa-images"></i> <%= gallery.imgs.length %> </span>
 
 
-										<!-- calculate all the likes inside the gallery -->
-										<% let numOfLikes = 0; %>
-										<% gallery.imgs.forEach(function(img, i){ %>
-											<% numOfLikes = numOfLikes + img.likes.length; %>
-										<% }); %>
-										<span class="float-right">
-											<i class="fas fa-thumbs-up"></i> 
-											<%= numOfLikes %> 
+										<!-- num of likes -->
+										<span class="flat-right">
+											<i class="fas fa-thumbs-up"></i>
+											<%= gallery.likes.length; %>
 										</span>
+										
 									</div>
 								</p>
 							</div>

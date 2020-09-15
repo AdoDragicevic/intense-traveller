@@ -55,7 +55,7 @@
 		</div>
     	
 		<!-- dark mode -->
-		<div class="jumbotron pt-xl-4 pl-md-5 py-2
+		<div class="jumbotron pt-xl-4 pl-md-5 py-2 mb-0
 					
 					<% if(currentUser && currentUser.darkMode){ %>
 						darkModeJumbotron
@@ -93,21 +93,6 @@
 				<p class="mb-2 mb-xl-3"> <strong> Followers: </strong> 
 					<a class="text-info" type="badge" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> 
 				</p>
-
-				<!-- total likes of all pics in this gallery -->
-				<p class="d-inline mb-3">
-					<strong> Total likes: </strong> 
-					
-					<!-- calculate all the likes inside the gallery -->
-					<% var numOfLikes = 0; %>
-						<% gallery.imgs.forEach(function(img, i){ %>
-							<% numOfLikes = numOfLikes + img.likes.length; %>
-						<% }); %>
-					
-					<!-- display total likes number -->
-					<%= numOfLikes %>
-					
-				</p>
 				
 				
 				<!-- related journal -->
@@ -132,17 +117,47 @@
 					<% } %>
 					
 				</p>
+				
+				<!-- Like button -->
+		
+		<div class="d-flex justify-content-start mb-2">
+			
+			<form class="d-inline" action="/gallery/<%= gallery._id %>/like" method="POST">
+										<div>
+											<% if (currentUser && gallery.likes.some(function (like) { %>
+												<% return like.equals(currentUser._id) %>
+											<% })) { %>
+												<button class="btn btn-sm btn-info">
+													<i class="fas fa-thumbs-up"></i> Liked (<%= gallery.likes.length %>)
+												</button>
+											<% } else { %>
+												<button class="btn btn-sm btn-primary">
+													<i class="fas fa-thumbs-up"></i> Like (<%= gallery.likes.length %>)
+												</button>
+											<% } %>
+										</div>
+									</form>
+									
+									<!-- who liked it, modal button -->
+									<button type="button" class="btn btn-sm btn-default ml-1" data-toggle="modal" data-target="#blogLikes"><i class="fas fa-user-friends text-secondary"></i></button>
+			
+		</div>
 			
 			</div>
 
     	</div>
+		
+		
+									
+		
+		
 	</div>
 </header>
 
 
 <!-- Display all imgs -->
 <main>
-	<div class="container">
+	<div class="container mt-5">
 		<div class="row">
 
 			<% gallery.imgs.forEach(function(img, i){ %>
@@ -252,8 +267,6 @@
 </main>
 
 
-
-
 <!-- Follower Modal to show who follows the user - this is shown only if the current user is the bologs author -->
 	<div id="followers" class="modal fade" role="dialog">
     	<div class="modal-dialog">
@@ -278,6 +291,43 @@
                     		<% if (user.followers.length === 0) { %>
                         		<tr>
                             		<td><em>No followers yet.</em></td>
+                        		</tr>
+                    		<% } %>
+                    	</tbody>
+                	</table>
+            	</div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+        	</div>
+    	</div>
+	</div>
+
+
+<!-- Likes Modal to show who liked the post -->
+	<div id="blogLikes" class="modal fade" role="dialog">
+    	<div class="modal-dialog">
+        	<!-- Modal content-->
+        	<div class="modal-content">
+            	<div class="modal-header">
+					<h4 class="modal-title">Likes: <%= gallery.likes.length %></h4>
+            	</div>
+            	<div class="modal-body">
+                	<table class="table table-striped">
+                    	<thead>
+                    		<tr>
+                        		<th>Liked by:</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody>
+                    		<% gallery.likes.forEach(function(like) { %>
+                        		<tr>
+                            		<td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+                        		</tr>
+                    		<% }); %>
+                    		<% if (gallery.likes.length === 0) { %>
+                        		<tr>
+                            		<td><em>No likes yet.</em></td>
                         		</tr>
                     		<% } %>
                     	</tbody>
