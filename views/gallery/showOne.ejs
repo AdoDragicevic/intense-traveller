@@ -2,20 +2,50 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	  
+	<!-- My CSS -->
+	<link rel="stylesheet" href="/stylesheets/showOne.css">
 
     <title>Intense Traveller</title>
+	  
   </head>
   <body>
 	  
 	  
-	  <div class="container-fluid">
+	  <div class="container-fluid" style="height: 100%;">
 		  
 		  <div class="row">
+			  
+			  <div class="col-12">
+				  
+				  <a class="btn btn-lg btn-outline-info float-right m-2" href="/gallery/<%= paramsId %>">Back to Gallery</a>
+				  
+			  </div>
+			  
+			  <div class="d-none d-lg-inline col-lg-1">
+				  <a class="streched-link"  href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxBack]._id %>">Previous</a>
+			  </div>
+			  
+			  <div class="col-12 col-lg-10 text-center">
+				  
+				  
+				  <img src="<%= gallery.imgs[indx].img %>">
+				  
+				  
+			  </div>
+			  
+			  <div class="d-none d-lg-inline col-lg-1">
+				  
+				<a class="streched-link" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxNext]._id %>" style="height: 100%; width: 100%;">Next</a>
+				  
+				   
+			  </div>
+			
 			  
 			  <div class="col-12">
 				  
@@ -23,11 +53,11 @@
 				  
 				  
 				  
-				  <a href="/gallery/<%= paramsId %>">Back</a>
+				  
 				
 	
 				
-					<img src="<%= gallery.imgs[indx].img %>">
+					
 				  
 				  
  
