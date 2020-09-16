@@ -151,7 +151,7 @@ router.get("/:id", function(req, res){
 });
 
 // SHOW ONE (for each img in Gallery)
-router.get("/:id/:imgId", function(req, res){
+router.get("/:id/show/:imgId", function(req, res){
 	Gallery.findById(req.params.id).populate({ path: "imgs", populate: {path: "likes"} }).exec(function(err, gallery){
 		if(err || !gallery){
 			console.log(err);

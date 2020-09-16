@@ -121,25 +121,6 @@
 	</section>
 	
 	
-	<!-- req.flash error and success messages -->
-	<section>
-	
-		<div class="container mt-5 text-center">
-			<% if(error && error.length > 0){ %>
-				<div id="to-front" class="alert alert-danger" role="alert">
-					<%= error %> 
-				</div>
-			<% } %>
-			<% if(success && success.length > 0){ %>
-				<div id="to-front" class="alert alert-success" role="alert">
-					<%= success %> 
-				</div>
-			<% } %>
-		</div>
-			
-	</section>
-	
-	
 	<!-- Carousel -->
     <section>
 		
@@ -161,7 +142,7 @@
 	<section>
 		<div class="container text-center">
 			<div id="content" class="jumbotron">
-				<h1 class="display-3 d-block mx-3"> <em>Intense Traveller</em></h1>
+				<h1 class="display-3 d-block mx-3 mt-5"> <em>Intense Traveller</em></h1>
 				<p class="lead d-none d-md-inline indexLeadParagraph"> <em> Write travel Journals, publish picture Galleries, Follow favorite travellers, and more . . .  </em> </p>
 				<hr id="hr">
 				<a class="btn btn-lg btn-success" href="/gallery/new" role="button"> <i class="fas fa-camera mr-1"></i> Create a New Gallery</a>
@@ -171,3 +152,22 @@
 	</section>
 
 </header>
+	
+	
+	<!-- req.flash error and success messages -->
+	<section>
+	
+		<div class="container text-center">
+			<% if(error && error.length > 0){ %>
+				<div id="to-front" class="alert alert-danger mt-5" role="alert">
+					<%= error %> 
+				</div>
+			<% } %>
+			<% if(success && success.length > 0){ %>
+				<div id="to-front" class="alert alert-success mt-5" role="alert">
+					<%= success %> 
+				</div>
+			<% } %>
+		</div>
+			
+	</section>

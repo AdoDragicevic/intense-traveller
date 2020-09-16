@@ -23,10 +23,11 @@ body {
 	margin: auto;
 }
 
-#eidtBlogImgs {
+#editBlogImgs {
 	object-fit: cover; 
 	width: 100%; 
-	height: 100px
+	height: 130px;
+	margin-top: 7px;
 }
 
 #profileImg {
