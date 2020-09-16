@@ -85,19 +85,19 @@
 				">
 				
 				<!-- author -->
-				<p class="mb-2 mb-xl-3"> <strong> Author: </strong> <a class="text-info" href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
+				<p class="mb-2"> <strong> Author: </strong> <a class="text-info" href="/profile/<%= gallery.author.id %>"> <%= gallery.author.username %> </a> </p>
 				
 				<!-- date -->
-				<p class="mb-2 mb-xl-3"> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
+				<p class="mb-2"> <strong> Date: </strong> <%= gallery.created.toDateString() %> </p>
 				
 				<!-- number of followers and modal button -->
-				<p class="mb-2 mb-xl-3"> <strong> Followers: </strong> 
+				<p class="mb-2"> <strong> Followers: </strong> 
 					<a class="text-info" type="badge" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> 
 				</p>
 				
 				<!-- total likes of all pics in this gallery -->
-				<p class="d-inline mb-3">
-					<strong> Total likes: </strong> 
+				<p class="d-inline mb-2">
+					<strong> Likes: </strong> 
 					
 					<!-- calculate all the likes inside the gallery -->
 					<% var numOfLikes = 0; %>
@@ -112,7 +112,7 @@
 				
 				
 				<!-- related journal -->
-				<p class="mb-2 mb-xl-3 mt-3"> <strong> Related Journal: </strong>
+				<p class="mb-2 mb-xl-3 mt-2"> <strong> Related Journal: </strong>
 					
 					<!-- change message depending on their number -->
 					<% if(blogs.length === 0){ %>

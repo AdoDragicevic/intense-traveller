@@ -109,11 +109,11 @@ a h3 {
 	z-index: 1;
   	position: relative;
   	text-align: center;
-  	padding-top: 38vh;
+  	padding-top: 35vh;
 	color: #fff;
 }
 
-@media only screen and (max-width: 500px) {
+@media (max-width: 400px) {
 	
 	#landing-header {
   		padding-top: 20vh;
