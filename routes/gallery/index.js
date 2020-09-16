@@ -45,7 +45,7 @@ router.get("/", function(req, res){
 	if(req.query.search) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		Gallery.find({title: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
-			Gallery.count().exec(function (err, count) {
+			Gallery.countDocuments().exec(function (err, count) {
 				if(err){
 					console.log(err);
 					req.flash("error", "No albums found. Feel free to add one!");
@@ -63,7 +63,7 @@ router.get("/", function(req, res){
 		});
 	}else{
 		Gallery.find({}).sort({'_id':-1}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, galleries){
-			Gallery.count().exec(function (err, count) {
+			Gallery.countDocuments().exec(function (err, count) {
 				if(err){
 					console.log(err);
 					req.flash("error", "No albums found. Feel free to add one!");

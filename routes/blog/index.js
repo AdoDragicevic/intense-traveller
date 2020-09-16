@@ -45,7 +45,7 @@ router.get("/", function(req, res){
 	if(req.query.search) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		Blog.find({title: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function (err, blogs) {
-			Blog.count().exec(function (err, count) {
+			Blog.countDocuments().exec(function (err, count) {
 				if(err){
 					console.log(err);
 					res.redirect("back");
@@ -63,7 +63,7 @@ router.get("/", function(req, res){
 	// no search
 	}else{
 		Blog.find({}).sort({'_id':-1}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function (err, blogs) {
-			Blog.count().exec(function (err, count) {
+			Blog.countDocuments().exec(function (err, count) {
 				if(err){
 					console.log(err);
 					res.redirect("back");
