@@ -8,6 +8,9 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	  
+	<!-- Fontawesome -->
+	<script src="https://kit.fontawesome.com/d7c2cf6d44.js" crossorigin="anonymous"></script>
+	  
 	<!-- My CSS -->
 	<link rel="stylesheet" href="/stylesheets/showOne.css">
 
@@ -15,64 +18,60 @@
 	  
   </head>
   <body>
-	  
-	  
-	  <div class="container-fluid" style="height: 100%;">
-		  
-		  <div class="row">
-			  
-			  <div class="col-12">
-				  
-				  <a class="btn btn-lg btn-outline-info float-right m-2" href="/gallery/<%= paramsId %>">Back to Gallery</a>
-				  
-			  </div>
-			  
-			  <div class="d-none d-lg-inline col-lg-1">
-				  <a class="streched-link"  href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxBack]._id %>">Previous</a>
-			  </div>
-			  
-			  <div class="col-12 col-lg-10 text-center">
-				  
-				  
-				  <img src="<%= gallery.imgs[indx].img %>">
-				  
-				  
-			  </div>
-			  
-			  <div class="d-none d-lg-inline col-lg-1">
-				  
-				<a class="streched-link" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxNext]._id %>" style="height: 100%; width: 100%;">Next</a>
-				  
-				   
-			  </div>
-			
-			  
-			  <div class="col-12">
-				  
-				  
-				  
-				  
-				  
-				  
-				
+	 
 	
+	<div class="container-fluid h-100">
+			
+		<div class="row h-100">
+			
+			
+			<!-- Img -->
+			<div id="imgDiv" class="col-12 text-center d-flex justify-content-center align-items-center">
 				
+				<img class=" mt-1" src="<%= gallery.imgs[indx].img %>">
 					
-				  
-				  
- 
-			  </div>
-			  
-			  <div class="col-12">
-				  
-				  <a href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxBack]._id %>">Previous</a>
-				  <a href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxNext]._id %>">Next</a>
-				  
-			  </div>
-			  
-		  </div>
-		  
-	  </div>
+			</div>
+			
+			
+			<div id="menuDiv" class="col-12 bg-dark text-white fixed-bottom">
+					
+				<div class="d-flex align-items-center justify-content-center h-100">
+					
+					<!-- Previous Img Button -->
+					
+					<!-- md, lg, xl -->
+					<a class="d-none d-md-inline btn btn-lg btn-outline-info px-3 px-md-5 text-white" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxBack]._id %>"> <i class="fas fa-chevron-left"></i> </a>
+					
+					<!-- xs, sm -->
+					<a class="d-inline d-md-none btn btn-outline-info px-3 px-md-5 text-white" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxBack]._id %>"> <i class="fas fa-chevron-left"></i> </a>
+					
+					
+					<!-- Return to Gallery Button -->
+					
+					<!-- md, lg, xl -->
+					<a class="d-none d-md-inline btn btn-lg btn-outline-info justify-self-end mx-4" href="/gallery/<%= paramsId %>">Back to Gallery</a>
+					
+					<!-- xs, sm -->
+					<a class="d-inline d-md-none btn btn-outline-info justify-self-end mx-4" href="/gallery/<%= paramsId %>">Back</a>
+						
+					
+					<!-- Next Img Button -->
+					
+					<!-- md, lg, xl -->
+					<a class="d-none d-md-inline btn btn-lg btn-outline-info px-3 px-md-5 text-white" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxNext]._id %>"> <i class="fas fa-chevron-right"></i> </a>
+					
+					<!-- xs, sm -->
+					<a class="d-inline d-md-none btn btn-outline-info px-3 px-md-5 text-white" href="/gallery/<%= paramsId %>/<%= gallery.imgs[indxNext]._id %>"> <i class="fas fa-chevron-right"></i> </a>
+						
+					</div>
+	
+				</div>
+				
+			</div>
+
+	  	</div>
+	  
+	  
 	  
 	  
 	  
