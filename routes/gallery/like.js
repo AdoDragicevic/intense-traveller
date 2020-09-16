@@ -15,17 +15,22 @@ router.post("/:img_id", middleware.isLoggedIn, function(req, res){
 			res.redirect("back");
 		}else{
 			gallery.imgs.forEach(function(img){
-				// check if req.user._id exists in gallery.likes
-				let foundUserLike = img.likes.some(function(like){
-					return like.equals(req.user._id);
-				});
-				if(foundUserLike){
-					// user already liked, removing like
-					img.likes.pull(req.user._id);
-				}else{
-					// add new user like to blog.likes
-					img.likes.push(req.user);
+				if(img._id.equals(req.params.img_id)){
+					console.log(img._id);
+					console.log(req.params.img_id);
+					// check if req.user._id exists in gallery.likes
+					let foundUserLike = img.likes.some(function(like){
+						return like.equals(req.user._id);
+					});
+					if(foundUserLike){
+						// user already liked, removing like
+						img.likes.pull(req.user._id);
+					}else{
+						// add new user like to blog.likes
+						img.likes.push(req.user);
+					}	
 				}
+				
 			});
 			gallery.save(function(err, gallery){
 					if(err){
