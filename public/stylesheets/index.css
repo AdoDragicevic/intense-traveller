@@ -7,6 +7,15 @@ h1 {
 	font-size: 4rem;
 }
 
+.jumbotron hr {
+	border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.indexLeadParagraph {
+	letter-spacing: 1.5px;
+	font-size: 1.2rem;
+}
+
 .indexImg {
 	height: 240px; 
 	width: 100%; 

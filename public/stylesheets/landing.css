@@ -104,7 +104,6 @@ a h3 {
 }
 
 
-
 #landing-header {
 	z-index: 1;
   	position: relative;
@@ -113,9 +112,10 @@ a h3 {
 	color: #fff;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
 	
 	#landing-header {
+		letter-spacing: 1px;
   		padding-top: 20vh;
 	}
 	

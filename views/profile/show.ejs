@@ -70,16 +70,17 @@
 					<div class="cart-text">
 						
 						<!-- about -->
-						<label for="aboutMe"> <strong> About Me </strong> </label>
+						<label for="aboutMe"> <em> <strong> About Me </strong> </em> </label>
+					
 						<% if(user.about !== ""){ %>
 							<p id="aboutMe"> <%= user.about %> </p>
 						<% }else{ %>
 							<p id="aboutMe"> No information entered yet. </p>
 						<% } %>
 						
-						
 						<!-- personal data -->		
-						<label for="personalData"> <strong> Personal Data </strong> </label>
+						<label for="personalData" class="mt-3"> <em> <strong> Personal Data </strong> </em> </label>
+						
 						<div id="personalData">
 							
 							<!-- loop through each name and value in the user.personalData object, and display them if the value is not "" -->
@@ -104,7 +105,6 @@
 								<p> No information entered yet. </p>
 							<% } %>
 							
-	
 						</div>
 						
 					</div>
