@@ -150,7 +150,7 @@ router.get("/:id", function(req, res){
 	})
 });
 
-// SHOW for each img in Gallery
+// SHOW ONE (for each img in Gallery)
 router.get("/:id/:imgId", function(req, res){
 	Gallery.findById(req.params.id, function(err, gallery){
 		if(err || !gallery){

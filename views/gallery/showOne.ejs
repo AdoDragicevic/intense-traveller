@@ -28,7 +28,7 @@
 			<!-- Img -->
 			<div id="imgDiv" class="col-12 text-center d-flex justify-content-center align-items-center">
 				
-				<img class=" mt-1" src="<%= gallery.imgs[indx].img %>">
+				<img class="mt-1" src="<%= gallery.imgs[indx].img %>">
 					
 			</div>
 			
@@ -52,17 +52,52 @@
 					<a class="d-none d-md-inline btn btn-lg btn-outline-info justify-self-end ml-4 mr-3" href="/gallery/<%= paramsId %>">Back to Gallery</a>
 					
 					<!-- xs, sm -->
-					<a class="d-inline d-md-none btn btn-outline-info justify-self-end ml-4 mr-3" href="/gallery/<%= paramsId %>">Back</a>
+					<a class="d-inline d-md-none btn btn-outline-info justify-self-end ml-4 mr-1" href="/gallery/<%= paramsId %>">Back</a>
+					
 					
 					<!-- Like Button -->
-					
-					
-					<!-- md, lg, xl -->
-					<a class="d-none d-md-inline btn btn-lg btn-outline-info mr-4">Like (1)</a>
-					
-					<!-- xs, sm -->
-					<a class="d-inline d-md-none btn btn-outline-info mr-4">Like (1)</a>
-					
+					<form class="d-inline" action="/gallery/<%= gallery._id %>/like/<%= imgId %>" method="POST">
+						
+						<!-- md, lg, xl     -->
+						<button class="d-none d-md-inline btn btn-lg btn-outline-info mr-4">
+							
+								<% if (currentUser && gallery.imgs[indx].likes.some(function (like) {
+									return like.equals(currentUser._id)
+								})) { %>
+								
+									
+										Liked  (<%= gallery.imgs[indx].likes.length %>)
+									
+								
+								<% } else { %>
+									
+										Like (<%= gallery.imgs[indx].likes.length %>)
+									
+								<% } %>
+
+						</button>
+						
+						<!-- xs, sm -->
+						<button class="d-inline d-md-none btn btn-outline-info mr-4">
+							
+								<% if (currentUser && gallery.imgs[indx].likes.some(function (like) {
+									return like.equals(currentUser._id)
+								})) { %>
+								
+									
+										Liked  (<%= gallery.imgs[indx].likes.length %>)
+									
+								
+								<% } else { %>
+									
+										Like (<%= gallery.imgs[indx].likes.length %>)
+									
+								<% } %>
+
+						</button>	
+						
+					</form>
+				
 					
 					<!-- Next Img Button -->
 					

@@ -7,14 +7,14 @@ const gallerySchema = new mongoose.Schema({
 		{
 			img: String,
 			imgId: String,
+			likes: [
+        		{	
+    				type: mongoose.Schema.Types.ObjectId,
+    				ref: "User"
+    			}
+			]
 		}
 	],
-	likes: [
-    	{	
-    		type: mongoose.Schema.Types.ObjectId,
-    		ref: "User"
-    	}
-			],
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
