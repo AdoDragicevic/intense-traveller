@@ -123,6 +123,14 @@
 				</div>
 		
 			<% }); %>
+		
+			<% if(galleries.length === 0){ %>
+				<div class="col-12 text-center">
+					<h5 class="mt-5">
+						You have no Galleries. First <a href="/gallery/new">create one</a>.
+					</h5>	
+				</div>
+			<% } %>
 			
 	</div>
 	

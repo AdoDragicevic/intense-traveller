@@ -36,7 +36,7 @@ router.post("/:img_id", middleware.isLoggedIn, function(req, res){
 						req.flash("error", "Something went wrong, please try again later.");
 						res.redirect("back");
 					}else{
-						res.redirect("/gallery/" + gallery._id + "/" + req.params.img_id);
+						res.redirect("/gallery/" + gallery._id + "/show/" + req.params.img_id);
 					}
 				});
 		}
