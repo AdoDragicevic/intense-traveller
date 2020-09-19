@@ -77,13 +77,13 @@ a h3 {
   	animation-delay: 8s;
 }
 .slideshow li:nth-child(3) { 
-  	background-image: url(https://images.unsplash.com/photo-1480109866847-0b432ceb666a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  	background-image: url(https://images.unsplash.com/photo-1457264635001-828d0cbd483e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80);
 	animation-delay: 16s; 
 	
 	
 }
 .slideshow li:nth-child(4) { 
-  	background-image: url(https://images.unsplash.com/photo-1457264635001-828d0cbd483e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1949&q=80);
+  	background-image: url(https://images.unsplash.com/photo-1480109866847-0b432ceb666a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
   	animation-delay: 24s; 
 }
 .slideshow li:nth-child(5) { 
