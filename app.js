@@ -76,7 +76,6 @@ app.use(async function(req, res, next){
 
 
 // REQUIRE ROUTES
-app.use(indexRoutes);
 app.use(authRoutes);
 app.use(followRoutes);
 app.use(darkModeRoutes);
@@ -88,6 +87,7 @@ app.use("/blog/link/:id", blogLinkRoutes);
 app.use("/gallery", galleryRoutes);
 app.use("/gallery/:id/like", galleryLikeRoutes);
 app.use("/gallery/link/:id", galleryLinkRoutes);
+app.use(indexRoutes);
 
 
 
