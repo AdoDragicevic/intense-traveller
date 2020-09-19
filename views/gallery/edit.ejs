@@ -21,7 +21,7 @@
 				<div class="col-3">
 					<img id="editBlogImgs" class="img-thumbnail img-fluid" src="<%= img.img %>">
 					<form action="/gallery/<%= gallery._id %>/<%= img._id %>?_method=DELETE" method="POST">
-						<input class="btn btn-outline-danger btn-block my-1" type="submit" value="X">
+						<input class="btn btn-sm btn-outline-danger btn-block my-1" type="submit" value="X">
 					</form>
 				</div>
 			<% }); %>
@@ -50,7 +50,7 @@
 					<label for="input2"> <strong> Add Pictures </strong> </label>
 				  	<div class="custom-file">
 						<input id="input2" class="custom-file-input" type="file" name="img" accept="images/*" multiple>
-						<label class="custom-file-label" for="input2"> Imgs </label>
+						<label class="custom-file-label" for="input2"> Upload files </label>
 				  	</div>
 				</div>
 				<button class="btn btn-primary btn-block">Update!</button>

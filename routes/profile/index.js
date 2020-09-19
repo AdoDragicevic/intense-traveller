@@ -105,7 +105,7 @@ router.get("/:id/delete", middleware.checkProfileOwnership, function(req, res){
 		if(err){
 			console.log(err);
 			req.flash("error", "Unable to execute request. Try again later.");
-			req.redirect("/");
+			req.redirect("back");
 		}else{
 			res.render("profile/delete", {user: user});
 		}
@@ -123,15 +123,19 @@ router.delete("/:id", middleware.checkProfileOwnership, async function(req, res)
 				comment.delete();
 			});
 		});
-		await blogs.forEach(function(blog){
-				blog.delete();
+		await blogs.forEach(async function(blog){
+			await cloudinary.v2.uploader.destroy(blog.imgId);
+			blog.delete();
 		});
 		await galleries.forEach(function(gallery){
+			gallery.imgs.forEach(async function(img){
+				await cloudinary.v2.uploader.destroy(img.imgId);
+			});
 			gallery.delete();
 		});
 		user.delete();
 		req.flash("success", "User data successfully deleted.");
-		res.redirect("/");
+		res.redirect("/blog");
 	}catch(err){
 		console.log(err);
 		req.flash("error", "Something went wrong. Please, try again later");
