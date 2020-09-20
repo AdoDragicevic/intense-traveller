@@ -14,3 +14,5 @@ It is a website for travel lovers, and it has the next functionalities:
 - reset password
 
 # intense-traveller
+# intensetraveller
+# intensetraveller
