@@ -29,6 +29,8 @@ const indexRoutes 		 = require("./routes"),
 	  blogLinkRoutes	 = require("./routes/blog/link"),
 	  galleryLinkRoutes	 = require("./routes/gallery/link");
 
+// PORT SETUP
+const port = process.env.PORT || 3000;
 
 // MONGOOSE SETUP
 mongoose.connect('mongodb://localhost:27017/IntenseTraveller', {
@@ -73,8 +75,6 @@ app.use(async function(req, res, next){
 });
 
 
-
-
 // REQUIRE ROUTES
 app.use(authRoutes);
 app.use(followRoutes);
@@ -90,8 +90,7 @@ app.use("/gallery/link/:id", galleryLinkRoutes);
 app.use(indexRoutes);
 
 
-
-
-app.listen(3000, function(){
-	console.log("SERVER RUNNING");
+// ROUTES
+app.listen(port, function () {
+  console.log("SERVER RUNNING");
 });
