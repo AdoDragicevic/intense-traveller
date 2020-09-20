@@ -33,11 +33,12 @@ const indexRoutes 		 = require("./routes"),
 const port = process.env.PORT || 3000;
 
 // MONGOOSE SETUP
-mongoose.connect(process.env.DATABASEURL, {
+mongoose.connect("mongodb+srv://dbUser:Pravo1776!@intensetraveller.vntez.mongodb.net/IntenseTraveller?retryWrites=true&w=majority", {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true, 
 	useFindAndModify: false, 
 	useCreateIndex: true});
+
 
 // EXPRESS SETUP
 app.use(bodyParser.urlencoded({extended: true}));
