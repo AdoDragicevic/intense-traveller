@@ -33,7 +33,7 @@ const indexRoutes 		 = require("./routes"),
 const port = process.env.PORT || 3000;
 
 // MONGOOSE SETUP
-mongoose.connect('mongodb://localhost:27017/IntenseTraveller', {
+mongoose.connect(process.env.DATABASEURL, {
 	useNewUrlParser: true, 
 	useUnifiedTopology: true, 
 	useFindAndModify: false, 
