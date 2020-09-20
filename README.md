@@ -16,3 +16,4 @@ It is a website for travel lovers, and it has the next functionalities:
 # intense-traveller
 # intensetraveller
 # intensetraveller
+# intense-traveller
