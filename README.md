@@ -13,3 +13,4 @@ It is a website for travel lovers, and it has the next functionalities:
 - edit/delete,
 - reset password
 
+# intense-traveller
