@@ -21,7 +21,7 @@ middlewareObj.checkProfileOwnership = function(req, res, next){
 				console.log(err);
 				req.redirect("back");
 			}else{
-				if(user._id.equals(req.user._id)){
+				if(user._id.equals(req.user._id) || req.user.isAdmin){
 					next();
 				}else{
 					req.flash("error", "You do not have premission do to that.");
