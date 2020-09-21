@@ -38,119 +38,118 @@
 			<div class="row">
 				
 				<!-- info -->
-				<div class="col-lg-3 order-2 order-lg-1">
-					
-					<div class="mt-2">
-						
-						<!-- author -->
-						<label class="text-secondary" for="blogAuthor"> <strong>Author</strong> </label>
-						<p id="blogAuthor"> <a class="text-info" href="/profile/<%= blog.author.id %>"> <%= blog.author.username %> </a> </p>
-						
-						<!-- date created -->
-						<label class="text-secondary" for="blogDate"> <strong>Date</strong> </label>
-						<p id="blogDate"> <%= blog.created.toDateString() %> </p>
-						
-						<!-- Follow / Stop following -->
-						<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
-							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<!-- dark mode -->
-							<a id="blogFollow" class="btn btn-sm btn-block mb-3 
-													  
-								<% if(currentUser && currentUser.darkMode){ %>
-									darkModeBtn					  
-								<% }else{ %>
-									btn-success 
-								<% } %>
-													  
-									" href="/follow/<%= user.id %>">
-							
-								<!-- change text from follow to stop following -->
-								<% if(user.followers.some(function(follower){ %>
-									<% return follower.equals(currentUser._id); %>
-								<% })){ %>
-									Unfollow
-								<% }else{ %>
-									Follow
-								<% } %>	
-							</a>
-						<% }else if(!currentUser){ %>
-							<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
-							<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>"> Follow </a>
-						<% } %>
-						
-						<!-- number of followers -->
-						<label class="text-secondary" for="blogFollowers"> <strong> Followers </strong></label>
-						<!-- modal button -->
-						<p> <a id="blogFollowers" class="text-info" type="button" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> </p>
-						
-						<!-- gallery related to this blog -->
-						<label class="text-secondary" for="relatedGallery"> <strong>Linked Gallery</strong> </label>
+				<div class="col-lg-3 order-2 order-lg-1 mt-3">
 
-						<!-- for each related galley show a picture -->
-						<div class="row">
+					<!-- author -->
+					<label class="text-secondary" for="blogAuthor"> <strong>Author</strong> </label>	
+					
+					<p> <a class="text-info" href="/profile/<%= blog.author.id._id %>"> <%= blog.author.username %> </a> </p>		
+					
+					<!-- date created -->
+					<label class="text-secondary" for="blogDate"> <strong>Date</strong> </label>
+					
+					<p id="blogDate"> <%= blog.created.toDateString() %> </p>
+						
+					<!-- Follow / Stop following -->
+					<% if(currentUser && !currentUser._id.equals(blog.author.id)){ %>
+						<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
+						<!-- dark mode -->
+						<a id="blogFollow" class="btn btn-sm btn-block mb-3 
+													  
+							<% if(currentUser && currentUser.darkMode){ %>
+								darkModeBtn					  
+							<% }else{ %>
+								btn-success 
+							<% } %>
+													  
+								" href="/follow/<%= user.id %>">
 							
-							<!-- number of linked galleries -->
-							<div class="col-12">
+							<!-- change text from follow to stop following -->
+							<% if(user.followers.some(function(follower){ %>
+								<% return follower.equals(currentUser._id); %>
+							<% })){ %>
+								Unfollow
+							<% }else{ %>
+								Follow
+							<% } %>	
+						</a>
+					<% }else if(!currentUser){ %>
+						<label class="text-secondary" for="blogFollow"> <strong> Follow this author </strong></label>
+						<a id="blogFollow" class="btn btn-sm btn-outline-success d-block mb-3" href="/follow/<%= user.id %>"> Follow </a>
+					<% } %>
+						
+					<!-- number of followers -->
+					<label class="text-secondary" for="blogFollowers"> <strong> Followers </strong></label>
+					<!-- modal button -->
+					<p> <a id="blogFollowers" class="text-info" type="button" data-toggle="modal" data-target="#followers"> <%= user.followers.length %> </a> </p>
+						
+					<!-- gallery related to this blog -->
+					<label class="text-secondary" for="relatedGallery"> <strong>Linked Gallery</strong> </label>
+
+					<!-- for each related galley show a picture -->
+					<div class="row">
+							
+						<!-- number of linked galleries -->
+						<div class="col-12">
 								
-								<!-- if user is author/admin, show number as a link to manage links; else show as string -->
-								<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+							<!-- if user is author/admin, show number as a link to manage links; else show as string -->
+							<% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 									
-									<a id="relatedGallery" class="text-info" href="/blog/link/<%= blog._id %>">
-										<% if(blog.link.length === 0){ %>
-											<p> Create a link </p>
-										<% }else if(blog.link.length === 1){ %>
-											<em> <p> <%= blog.link.length %> Gallery: </p> </em>
-										<% }else{ %>
-											<em> <p> <%= blog.link.length %> Galleries: </p> </em> 
-										<% } %>	
-									</a>	
-								
-								<% }else{ %>
-								
+								<a id="relatedGallery" class="text-info" href="/blog/link/<%= blog._id %>">
 									<% if(blog.link.length === 0){ %>
-										<p class="ml-3"> / </p>
+										<p> Create a link </p>
 									<% }else if(blog.link.length === 1){ %>
 										<em> <p> <%= blog.link.length %> Gallery: </p> </em>
 									<% }else{ %>
 										<em> <p> <%= blog.link.length %> Galleries: </p> </em> 
 									<% } %>	
-
-									<% } %>
+								</a>	
 							
-							</div>
+							<% }else{ %>
 							
-							<% blog.link.forEach(function(link){ %>
-								<% if(link){ %>
-									<div class="col-6 col-md-4 col-lg-6 px-2">
-										<a href="/gallery/<%= link._id %>">
-											<img class="d-none d-lg-inline img-responsive showLinkedImg 
-
-												<% if(currentUser && currentUser.darkMode){ %>
-													darkModeImgThumbnail		
-												<% }else{ %>
-													img-thumbnail		
-												<% } %>		
-
-												" src="<%= link.imgs[0].img %>">
-											
-											<img class="d-inline d-lg-none img-responsive showLinkedImg2
-
-												<% if(currentUser && currentUser.darkMode){ %>
-													darkModeImgThumbnail		
-												<% }else{ %>
-													img-thumbnail		
-												<% } %>		
-
-												" src="<%= link.imgs[0].img %>">
-										</a>
-									</div>
-								<% } %>
-								
-							<% }); %>
-
+								<% if(blog.link.length === 0){ %>
+									<p> / </p>
+								<% }else if(blog.link.length === 1){ %>
+									<em> <p> <%= blog.link.length %> Gallery: </p> </em>
+								<% }else{ %>
+									<em> <p> <%= blog.link.length %> Galleries: </p> </em> 
+								<% } %>	
+							
+							<% } %>
+							
 						</div>
-	
+							
+						<% blog.link.forEach(function(link){ %>
+							<% if(link){ %>
+								<div class="col-6 col-md-4 col-lg-6 px-2">
+									<a href="/gallery/<%= link._id %>">
+										<img class="d-none d-lg-inline img-responsive showLinkedImg 
+
+											<% if(currentUser && currentUser.darkMode){ %>
+												darkModeImgThumbnail		
+											<% }else{ %>
+												img-thumbnail		
+											<% } %>		
+
+											" src="<%= link.imgs[0].img %>">
+											
+										<img class="d-inline d-lg-none img-responsive showLinkedImg2
+
+											<% if(currentUser && currentUser.darkMode){ %>
+												darkModeImgThumbnail		
+											<% }else{ %>
+												img-thumbnail		
+											<% } %>		
+
+											" src="<%= link.imgs[0].img %>">
+									</a>
+								</div>
+							<% } %>
+							
+						<% }); %>
+
 					</div>
+	
 				</div>
 				
 				
@@ -244,7 +243,7 @@
 			<div class="row">
 				<div class="col-lg-3"></div>
 				<div class="col-lg-9 px-3">
-					<div class="card-footer rounded border-top-0 my-5">
+					<div class="card-footer bg-light rounded border-top-0 my-5">
 						 <h3 class="d-block d-sm-inline">Comments</h3>
 						<!-- Collapse button -->
 						
@@ -311,23 +310,34 @@
 
 								<div class="px-3">
 									
-									<!-- dark mode -->
-									<a class="
-									   
-									   <% if(currentUser && currentUser.darkMode){ %>
-									   		darkModeOrangeText	
-									   <% }else{ %>
-									   		text-secondary
-									   <% } %>
-									   
-									    " href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
-									
-									<br>
-									
-									<img src="<%= comment.author.id.img %>" style="height: 40px;">
-									
-									<p class=" mx-3 mb-0 text-justify"> <%= comment.text %> </p>
+									<div class="row">
+										
+										<div class="col-2 col-md-1">
+											<!-- dark mode -->
+											<a class="
 
+											   <% if(currentUser && currentUser.darkMode){ %>
+													darkModeOrangeText	
+											   <% }else{ %>
+													text-info
+											   <% } %>
+
+												" href="/profile/<%= comment.author.id._id %>"> <strong> <%= comment.author.username %> </strong> 
+
+												<br>
+
+												<img class="showSmallImg rounded" src="<%= comment.author.id.img %>">
+											</a>
+											
+										</div>
+										
+										<div class="col-10 col-md-11">
+											
+											<p class="mt-4 pl-md-2 text-justify"> <%= comment.text %> </p>
+										</div>
+										
+									</div>
+									
 									<!-- if User owns the comment, show edit and delete buttons -->
 									<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 
