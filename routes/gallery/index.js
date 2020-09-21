@@ -5,7 +5,6 @@ const middleware = require("../../middleware");
 const Gallery = require("../../models/gallery/gallery");
 const Blog = require("../../models/blog/blog");
 const User = require("../../models/user");
-const Notification = require("../../models/notification/notification");
 
 const js = require("../../public/js/galleryShowPage.js");
 
@@ -103,16 +102,20 @@ router.post("/", middleware.isLoggedIn, upload.array("img", 40), async function(
 	try{
 		let gallery = await Gallery.create(req.body.gallery);
 		let user = await User.findById(req.user._id).populate("followers").exec();
-      	let newNotification = {
-        	username: req.user.username,
-        	id: gallery.id,
-			gallery: true
-      	}
-      	for(const follower of user.followers) {
-			let notification = await Notification.create(newNotification);
-			follower.notifications.push(notification);
-			follower.save();
-      	}
+      	// if there are followers...
+		if(user.followers.length > 0){
+			// ...create a notification for the followers
+			let newNotification = {
+				username: req.user.username,
+				id: gallery.id,
+				gallery: true
+			}
+			// add notification to each followers notification array
+			for(const follower of user.followers) {
+				follower.notifications.push(newNotification);
+				follower.save();
+			}	
+		}
 		res.redirect("/gallery/" + gallery.id);
 	}catch(err){
 		console.log(err);

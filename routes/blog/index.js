@@ -6,7 +6,6 @@ const Blog = require("../../models/blog/blog");
 const Comment = require("../../models/blog/comment");
 const Gallery = require("../../models/gallery/gallery");
 const User = require("../../models/user");
-const Notification = require("../../models/notification/notification");
 
 // CLOUDINARY SETUP
 const multer = require("multer");
@@ -100,15 +99,19 @@ router.post("/", middleware.isLoggedIn, upload.single("img"), async function(req
         blog.imgId = result.public_id;
 		blog.save();
 		let user = await User.findById(req.user._id).populate("followers").exec();
-      	let newNotification = {
-        	username: req.user.username,
-        	id: blog.id
-      	}
-      	for(const follower of user.followers) {
-			let notification = await Notification.create(newNotification);
-			follower.notifications.push(notification);
-			follower.save();
-      	}
+      	// if there are followers...
+		if(user.followers.length > 0){
+			// ...create a notification for the followers
+			let newNotification = {
+				username: req.user.username,
+				id: blog.id
+			}
+			// add notification to each followers notification array
+			for(const follower of user.followers) {
+				await follower.notifications.push(newNotification);
+				await follower.save();
+			}	
+		}
 		res.redirect("/blog/" +blog.id);
 	}catch(err){
 		console.log(err);

@@ -24,8 +24,12 @@ const UserSchema = new mongoose.Schema({
 	},
 	notifications: [
     	{
-    	   type: mongoose.Schema.Types.ObjectId,
-    	   ref: "Notification"
+			username: String,
+			// id of blog or gallery
+			id: String,
+			// use the boolean to decide res.render blog/id or gallery/id
+			gallery: { type: Boolean, default: false },
+			isRead: { type: Boolean, default: false }
     	}
     ],
     followers: [

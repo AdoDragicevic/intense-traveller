@@ -4,7 +4,6 @@ const router = express.Router();
 const middleware = require("../../middleware");
 
 const User = require("../../models/user");
-const Notification = require("../../models/notification/notification");
 
 // Follow a user
 router.get("/follow/:id", middleware.isLoggedIn, async function(req, res){
@@ -37,7 +36,7 @@ router.get("/follow/:id", middleware.isLoggedIn, async function(req, res){
 // View all notifications
 router.get("/notifications", middleware.isLoggedIn, async function(req, res){
 	try{
-		let user = await User.findById(req.user._id).populate( {path: "notifications" , options: {sort: {"-id": -1} }} ).exec();
+		let user = await User.findById(req.user._id);
 		let allNotifications = user.notifications;
 		res.render("follow/index", {allNotifications: allNotifications});
 	}catch(err){
@@ -49,22 +48,27 @@ router.get("/notifications", middleware.isLoggedIn, async function(req, res){
 
 // Handle notification
 router.get("/notifications/:id", middleware.isLoggedIn, async function(req, res){
-	// blog._id/gallery._id saved under notification.id
-	await Notification.findOne({id: req.params.id}, function(err, notification){
-		if(err || !notification){
-			console.log(err);
-			req.flash("error", "Author has removed this post.");
-			res.redirect("back");
-		}else{
-			notification.isRead = true;
-			notification.save();
-			if(notification.gallery){
-				res.redirect("/gallery/" + req.params.id);
-			}else{
-				res.redirect("/blog/" + req.params.id);
+	try{
+		let user = await User.findById(req.user._id);
+		// find this notification in the user.notifications array
+		let thisNotification;
+		await user.notifications.forEach(function(notification){
+			if(notification.id === req.params.id){
+				notification.isRead = true;
+				thisNotification = notification;
 			}
+		});
+		await user.save();
+		if(thisNotification.gallery){
+			res.redirect("/gallery/" + req.params.id);
+		}else{
+			res.redirect("/blog/" + req.params.id);
 		}
-	});
+	}catch(err){
+		console.log(err);
+		req.flash("error", "Author has removed this post.");
+		res.redirect("back");
+	}
 });
 
 

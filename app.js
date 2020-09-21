@@ -64,8 +64,15 @@ app.use(async function(req, res, next){
 	res.locals.currentUser = req.user;
 	if(req.user){
 		try{
-			let user = await User.findById(req.user._id).populate("notifications", null, {isRead: false} ).exec();
-			res.locals.notifications = user.notifications.reverse();
+			let user = await User.findById(req.user._id);
+			let unseenNotifications = [];
+			user.notifications.forEach(function(notification){
+				if(!notification.isRead){
+					unseenNotifications.push(notification);
+				}
+			});
+			res.locals.notifications = unseenNotifications;
+			// .reverse();
 		}catch(err){
 			console.log(err.message);
 		}
