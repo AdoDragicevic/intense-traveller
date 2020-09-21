@@ -244,7 +244,7 @@
 			<div class="row">
 				<div class="col-lg-3"></div>
 				<div class="col-lg-9 px-3">
-					<div class="card-footer border-top-0 my-5">
+					<div class="card-footer rounded border-top-0 my-5">
 						 <h3 class="d-block d-sm-inline">Comments</h3>
 						<!-- Collapse button -->
 						
@@ -321,6 +321,10 @@
 									   <% } %>
 									   
 									    " href="/profile/<%= comment.author.id %>"> <strong> <%= comment.author.username %> </strong> </a>
+									
+									<br>
+									
+									<img src="<%= comment.author.id.img %>" style="height: 40px;">
 									
 									<p class=" mx-3 mb-0 text-justify"> <%= comment.text %> </p>
 
