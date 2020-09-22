@@ -59,11 +59,11 @@
 		<div class="row mb-5">
 			<div class="col-md-6">
 				<div class="d-flex justify-content-center">
-					<!-- img -->
-					<img id="profileImg" class="img-fluid rounded-circle img-thumbnail m-auto" src="<%= user.img %>">	
+					<!-- img & modal on click -->
+					<img id="profileImg" class="img-fluid rounded-circle img-thumbnail m-auto" src="<%= user.img %>" data-toggle="modal" data-target="#exampleModal">	
 				</div>
 			</div>
-
+	
 			<div class="col-md-6">
 				<!-- about and personal data -->
 				<div id="profileAbout" class="p-3">
@@ -161,6 +161,17 @@
 		</div>
 	</div>
 </footer>
+
+
+<!-- Modal - shows larger profile img when profile img is clicked -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    	<div class="modal-content bg-dark">
+        	<img class="img-fluid m-auto" src="<%= user.img %>">
+			<button class="btn text-white" data-dismiss="modal">Close</button>	
+    	</div>
+  	</div>
+</div>
 
 
 <%- include("../partials/footer") %>
