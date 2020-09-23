@@ -50,9 +50,7 @@ router.get("/", function(req, res){
 					req.flash("error", "No albums found. Feel free to add one!");
 					res.redirect("back");
 				}else{
-					// if there are no blogs with the searched name
-					res.render("gallery/index", { 
-						success: "No Galleries match the searched term.",
+					res.render("gallery/index", {
 						galleries: galleries, 
 						current: pageNumber, 
 						pages: Math.ceil(count / perPage) 
