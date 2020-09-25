@@ -18,6 +18,11 @@ body {
 	color: #2c3e50;
 }
 
+.profileDeleteWarning {
+	line-height: 220%; 
+	font-weight: 400;
+}
+
 #editBlogWidth {
 	max-width: 750px; 
 	margin: auto;
