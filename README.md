@@ -1,19 +1,33 @@
-#Intense Traveller App
+# Intense Traveller
 
-This is a full stack project for my first Portfolio.
+## This is a full stack project for my first Portfolio. Web application for travel lovers! :airplane:
 
-It is a website for travel lovers, and it has the next functionalities:
-- signup/login,
-- create journals,
-- upload imgs,
-- link journals with galleries,
-- search,
-- comment,
-- like,
-- edit/delete,
-- reset password
+##### Try it on Heroku
 
-# intense-traveller
-# intensetraveller
-# intensetraveller
-# intense-traveller
+https://ado-intensetraveller.herokuapp.com/
+
+##### Functionalities
+
+* authentification
+* authorization
+* RESTful routes (CRUD)
+* create journals
+* upload imgs
+* link journals with galleries
+* search
+* comment
+* like
+* edit
+* delete
+* reset password
+* follow
+* notifications
+
+##### Using
+* NodeJS
+* MongoDB
+* Mongoose
+* Passport
+* Express
+* JavaScript
+* Bootstrap 4
