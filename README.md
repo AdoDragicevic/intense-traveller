@@ -2,11 +2,11 @@
 
 ## This is a full stack project for my first Portfolio. Web application for travel lovers! :airplane:
 
-##### Try it on Heroku
+#### Try it on Heroku
 
 https://ado-intensetraveller.herokuapp.com/
 
-##### Functionalities
+#### Functionalities
 
 * authentification
 * authorization
@@ -23,7 +23,7 @@ https://ado-intensetraveller.herokuapp.com/
 * follow
 * notifications
 
-##### Using
+#### Using
 * NodeJS
 * MongoDB
 * Mongoose
