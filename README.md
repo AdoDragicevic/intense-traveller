@@ -1,6 +1,6 @@
 # Intense Traveller
 
-## This is a full stack project for my first Portfolio. Web application for travel lovers! :airplane:
+## This is a full stack project for my first Portfolio (July 2020). Web application for travel lovers! :airplane:
 
 ### Try it on Heroku
 
